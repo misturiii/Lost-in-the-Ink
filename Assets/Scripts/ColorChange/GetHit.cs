@@ -18,7 +18,10 @@ public class GetHit : ColorChangeBehaviour
 
     public override bool triggerChange()
     {
-        if (progress >= 1) {return false;}
+        if (progress >= 1) { 
+            Destroy(gameObject);
+            return false;
+        }
         if (hited) {
             hited = false;
             return true;
