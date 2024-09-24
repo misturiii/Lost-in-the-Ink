@@ -223,6 +223,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 67fcc30917a8f4f699a51f9b97805821, type: 2}
   inventoryDisplay: {fileID: 582217367}
+--- !u!114 &134521153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134521145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a71d96e4b00f442f805443d0f57f868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 582217363}
+  toggleKey: 32
 --- !u!1 &211407736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,6 +1737,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 134521152}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a72facecca77a4d458a4ec125d8b21a5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 134521153}
   m_SourcePrefab: {fileID: 100100000, guid: a72facecca77a4d458a4ec125d8b21a5, type: 3}
 --- !u!1 &897163567
 GameObject:
