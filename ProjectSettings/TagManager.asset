@@ -9,6 +9,7 @@ TagManager:
   - Sea
   - PickableItem
   - ViewCamera
+  - sticker1
   layers:
   - Default
   - TransparentFX
