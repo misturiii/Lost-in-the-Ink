@@ -20,7 +20,7 @@ public class ViewItem : MonoBehaviour
     }
 
     protected void Update () {
-        if (Input.GetButtonDown("Jump") && FindPlayer()) {
+        if (Input.GetKeyDown(KeyCode.E) && FindPlayer()) {
             if (view.enabled) {
                 view.enabled = false;
                 player.EnableMoveAndRotate(true);
@@ -55,7 +55,6 @@ public class ViewItem : MonoBehaviour
         while (i < 1) {
             i += Time.deltaTime / duration;
             sticker.localPosition = Vector3.Lerp(initialPosition, Vector3.zero, Mathf.Min(i, 1));
-            Debug.Log(i);
             yield return null;
         }
     }
