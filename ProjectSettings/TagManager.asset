@@ -7,6 +7,7 @@ TagManager:
   - Monster
   - Paint
   - Sea
+  - PickableItem
   - ViewCamera
   layers:
   - Default
