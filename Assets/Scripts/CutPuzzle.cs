@@ -44,6 +44,8 @@ public class CutPuzzle : MonoBehaviour
             if (LineMatchDash()) {
                 item.StartZoomIn();
                 Destroy(transform.parent.gameObject);
+               
+
             } else {
                 lr.positionCount = 2;
                 transform.localPosition = initialPosition;

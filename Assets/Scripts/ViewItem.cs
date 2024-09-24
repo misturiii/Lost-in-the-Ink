@@ -20,7 +20,7 @@ public class ViewItem : MonoBehaviour
     }
 
     protected void Update () {
-        if (Input.GetKeyDown(KeyCode.E) && FindPlayer()) {
+        if (Input.GetKeyDown(KeyCode.C) && FindPlayer()) {
             if (view.enabled) {
                 view.enabled = false;
                 player.EnableMoveAndRotate(true);
