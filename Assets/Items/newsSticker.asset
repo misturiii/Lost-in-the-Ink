@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbeb1f451691341da8760d52a7bd6101, type: 3}
   m_Name: newsSticker
   m_EditorClassIdentifier: 
-  itemName: NewsSticker
+  itemName: BridgeSticker
   icon: {fileID: 21300000, guid: ea05a80f4a5b14ba888341af24a04878, type: 3}
+  itemType: BridgeSticker

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: bunnysticker
   m_EditorClassIdentifier: 
   itemName: bunnysticker
-  icon: {fileID: 21300000, guid: 3d96ca22436664154b6e241097c28e93, type: 3}
+  icon: {fileID: 21300000, guid: 9213776cedb194e39b3831e98670cad5, type: 3}
+  itemType: BunnySticker
