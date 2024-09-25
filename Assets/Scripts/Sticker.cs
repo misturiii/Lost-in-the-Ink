@@ -5,6 +5,7 @@ public class Sticker : MonoBehaviour, IDragHandler, IDropHandler
 {
     [SerializeField, Min(0)] float initialHeight = 5;
     [SerializeField, Min(0)] float sketchbookWidth = 40, sketchbookHeight = 30;  
+    [SerializeField] float inventoryWidth = 400;
     [SerializeField] GameObject prefab;
     Transform copy;
 
@@ -13,8 +14,8 @@ public class Sticker : MonoBehaviour, IDragHandler, IDropHandler
     }
 
     public void UseSticker() {
-        float x = -transform.localPosition.x / Screen.width * sketchbookWidth;
-        float z = -transform.localPosition.y / Screen.height * sketchbookHeight;
+        float x = (-transform.position.x) / (Screen.width - inventoryWidth) * sketchbookWidth;
+        float z = -transform.position.y / Screen.height * sketchbookHeight;
         if (!copy) {
             copy = Instantiate(prefab).transform;
         }

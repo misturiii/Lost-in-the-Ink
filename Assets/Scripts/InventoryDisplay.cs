@@ -26,19 +26,19 @@ public class InventoryDisplay : MonoBehaviour
         for (int i = 0; i < inventory.items.Count; i++)
         {
             Item item = inventory.items[i];
-            GameObject icon = Instantiate(itemIconPrefab, inventoryContent); // Create a new icon from prefab
-            Image iconImage = icon.GetComponent<Image>(); // Get the Image component
-            iconImage.sprite = item.icon; // Assign the item's icon sprite
+            GameObject icon = Instantiate(item.prefab, inventoryContent); // Create a new icon from prefab
+            // Image iconImage = icon.GetComponent<Image>(); // Get the Image component
+            // iconImage.sprite = item.icon; // Assign the item's icon sprite
 
             // Add event triggers for dragging
-            EventTrigger eventTrigger = icon.AddComponent<EventTrigger>();
-            EventTrigger.Entry entryBeginDrag = new EventTrigger.Entry { eventID = EventTriggerType.BeginDrag };
-            entryBeginDrag.callback.AddListener((data) => { OnBeginDrag(icon); });
-            eventTrigger.triggers.Add(entryBeginDrag);
+            // EventTrigger eventTrigger = icon.AddComponent<EventTrigger>();
+            // EventTrigger.Entry entryBeginDrag = new EventTrigger.Entry { eventID = EventTriggerType.BeginDrag };
+            // entryBeginDrag.callback.AddListener((data) => { OnBeginDrag(icon); });
+            // eventTrigger.triggers.Add(entryBeginDrag);
 
-            EventTrigger.Entry entryDrag = new EventTrigger.Entry { eventID = EventTriggerType.Drag };
-            entryDrag.callback.AddListener((data) => { OnDrag(icon); });
-            eventTrigger.triggers.Add(entryDrag);
+            // EventTrigger.Entry entryDrag = new EventTrigger.Entry { eventID = EventTriggerType.Drag };
+            // entryDrag.callback.AddListener((data) => { OnDrag(icon); });
+            // eventTrigger.triggers.Add(entryDrag);
 
             // Calculate position
             int row = i / itemsPerRow;
