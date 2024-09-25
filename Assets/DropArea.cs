@@ -14,7 +14,7 @@ public class DropArea : MonoBehaviour, IDropHandler
 
     private void Start()
     {
-        // 在游戏开始时隐藏错误信息
+        Debug.Log("DropArea Start method called");
         errorMessage.gameObject.SetActive(false);
     }
 
@@ -40,7 +40,7 @@ public class DropArea : MonoBehaviour, IDropHandler
             {
                 // 不匹配，显示错误信息
                 Debug.Log("贴纸不匹配！");
-                StartCoroutine(ShowErrorMessage("贴纸不匹配！"));
+                StartCoroutine(ShowErrorMessage("Wrong Sticker"));
             }
         }
     }
