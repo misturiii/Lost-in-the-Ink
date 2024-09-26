@@ -1,34 +1,35 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
     public string[] lines;
     public float textSpeed; 
-
     private int index;
+    InputActions inputActions;
     void Start()
     {
         textComponent.text = string.Empty;
         StartDialogue();
+        inputActions = new InputActions();
+        inputActions.Player.Click.Enable();
+        inputActions.Player.Click.performed += Click;
     }
 
     // Update is called once per frame
-    void Update()
+    void Click(InputAction.CallbackContext context)
     {
-        if(Input.GetMouseButtonDown(0))
+        if(textComponent.text == lines[index])
         {
-            if(textComponent.text == lines[index])
-            {
-                NextLine();
-            }
-            else
-            {
-                StopAllCoroutines();
-                textComponent.text = lines[index];
-            }
+            NextLine();
+        }
+        else
+        {
+            StopAllCoroutines();
+            textComponent.text = lines[index];
         }
     }
 

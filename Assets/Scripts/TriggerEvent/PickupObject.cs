@@ -1,10 +1,18 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PickupObject : MonoBehaviour
 {
     public Inventory inventory;              // Reference to the Inventory ScriptableObject
     public InventoryDisplay inventoryDisplay; // Reference to the InventoryDisplay
     private GameObject currentItem;          // Track the currently detected item
+    InputActions inputActions;
+
+    void Awake () {
+        inputActions = new InputActions();
+        inputActions.Player.GrabSticker.Enable();
+        inputActions.Player.GrabSticker.performed += Grab;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,10 +34,10 @@ public class PickupObject : MonoBehaviour
         }
     }
 
-    private void Update()
+    void Grab (InputAction.CallbackContext context)
     {
         // Check for the E key press and if there's a current item
-        if (Input.GetKeyDown(KeyCode.E) && currentItem != null)
+        if (context.performed && currentItem != null)
         {
             ItemObject itemObject = currentItem.GetComponent<ItemObject>();
             if (itemObject != null)

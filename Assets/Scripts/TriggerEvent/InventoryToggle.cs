@@ -1,26 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryToggle : MonoBehaviour
 {
     public GameObject inventoryPanel;  // Reference to the inventory panel
     public GameObject inventoryPanel2;  // Reference to the inventory panel
-    public KeyCode toggleKey = KeyCode.I;  // Default key to open/close the inventory
 
     private bool isInventoryOpen = false;  // Track whether the inventory is open
+    InputActions inputActions;
 
-    void Update()
-    {
-        // Check if the player presses the inventory key
-        if (Input.GetKeyDown(toggleKey))
-        {
-            ToggleInventory();
-        }
+    void Awake () {
+        inputActions = new InputActions();
+        inputActions.UI.Enable();
+        inputActions.UI.Trigger.performed += ToggleInventory;
     }
 
     // Method to toggle the inventory visibility
-    void ToggleInventory()
+    void ToggleInventory(InputAction.CallbackContext context)
     {
         isInventoryOpen = !isInventoryOpen;  // Toggle the inventory state
         inventoryPanel.SetActive(isInventoryOpen);  // Show or hide the panel based on the state
