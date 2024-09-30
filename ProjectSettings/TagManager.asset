@@ -11,6 +11,7 @@ TagManager:
   - ViewCamera
   - sticker1
   - Puzzle
+  - Npc
   layers:
   - Default
   - TransparentFX
