@@ -35,4 +35,5 @@ public class Player : MonoBehaviour
         mainCamera.localEulerAngles = Vector3.right * xRotation;
         transform.Rotate(Vector3.up * input.x * scale);
     }
+
 }
