@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6410707626794223097}
   - component: {fileID: 7474888625593500139}
   - component: {fileID: 1390482982233237946}
+  - component: {fileID: -6939519031202111193}
   m_Layer: 5
   m_Name: Bridge
   m_TagString: Untagged
@@ -93,3 +94,18 @@ MonoBehaviour:
   sketchbookHeight: 30
   inventoryWidth: 400
   prefab: {fileID: 2260213603604917627, guid: 2766417058af906468eaf0a8d7c9be97, type: 3}
+--- !u!114 &-6939519031202111193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263774752063172929}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 10, y: 10}
+  m_UseGraphicAlpha: 1

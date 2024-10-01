@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4305909087281782741}
   - component: {fileID: 6189763258669255618}
   - component: {fileID: 2487673078626107086}
+  - component: {fileID: 5672762805728727337}
   m_Layer: 5
   m_Name: Bunny
   m_TagString: Untagged
@@ -93,3 +94,18 @@ MonoBehaviour:
   sketchbookHeight: 30
   inventoryWidth: 400
   prefab: {fileID: 5487072218702121817, guid: e202cbccf47fe054d841c62145c725ec, type: 3}
+--- !u!114 &5672762805728727337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935079644648123318}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 10, y: 10}
+  m_UseGraphicAlpha: 1
