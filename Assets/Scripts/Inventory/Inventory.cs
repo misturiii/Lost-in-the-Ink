@@ -12,6 +12,11 @@ public class Inventory : ScriptableObject
     {
         items.Add(item);
         Debug.Log(item.itemName + " added to inventory");
+        Debug.Log("Inventory contains the following stickers:");
+        for (int i = 0; i < items.Count; i++)
+        {
+            Debug.Log("Sticker: " + items[i].name); // Assuming 'name' is a property in your Item class
+        }
     }
 
     // New method to clear the inventory
