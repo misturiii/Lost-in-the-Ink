@@ -462,6 +462,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSticker"",
+                    ""type"": ""Button"",
+                    ""id"": ""289f4c32-66b2-4e40-8af9-381020e318e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -886,7 +895,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0eae8dda-5ec1-4899-93bb-e3fbb94b94da"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -913,6 +922,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c47dbcd2-b1fe-40c8-a024-78aa30aed187"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSticker"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1161,6 +1181,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_MoveCursor = m_UI.FindAction("MoveCursor", throwIfNotFound: true);
         m_UI_Trigger = m_UI.FindAction("Trigger", throwIfNotFound: true);
+        m_UI_SelectSticker = m_UI.FindAction("SelectSticker", throwIfNotFound: true);
         // Puzzle
         m_Puzzle = asset.FindActionMap("Puzzle", throwIfNotFound: true);
         m_Puzzle_Move = m_Puzzle.FindAction("Move", throwIfNotFound: true);
@@ -1316,6 +1337,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_MoveCursor;
     private readonly InputAction m_UI_Trigger;
+    private readonly InputAction m_UI_SelectSticker;
     public struct UIActions
     {
         private @InputActions m_Wrapper;
@@ -1332,6 +1354,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @MoveCursor => m_Wrapper.m_UI_MoveCursor;
         public InputAction @Trigger => m_Wrapper.m_UI_Trigger;
+        public InputAction @SelectSticker => m_Wrapper.m_UI_SelectSticker;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1377,6 +1400,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Trigger.started += instance.OnTrigger;
             @Trigger.performed += instance.OnTrigger;
             @Trigger.canceled += instance.OnTrigger;
+            @SelectSticker.started += instance.OnSelectSticker;
+            @SelectSticker.performed += instance.OnSelectSticker;
+            @SelectSticker.canceled += instance.OnSelectSticker;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1417,6 +1443,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Trigger.started -= instance.OnTrigger;
             @Trigger.performed -= instance.OnTrigger;
             @Trigger.canceled -= instance.OnTrigger;
+            @SelectSticker.started -= instance.OnSelectSticker;
+            @SelectSticker.performed -= instance.OnSelectSticker;
+            @SelectSticker.canceled -= instance.OnSelectSticker;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1555,6 +1584,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnMoveCursor(InputAction.CallbackContext context);
         void OnTrigger(InputAction.CallbackContext context);
+        void OnSelectSticker(InputAction.CallbackContext context);
     }
     public interface IPuzzleActions
     {

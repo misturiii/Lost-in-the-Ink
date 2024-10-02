@@ -440,6 +440,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectSticker",
+                    "type": "Button",
+                    "id": "289f4c32-66b2-4e40-8af9-381020e318e8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -864,7 +873,7 @@
                 {
                     "name": "",
                     "id": "0eae8dda-5ec1-4899-93bb-e3fbb94b94da",
-                    "path": "<Gamepad>/leftStick",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -891,6 +900,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c47dbcd2-b1fe-40c8-a024-78aa30aed187",
+                    "path": "<DualShockGamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectSticker",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
