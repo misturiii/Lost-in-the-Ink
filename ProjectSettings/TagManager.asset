@@ -12,6 +12,8 @@ TagManager:
   - sticker1
   - Puzzle
   - Npc
+  - airWall
+  - key
   layers:
   - Default
   - TransparentFX
