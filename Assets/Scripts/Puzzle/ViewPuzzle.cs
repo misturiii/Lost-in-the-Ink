@@ -21,7 +21,7 @@ public class ViewPuzzle : MonoBehaviour
         player = GetComponent<Player>();
         detected = false;
 
-        inputActions = new InputActions();
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.ViewPuzzle.Enable();
         inputActions.Player.ViewPuzzle.performed += View;
     }

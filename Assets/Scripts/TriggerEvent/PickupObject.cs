@@ -8,8 +8,8 @@ public class PickupObject : MonoBehaviour
     private GameObject currentItem;          // Track the currently detected item
     InputActions inputActions;
 
-    void Awake () {
-        inputActions = new InputActions();
+    void Start () {
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.GrabSticker.Enable();
         inputActions.Player.GrabSticker.performed += Grab;
     }

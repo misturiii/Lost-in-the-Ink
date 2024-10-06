@@ -8,11 +8,11 @@ public class Player : MonoBehaviour
     float xRotation;
     InputActions inputActions;
 
-    void Awake () {
+    void Start () {
         rb = GetComponent<Rigidbody>();
         mainCamera = GetComponentInChildren<Camera>().transform;
 
-        inputActions = new InputActions();
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.Enable();
     }
 

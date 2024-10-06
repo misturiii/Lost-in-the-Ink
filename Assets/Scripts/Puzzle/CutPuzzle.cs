@@ -23,7 +23,7 @@ public class CutPuzzle : MonoBehaviour, Puzzle
         line.SetPosition(1, initialPosition);
         finished = false;
 
-        inputActions = new InputActions();
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Puzzle.Enable();
         viewPuzzle = GameObject.FindGameObjectWithTag("Player").GetComponent<ViewPuzzle>();
     }

@@ -14,6 +14,7 @@ TagManager:
   - Npc
   - airWall
   - key
+  - Game
   layers:
   - Default
   - TransparentFX

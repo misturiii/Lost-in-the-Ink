@@ -7,7 +7,7 @@ public class ShowUIController : MonoBehaviour
     public GameObject inventoryPanel; // 拖入你的 Inventory_Panel
     public Button showUIButton; // 拖入你的按钮
 
-    void Start()
+    void Awake()
     {
         // 开始时隐藏UI元素
         sketchBookPanel.SetActive(false);

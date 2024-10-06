@@ -9,8 +9,8 @@ public class InventoryToggle : MonoBehaviour
     private bool isInventoryOpen = false;  // Track whether the inventory is open
     InputActions inputActions;
 
-    void Awake () {
-        inputActions = new InputActions();
+    void Start () {
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.Enable();
         inputActions.UI.Trigger.performed += ToggleInventory;
     }

@@ -285,17 +285,6 @@
                 },
                 {
                     "name": "",
-                    "id": "bb2c62f1-e15b-4553-9965-1cd5018ae6d3",
-                    "path": "<DualShockGamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "GrabSticker",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "db5e5685-27d9-4423-b79f-67d4e53464e2",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -1069,6 +1058,45 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Global",
+            "id": "e0ef6016-e6c5-4164-8d6f-d1136f9324b8",
+            "actions": [
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "046b2157-8e9e-49b2-9cc1-a960fbcc3fd4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9206c760-07b4-47a0-82bb-5fea1d62ef35",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17cdf742-6d78-4299-ab9f-71b4e518de8c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
