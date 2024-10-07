@@ -4,5 +4,5 @@ public abstract class ToolBehaviour : MonoBehaviour
 {
     abstract public void StartBehaviour();
 
-    abstract public void EndBehaviour();
+    abstract public Transform GetTarget();
 }

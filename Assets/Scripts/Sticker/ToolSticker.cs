@@ -11,7 +11,7 @@ public class ToolSticker : Sticker
     protected override void Initialize() {
         enabled = true;
         behaviour = GetComponent<ToolBehaviour>();
-        target = GameObject.FindWithTag("TicketTarget").transform;
+        target = behaviour.GetTarget();
     }
 
     protected override void UseStickerAfter()
@@ -26,9 +26,9 @@ public class ToolSticker : Sticker
                 transform.localPosition = Vector3.zero;
             } else {
                 inventory.Add(Resources.Load<Item>(itemName));
-                ResetSelect(inventory.items.Count);
-                behaviour.EndBehaviour();
-                Destroy(this);
+                ResetSelect(inventory.items.Count - 1);
+                inventoryDisplay.UpdateInventoryDisplay();
+                Destroy(gameObject);
             }
             
         }
