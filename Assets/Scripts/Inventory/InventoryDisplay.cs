@@ -1,88 +1,112 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems; // Add this at the top
+using UnityEngine.InputSystem;
 
 public class InventoryDisplay : MonoBehaviour
 {
-    public Inventory inventory;             // Reference to the inventory
-    public GameObject itemIconPrefab;       // Prefab for item icons
-    public Transform inventoryContent;      // Parent object for inventory items
+    Inventory inventory;             // Reference to the inventory
+    InventoryBox[] inventoryBoxes;
+    InputActions inputActions; 
+    Sticker[] stickers;
+    Sticker prev;
+    public int index;
+    bool pointToInventory;
+
+    void Awake () {
+        index = 0;
+        prev = null;
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
+        inputActions.UI.Toggle.Enable();
+        inputActions.UI.Toggle.started += Toggle;
+        inputActions.UI.Click.Enable();
+        inputActions.UI.Click.performed += Click;
+        inputActions.UI.Switch.performed += Switch;
+        
+        inventoryBoxes = GetComponentsInChildren<InventoryBox>(true);
+        for (int i = 0; i < inventoryBoxes.Length; i++) {
+            inventoryBoxes[i].index = i;
+            inventoryBoxes[i].initialize();
+        }
+        stickers = new Sticker[inventoryBoxes.Length];
+        inventory = Resources.Load<Inventory>("PlayerInventory");
+
+        ResetSelect(0);
+    }
+
+    public void ResetSelect(int i) {
+        Select(i);
+        pointToInventory = true;
+    }
+
+    void OnEnable () {
+        UpdateInventoryDisplay();
+    }
+
+    void Toggle (InputAction.CallbackContext context) {
+        if (pointToInventory) {
+            int diff = context.ReadValue<float>() > 0 ? 1 : -1;
+            Select(Mathf.Clamp(index - diff, 0, inventoryBoxes.Length - 1));
+        }
+    }
+
+    void Click (InputAction.CallbackContext context) {
+        if (pointToInventory) {
+            if (prev) {
+                    prev.DisableInputAction();
+                }
+            if (stickers[index]) {
+                stickers[index].EnableInputAction();
+                prev = stickers[index];
+            }
+        } else {
+            prev.EnableInputAction();
+        }
+    }
+
+    void Switch (InputAction.CallbackContext context) {
+        pointToInventory = !pointToInventory;
+        if (!pointToInventory) {
+            if (prev) {
+                prev.DisableInputAction();
+            }
+            inventoryBoxes[index].Deselect();
+        } else {
+            inventoryBoxes[index].Select();
+        }
+    }
+
+    public void pointToSketchBook () {
+        pointToInventory = false;
+        inventoryBoxes[index].Deselect();
+    }
+
+    public void Select(int i) {
+        inventoryBoxes[index].Deselect();
+        inventoryBoxes[i].Select();
+    }
 
     // Method to update the inventory UI when items are added
     public void UpdateInventoryDisplay()
     {
         // Clear previous icons
-        foreach (Transform child in inventoryContent)
-        {
-            Destroy(child.gameObject);
+        if (inventoryBoxes != null) {
+            foreach (InventoryBox box in inventoryBoxes)
+            {
+                if (box.transform.childCount == 1) {
+                    Destroy(box.transform.GetChild(0).gameObject);
+                }
+            }
         }
 
-        // Define grid parameters
-        int itemsPerRow = 5; // Number of items per row
-        float spacing = 10f; // Space between icons
+        Array.Fill(stickers, null);
 
         // Create icons for each item in the inventory
         for (int i = 0; i < inventory.items.Count; i++)
         {
             Item item = inventory.items[i];
-            GameObject icon = Instantiate(item.prefab, inventoryContent); // Create a new icon from prefab
-            // Image iconImage = icon.GetComponent<Image>(); // Get the Image component
-            // iconImage.sprite = item.icon; // Assign the item's icon sprite
-
-            // Add event triggers for dragging
-            // EventTrigger eventTrigger = icon.AddComponent<EventTrigger>();
-            // EventTrigger.Entry entryBeginDrag = new EventTrigger.Entry { eventID = EventTriggerType.BeginDrag };
-            // entryBeginDrag.callback.AddListener((data) => { OnBeginDrag(icon); });
-            // eventTrigger.triggers.Add(entryBeginDrag);
-
-            // EventTrigger.Entry entryDrag = new EventTrigger.Entry { eventID = EventTriggerType.Drag };
-            // entryDrag.callback.AddListener((data) => { OnDrag(icon); });
-            // eventTrigger.triggers.Add(entryDrag);
-
-            // Calculate position
-            int row = i / itemsPerRow;
-            int column = i % itemsPerRow;
-            float xPos = column * (icon.GetComponent<RectTransform>().rect.width + spacing);
-            float yPos = -row * (icon.GetComponent<RectTransform>().rect.height + spacing);
-            icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, yPos); // Set position
+            GameObject sticker = Instantiate(item.prefab, inventoryBoxes[i].transform); 
+            stickers[i] = sticker.GetComponent<Sticker>();
+            stickers[i].index = i;
         }
-    }
-
-    // New methods for drag functionality
-    private Vector2 originalPosition; // Store original position
-
-    private void OnBeginDrag(GameObject icon)
-    {
-        // Store the original position of the icon
-        originalPosition = icon.GetComponent<RectTransform>().anchoredPosition;
-
-        // Change the parent to the Canvas to ensure it is on top
-        icon.transform.SetParent(inventoryContent.parent);
-    }
-
-    private void OnDrag(GameObject icon)
-    {
-        // Logic for dragging the icon
-        Vector2 mousePosition;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(inventoryContent.GetComponent<RectTransform>(), Input.mousePosition, null, out mousePosition);
-        icon.GetComponent<RectTransform>().anchoredPosition = mousePosition;
-    }
-
-    private void OnEndDrag(GameObject icon)
-    {
-        // Check if the icon is still in the inventoryContent
-        if (icon.transform.parent == inventoryContent.parent)
-        {
-            // Reset the icon's position to the original position
-            icon.GetComponent<RectTransform>().anchoredPosition = originalPosition;
-        }
-        else
-        {
-            // Optionally, you can handle dropping the icon in a new position here
-        }
-
-        // Reset the parent back to inventoryContent
-        icon.transform.SetParent(inventoryContent);
     }
 }

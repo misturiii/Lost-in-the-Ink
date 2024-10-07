@@ -3,12 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PickupObject : MonoBehaviour
 {
-    public Inventory inventory;              // Reference to the Inventory ScriptableObject
+    Inventory inventory;              // Reference to the Inventory ScriptableObject
     public InventoryDisplay inventoryDisplay; // Reference to the InventoryDisplay
     private GameObject currentItem;          // Track the currently detected item
     InputActions inputActions;
 
     void Start () {
+        inventory = Resources.Load<Inventory>("PlayerInventory");
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.GrabSticker.Enable();
         inputActions.Player.GrabSticker.performed += Grab;
@@ -44,9 +45,6 @@ public class PickupObject : MonoBehaviour
             {
                 inventory.Add(itemObject.item); // Add the item to the inventory
                 Debug.Log("Picked up item: " + itemObject.item.itemName);
-                
-                // Update the inventory UI
-                inventoryDisplay.UpdateInventoryDisplay();
 
                 // Destroy the item from the scene
                 Destroy(currentItem);

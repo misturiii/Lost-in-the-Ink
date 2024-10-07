@@ -19,6 +19,10 @@ public class Inventory : ScriptableObject
         }
     }
 
+    public void Remove (int index) {
+        items.RemoveAt(index);
+    }
+
     // New method to clear the inventory
     public void Clear()
     {

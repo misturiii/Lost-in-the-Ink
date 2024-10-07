@@ -1,62 +1,101 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class Sticker : MonoBehaviour, IDragHandler, IDropHandler
+public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragHandler
 {
-    [SerializeField, Min(0)] float initialHeight = 5;
-    [SerializeField, Min(0)] float sketchbookWidth = 40, sketchbookHeight = 30;  
-    [SerializeField] float inventoryWidth = 400;
-    [SerializeField] GameObject prefab;
-    [SerializeField] GameObject airwall;
-    Transform copy;
+    protected float moveSpeed = 1000f;
+    protected Transform sketchbook;
+    public int index;
+    protected Inventory inventory;
+    protected InventoryDisplay inventoryDisplay;
+    protected Canvas canvas;
+    protected InputActions inputActions;
+    protected bool selected;
 
     void Start () {
-        copy = null;
-        // Find the GameObject with the tag "airWall" and assign it to airwall
-        airwall = GameObject.FindWithTag("airWall");
-
-        // Check if the airwall was found
-        if (airwall == null)
-        {
-            Debug.LogError("Airwall object with tag 'airWall' not found in the scene!");
-        }
-        
+        selected = false;
+        sketchbook = GameObject.FindGameObjectWithTag("Sketchbook").transform;
+        inventory = Resources.Load<Inventory>("PlayerInventory");
+        inventoryDisplay = FindObjectOfType<InventoryDisplay>();
+        canvas = gameObject.AddComponent<Canvas>();
+        gameObject.AddComponent<GraphicRaycaster>();
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = 1;
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
+        Initialize();
     }
 
-    public void UseSticker() {
-        float x = (-transform.position.x) / (Screen.width - inventoryWidth) * sketchbookWidth;
-        float z = -transform.position.y / Screen.height * sketchbookHeight;
-        if (!copy) {
-            copy = Instantiate(prefab).transform;
+
+    protected abstract void Initialize();
+
+    void Update () {
+        canvas = gameObject.GetComponent<Canvas>();
+        if (selected) {
+            if (inputActions.UI.Click.inProgress) {
+                Drag(moveSpeed * inputActions.UI.Move.ReadValue<Vector2>() * Time.deltaTime);
+            } 
         }
-        copy.localPosition = new Vector3(x, initialHeight, z);
-        copy.localEulerAngles = Vector3.zero;
+    }
+
+    public void EnableInputAction() {
+        selected = true;
+        Select();
+        inputActions.UI.Click.canceled += Drop;
+    }
+
+    public void DisableInputAction() {
+        selected = false;
+        inputActions.UI.Click.canceled -= Drop;
+        Drop(new InputAction.CallbackContext());
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        UseSticker();
-        CheckAndDisableAirwall();
+        Drop(new InputAction.CallbackContext());
+    }
 
-        
+    public void Drop(InputAction.CallbackContext context) {
+        canvas.sortingOrder = 1;
+        UseStickerBefore();
+        if (InInventory()) {
+            if (transform.localPosition.x < -100) {
+                transform.SetParent(sketchbook);
+                inventory.Remove(index);
+                inventoryDisplay.pointToSketchBook();
+                inventoryDisplay.UpdateInventoryDisplay();
+            } else {
+                transform.localPosition = Vector3.zero;
+                return;
+            }
+        }
+        UseStickerAfter();
+    }
+
+    protected bool InInventory() {
+        return transform.parent.tag == "Inventory";
+    }
+
+    protected abstract void UseStickerBefore ();
+
+    protected abstract void UseStickerAfter();
+
+    public void OnBeginDrag (PointerEventData eventData) {
+        Select();
+    }
+
+    public void Select() {
+        canvas.sortingOrder = 5000;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position += (Vector3)eventData.delta;
-
+        Drag((Vector3)eventData.delta);
     }
 
-    private void CheckAndDisableAirwall()
-    {
-        if (gameObject.CompareTag("key")) // Assuming the sticker is tagged as "Key"
-        {
-            if (airwall != null && airwall.activeSelf)
-            {
-                airwall.SetActive(false); // Disable the airwall
-                Debug.Log("Airwall disabled because the 'Key' sticker was used.");
-            }
-        }
+    public void Drag (Vector3 move) {
+        transform.position += move;
     }
-
 }

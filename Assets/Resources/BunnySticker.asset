@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbeb1f451691341da8760d52a7bd6101, type: 3}
-  m_Name: key
+  m_Name: BunnySticker
   m_EditorClassIdentifier: 
-  itemName: Key
-  icon: {fileID: 21300000, guid: ce4c2b6a2373e472597c09cb8c0291b3, type: 3}
-  itemType: Key
-  prefab: {fileID: 1263774752063172929, guid: 1f8cfcad4fc404af78c30d9315da74d2, type: 3}
+  itemName: bunnysticker
+  icon: {fileID: 21300000, guid: 9213776cedb194e39b3831e98670cad5, type: 3}
+  itemType: BunnySticker
+  prefab: {fileID: 5935079644648123318, guid: 2fb5d8662205f5547971e125e5c22cf5, type: 3}

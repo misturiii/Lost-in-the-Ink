@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1944571965345174699}
   - component: {fileID: 5644220558676178978}
+  - component: {fileID: 4043843685513746447}
   - component: {fileID: 7481861404821985619}
   - component: {fileID: 8161507161702125863}
   m_Layer: 5
   m_Name: Panel
-  m_TagString: Untagged
+  m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +47,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2731212478680745838}
   m_CullTransparentMesh: 1
+--- !u!114 &4043843685513746447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731212478680745838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5cd13b67925834498f0876d2afbad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectColor: {r: 0.5698112, g: 0.5698112, b: 0.5698112, a: 1}
+  index: 0
 --- !u!114 &7481861404821985619
 MonoBehaviour:
   m_ObjectHideFlags: 0

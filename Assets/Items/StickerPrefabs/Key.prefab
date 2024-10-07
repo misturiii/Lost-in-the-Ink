@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 5658093242596591195}
   - component: {fileID: 6410707626794223097}
   - component: {fileID: 7474888625593500139}
-  - component: {fileID: 1390482982233237946}
+  - component: {fileID: 4502520237882834793}
+  - component: {fileID: 6042683790752522736}
   m_Layer: 5
   m_Name: Key
   m_TagString: key
@@ -76,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1390482982233237946
+--- !u!114 &4502520237882834793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,11 +86,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1263774752063172929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e1551e70e56d84b9d74315ace757e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 812de3aa1eb62aa49882dcc913a4ced0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHeight: 5
-  sketchbookWidth: 40
-  sketchbookHeight: 30
-  inventoryWidth: 400
-  prefab: {fileID: 2260213603604917627, guid: 6b742661365ab4de985a151ae00b5cc9, type: 3}
+  index: 0
+  distance: 100
+  itemName: KeySticker
+--- !u!114 &6042683790752522736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263774752063172929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246a8cf2d37611e43815075f7732e906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
