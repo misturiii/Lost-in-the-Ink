@@ -23,6 +23,7 @@ public class InventoryDisplay : MonoBehaviour
         inputActions.UI.MovePointer.started += MovePointer;
         inputActions.UI.Click.Enable();
         inputActions.UI.Switch.performed += Switch;
+        inputActions.UI.Click.performed += RefreshSelect;
         
         inventoryBoxes = GetComponentsInChildren<InventoryBox>(true);
         sketchbook = transform.parent.GetChild(0);
@@ -39,11 +40,15 @@ public class InventoryDisplay : MonoBehaviour
 
     void OnEnable () {
         UpdateInventoryDisplay();
+        RefreshSelect(new InputAction.CallbackContext());
+    }
+
+    void RefreshSelect (InputAction.CallbackContext context) {
         if (InInventory) {
             SelectInventory(index);
         } else {
             SelectSkechbook(sketchbookSelect);
-        } 
+        }
     }
 
     void MovePointer (InputAction.CallbackContext context) {

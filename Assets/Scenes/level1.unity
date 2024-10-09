@@ -5124,6 +5124,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2840230265840451178, guid: e8f1ab2def0374ee39f3d0006a13c7c0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: -2822802626006345070, guid: e8f1ab2def0374ee39f3d0006a13c7c0,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5970,6 +5975,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eeac245e4caf99a4ea758f001109275a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

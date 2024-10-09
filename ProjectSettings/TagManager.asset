@@ -16,6 +16,7 @@ TagManager:
   - Sticker
   - key
   - fountain
+  - Ground
   layers:
   - Default
   - TransparentFX
