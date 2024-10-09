@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InventoryDisplay : MonoBehaviour
 {
@@ -8,81 +10,128 @@ public class InventoryDisplay : MonoBehaviour
     InventoryBox[] inventoryBoxes;
     InputActions inputActions; 
     Sticker[] stickers;
-    Sticker prev;
-    public int index;
-    bool pointToInventory;
+    Transform sketchbook;
+    public int index = 0;
+    Sticker sketchbookSelect = null;
+    bool InInventory = true;
+    public GraphicRaycaster graphicRaycaster;  // Reference to the Canvas' GraphicRaycaster
+
 
     void Awake () {
-        index = 0;
-        prev = null;
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
-        inputActions.UI.Toggle.Enable();
-        inputActions.UI.Toggle.started += Toggle;
+        inputActions.UI.MovePointer.Enable();
+        inputActions.UI.MovePointer.started += MovePointer;
         inputActions.UI.Click.Enable();
-        inputActions.UI.Click.performed += Click;
         inputActions.UI.Switch.performed += Switch;
         
         inventoryBoxes = GetComponentsInChildren<InventoryBox>(true);
+        sketchbook = transform.parent.GetChild(0);
+
         for (int i = 0; i < inventoryBoxes.Length; i++) {
             inventoryBoxes[i].index = i;
             inventoryBoxes[i].initialize();
         }
+
         stickers = new Sticker[inventoryBoxes.Length];
         inventory = Resources.Load<Inventory>("PlayerInventory");
-
-        ResetSelect(0);
-    }
-
-    public void ResetSelect(int i) {
-        Select(i);
-        pointToInventory = true;
+        graphicRaycaster = gameObject.AddComponent<GraphicRaycaster>();
     }
 
     void OnEnable () {
         UpdateInventoryDisplay();
-    }
-
-    void Toggle (InputAction.CallbackContext context) {
-        if (pointToInventory) {
-            int diff = context.ReadValue<float>() > 0 ? 1 : -1;
-            Select(Mathf.Clamp(index - diff, 0, inventoryBoxes.Length - 1));
-        }
-    }
-
-    void Click (InputAction.CallbackContext context) {
-        if (pointToInventory) {
-            if (prev) {
-                    prev.DisableInputAction();
-                }
-            if (stickers[index]) {
-                stickers[index].EnableInputAction();
-                prev = stickers[index];
-            }
+        if (InInventory) {
+            SelectInventory(index);
         } else {
-            prev.EnableInputAction();
+            SelectSkechbook(sketchbookSelect);
+        } 
+    }
+
+    void MovePointer (InputAction.CallbackContext context) {
+        Vector2 input = context.ReadValue<Vector2>();
+        if (InInventory) {
+            input.x = input.x > 0 ? 1 : -1;
+            input.y = input.y > 0 ? 1 : -1;
+            PointToInventory(Mathf.Clamp(index - (int)input.y, 0, inventoryBoxes.Length - 1));
+        } else {  
+            if (sketchbookSelect) {
+                PointToNextSticker(input);
+            }
         }
     }
+
+    void PointToNextSticker (Vector2 input) {
+        RaycastHit[] hits = Physics.RaycastAll(sketchbookSelect.transform.position, input, 10000000);
+        foreach (RaycastHit hit in hits) {
+            Debug.Log(hit.collider.name);
+            if (hit.collider.tag == "Sticker") {
+                Sticker sticker = hit.transform.GetComponent<Sticker>();
+                if (!sticker.InInventory()) {
+                    PointToSketchBook(sticker);
+                }
+                return;
+            }
+        }
+    }
+
+
 
     void Switch (InputAction.CallbackContext context) {
-        pointToInventory = !pointToInventory;
-        if (!pointToInventory) {
-            if (prev) {
-                prev.DisableInputAction();
-            }
-            inventoryBoxes[index].Deselect();
+        InInventory = !InInventory;
+        if (InInventory) {
+            PointToInventory(index);
         } else {
-            inventoryBoxes[index].Select();
+            PointToSketchBook(sketchbookSelect);
+        } 
+    }
+
+    public void DeselectAll () {
+        inventoryBoxes[index].Deselect();
+        if (stickers[index]) {
+            stickers[index].Deselect();
+        }
+        if (sketchbookSelect) {
+            sketchbookSelect.Deselect();
         }
     }
 
-    public void pointToSketchBook () {
-        pointToInventory = false;
-        inventoryBoxes[index].Deselect();
+    void SelectInventory(int i) {
+        inventoryBoxes[i].Select();
+        if (stickers[i]) {
+            stickers[i].Select();
+        }
     }
 
-    public void Select(int i) {
-        inventoryBoxes[index].Deselect();
-        inventoryBoxes[i].Select();
+    void SelectSkechbook (Sticker sticker) {
+        sketchbookSelect = sticker;
+        if (sticker) {
+            sticker.Select();
+        }
+    }
+
+    public void PointToSketchBook (Sticker sticker) {
+        InInventory = false;
+        DeselectAll();
+        SelectSkechbook(sticker);
+    }
+
+    public void PointToInventory (int i) {
+        InInventory = true;
+        DeselectAll();
+        SelectInventory(i);
+    }
+
+    public void AddToSketchBook (Sticker sticker) {
+        
+        sticker.transform.SetParent(sketchbook);
+        inventory.Remove(sticker.index);
+        PointToSketchBook(sticker);
+        UpdateInventoryDisplay();
+    }
+
+    public void AddToInventory (ToolSticker sticker, Sticker next) {
+        inventory.Add(Resources.Load<Item>(sticker.itemName));
+        PointToInventory(inventory.items.Count - 1);
+        sketchbookSelect = next;
     }
 
     // Method to update the inventory UI when items are added

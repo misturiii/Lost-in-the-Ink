@@ -28,6 +28,6 @@ public class InventoryBox : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        inventoryDisplay.Select(index);
+        inventoryDisplay.PointToInventory(index);
     }
 }

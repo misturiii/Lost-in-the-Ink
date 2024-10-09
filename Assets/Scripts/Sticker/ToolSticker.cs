@@ -4,7 +4,7 @@ using UnityEngine;
 public class ToolSticker : Sticker
 {
     [SerializeField] float distance = 10;
-    [SerializeField] String itemName;
+    [SerializeField] public String itemName;
     ToolBehaviour behaviour;
     Transform target;
 
@@ -14,10 +14,7 @@ public class ToolSticker : Sticker
         target = behaviour.GetTarget();
     }
 
-    protected override void UseStickerAfter()
-    {
-        behaviour.StartBehaviour();
-    }
+    protected override void UseStickerAfter() {}
 
     protected override void UseStickerBefore()
     {
@@ -25,16 +22,10 @@ public class ToolSticker : Sticker
             if (InInventory()) {
                 transform.localPosition = Vector3.zero;
             } else {
-                inventory.Add(Resources.Load<Item>(itemName));
-                ResetSelect(inventory.items.Count - 1);
-                inventoryDisplay.UpdateInventoryDisplay();
-                Destroy(gameObject);
+                
             }
-            
+        } else {
+            behaviour.StartBehaviour();
         }
-    }
-
-    public void ResetSelect(int i) {
-        inventoryDisplay.ResetSelect(i);
     }
 }

@@ -3,20 +3,24 @@ using UnityEngine;
 public class TicketBehaviour : ToolBehaviour
 {
     GameObject airWall;
+    Transform target;
 
-    void Awake () {
+    void initialize () {
         airWall = GameObject.FindWithTag("airWall");
+        target = GameObject.FindWithTag("TicketTarget").transform;
     }
 
     public override void StartBehaviour()
     {
         Destroy(airWall);
-        GetComponent<ToolSticker>().ResetSelect(0);
         Destroy(gameObject);
     }
 
     public override Transform GetTarget()
     {
-        return GameObject.FindWithTag("TicketTarget").transform;
+        if (!target) {
+            initialize();
+        }
+        return target;
     }
 }

@@ -1,55 +1,51 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragHandler
+public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragHandler, IPointerEnterHandler
 {
     protected float moveSpeed = 1000f;
-    protected Transform sketchbook;
     public int index;
-    protected Inventory inventory;
     protected InventoryDisplay inventoryDisplay;
-    protected Canvas canvas;
     protected InputActions inputActions;
     protected bool selected;
+    protected Outline outline;
+    protected Canvas canvas;
 
     void Start () {
-        selected = false;
-        sketchbook = GameObject.FindGameObjectWithTag("Sketchbook").transform;
-        inventory = Resources.Load<Inventory>("PlayerInventory");
         inventoryDisplay = FindObjectOfType<InventoryDisplay>();
-        canvas = gameObject.AddComponent<Canvas>();
         gameObject.AddComponent<GraphicRaycaster>();
-        canvas.overrideSorting = true;
-        canvas.sortingOrder = 1;
-        inputActions = FindObjectOfType<InputActionManager>().inputActions;
+        BoxCollider collider = gameObject.AddComponent<BoxCollider>();
+        collider.size = Vector3.one * 300;
         Initialize();
     }
 
+    void OnEnable () {
+        if (!canvas) {
+            canvas = gameObject.AddComponent<Canvas>();
+        } else {
+            canvas = gameObject.GetComponent<Canvas>();
+        }
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = 1;
+        if (inputActions == null) {
+            inputActions = FindObjectOfType<InputActionManager>().inputActions;
+            outline = gameObject.AddComponent<Outline>();
+            outline.effectColor = Color.white;
+            outline.effectDistance = new Vector2(10, -10);
+            outline.enabled = false;
+        }
+    }
 
     protected abstract void Initialize();
 
     void Update () {
-        canvas = gameObject.GetComponent<Canvas>();
-        if (selected) {
+        if (selected && inputActions.UI.Click.inProgress) {
             if (inputActions.UI.Click.inProgress) {
                 Drag(moveSpeed * inputActions.UI.Move.ReadValue<Vector2>() * Time.deltaTime);
             } 
         }
-    }
-
-    public void EnableInputAction() {
-        selected = true;
-        Select();
-        inputActions.UI.Click.canceled += Drop;
-    }
-
-    public void DisableInputAction() {
-        selected = false;
-        inputActions.UI.Click.canceled -= Drop;
-        Drop(new InputAction.CallbackContext());
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -58,23 +54,19 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
     }
 
     public void Drop(InputAction.CallbackContext context) {
-        canvas.sortingOrder = 1;
         UseStickerBefore();
         if (InInventory()) {
             if (transform.localPosition.x < -100) {
-                transform.SetParent(sketchbook);
-                inventory.Remove(index);
-                inventoryDisplay.pointToSketchBook();
-                inventoryDisplay.UpdateInventoryDisplay();
+                inventoryDisplay.AddToSketchBook(this);
             } else {
                 transform.localPosition = Vector3.zero;
-                return;
             }
+            return;
         }
         UseStickerAfter();
     }
 
-    protected bool InInventory() {
+    public bool InInventory() {
         return transform.parent.tag == "Inventory";
     }
 
@@ -87,7 +79,17 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
     }
 
     public void Select() {
+        selected = true;
+        outline.enabled = true;
         canvas.sortingOrder = 5000;
+        inputActions.UI.Click.canceled += Drop;
+    }
+    
+    public void Deselect () {
+        selected = false;
+        outline.enabled = false;
+        canvas.sortingOrder = 1;
+        inputActions.UI.Click.canceled -= Drop;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -98,4 +100,14 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
     public void Drag (Vector3 move) {
         transform.position += move;
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (InInventory()) {
+            inventoryDisplay.PointToInventory(index);
+        } else {
+            inventoryDisplay.PointToSketchBook(this);
+        }
+    }
+
 }

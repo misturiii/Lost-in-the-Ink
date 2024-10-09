@@ -33,7 +33,6 @@ public class ViewPuzzle : MonoBehaviour
                 player.enabled = true;
                 volume.enabled = false;
                 SetLayer(puzzle, 0);
-                
             } else {
                 SetViewCamera();
                 view.enabled = true;

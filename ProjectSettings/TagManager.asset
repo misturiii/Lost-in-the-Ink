@@ -13,6 +13,8 @@ TagManager:
   - Inventory
   - TicketTarget
   - PlayerTarget
+  - Sticker
+  - key
   layers:
   - Default
   - TransparentFX

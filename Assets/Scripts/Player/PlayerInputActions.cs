@@ -71,6 +71,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Trigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""b692d141-3310-425d-9c87-16d042c9ced5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -337,6 +346,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ViewPuzzle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91e93eeb-e058-48c1-a44d-db4a14e4f728"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28724b98-24ae-46e7-bc29-f3862a4df81b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -354,10 +385,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Toggle"",
+                    ""name"": ""MovePointer"",
                     ""type"": ""Value"",
                     ""id"": ""fb1ce706-a15b-4478-a643-ed0b293c014a"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -416,66 +447,110 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d3485573-8ec6-4f18-87ba-1b7f9212790e"",
-                    ""path"": ""<Gamepad>/rightStick/y"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": ""AxisDeadzone(min=-0.75,max=0.75)"",
+                    ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Toggle"",
+                    ""action"": ""MovePointer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""UP/DOWN"",
-                    ""id"": ""82521195-216f-401f-8f04-201f5a01380f"",
-                    ""path"": ""1DAxis"",
+                    ""name"": ""WASD"",
+                    ""id"": ""d2433dbd-89c1-4cec-a4d1-6036b9e316dd"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Toggle"",
+                    ""action"": ""MovePointer"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
-                    ""id"": ""8ae6810b-77ac-4b3a-a3f9-f818616279ef"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Toggle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""49cc49f1-76b5-4783-9694-95c83133ebcb"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Toggle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""15bd20cf-4dec-4b53-b33c-75e456a84d2f"",
+                    ""name"": ""up"",
+                    ""id"": ""b986837a-28fb-4a82-967e-21f681dc2f14"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Toggle"",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
-                    ""id"": ""0da0d82f-aa0d-4e76-8fd4-8a1abc0c3511"",
+                    ""name"": ""up"",
+                    ""id"": ""c23f5e1e-5311-452c-a7a1-d2c0e8200e45"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Toggle"",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""bbb63258-04ca-4ab7-be71-5e90d089db7b"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""c63ef77c-11b8-4f7c-afde-05ad797397fb"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""118bcc9c-53e3-4df7-a126-45d03f31bd06"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a70e5561-b56a-4c1e-ba86-e14755e1692f"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""38e46a2a-09b0-4805-a95d-d48c030e2016"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""425560ae-7866-4bb5-a764-ef9ca85b4197"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MovePointer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -848,10 +923,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
         m_Player_GrabSticker = m_Player.FindAction("GrabSticker", throwIfNotFound: true);
         m_Player_ViewPuzzle = m_Player.FindAction("ViewPuzzle", throwIfNotFound: true);
+        m_Player_Trigger = m_Player.FindAction("Trigger", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Trigger = m_UI.FindAction("Trigger", throwIfNotFound: true);
-        m_UI_Toggle = m_UI.FindAction("Toggle", throwIfNotFound: true);
+        m_UI_MovePointer = m_UI.FindAction("MovePointer", throwIfNotFound: true);
         m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
         m_UI_Switch = m_UI.FindAction("Switch", throwIfNotFound: true);
@@ -928,6 +1004,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Click;
     private readonly InputAction m_Player_GrabSticker;
     private readonly InputAction m_Player_ViewPuzzle;
+    private readonly InputAction m_Player_Trigger;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -937,6 +1014,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Click => m_Wrapper.m_Player_Click;
         public InputAction @GrabSticker => m_Wrapper.m_Player_GrabSticker;
         public InputAction @ViewPuzzle => m_Wrapper.m_Player_ViewPuzzle;
+        public InputAction @Trigger => m_Wrapper.m_Player_Trigger;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -961,6 +1039,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ViewPuzzle.started += instance.OnViewPuzzle;
             @ViewPuzzle.performed += instance.OnViewPuzzle;
             @ViewPuzzle.canceled += instance.OnViewPuzzle;
+            @Trigger.started += instance.OnTrigger;
+            @Trigger.performed += instance.OnTrigger;
+            @Trigger.canceled += instance.OnTrigger;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -980,6 +1061,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ViewPuzzle.started -= instance.OnViewPuzzle;
             @ViewPuzzle.performed -= instance.OnViewPuzzle;
             @ViewPuzzle.canceled -= instance.OnViewPuzzle;
+            @Trigger.started -= instance.OnTrigger;
+            @Trigger.performed -= instance.OnTrigger;
+            @Trigger.canceled -= instance.OnTrigger;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1002,7 +1086,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Trigger;
-    private readonly InputAction m_UI_Toggle;
+    private readonly InputAction m_UI_MovePointer;
     private readonly InputAction m_UI_Click;
     private readonly InputAction m_UI_Move;
     private readonly InputAction m_UI_Switch;
@@ -1011,7 +1095,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         private @InputActions m_Wrapper;
         public UIActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Trigger => m_Wrapper.m_UI_Trigger;
-        public InputAction @Toggle => m_Wrapper.m_UI_Toggle;
+        public InputAction @MovePointer => m_Wrapper.m_UI_MovePointer;
         public InputAction @Click => m_Wrapper.m_UI_Click;
         public InputAction @Move => m_Wrapper.m_UI_Move;
         public InputAction @Switch => m_Wrapper.m_UI_Switch;
@@ -1027,9 +1111,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Trigger.started += instance.OnTrigger;
             @Trigger.performed += instance.OnTrigger;
             @Trigger.canceled += instance.OnTrigger;
-            @Toggle.started += instance.OnToggle;
-            @Toggle.performed += instance.OnToggle;
-            @Toggle.canceled += instance.OnToggle;
+            @MovePointer.started += instance.OnMovePointer;
+            @MovePointer.performed += instance.OnMovePointer;
+            @MovePointer.canceled += instance.OnMovePointer;
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
@@ -1046,9 +1130,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Trigger.started -= instance.OnTrigger;
             @Trigger.performed -= instance.OnTrigger;
             @Trigger.canceled -= instance.OnTrigger;
-            @Toggle.started -= instance.OnToggle;
-            @Toggle.performed -= instance.OnToggle;
-            @Toggle.canceled -= instance.OnToggle;
+            @MovePointer.started -= instance.OnMovePointer;
+            @MovePointer.performed -= instance.OnMovePointer;
+            @MovePointer.canceled -= instance.OnMovePointer;
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
@@ -1227,11 +1311,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnClick(InputAction.CallbackContext context);
         void OnGrabSticker(InputAction.CallbackContext context);
         void OnViewPuzzle(InputAction.CallbackContext context);
+        void OnTrigger(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnTrigger(InputAction.CallbackContext context);
-        void OnToggle(InputAction.CallbackContext context);
+        void OnMovePointer(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
