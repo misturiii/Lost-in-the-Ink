@@ -73,8 +73,6 @@ public class InventoryDisplay : MonoBehaviour
         }
     }
 
-
-
     void Switch (InputAction.CallbackContext context) {
         InInventory = !InInventory;
         if (InInventory) {

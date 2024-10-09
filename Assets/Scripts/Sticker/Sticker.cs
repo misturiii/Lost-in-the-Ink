@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using TMPro; 
+using TMPro;
+using UnityEngine.UI;
 
 public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragHandler, IPointerEnterHandler
 {
@@ -23,8 +24,6 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
     void Start()
     {
         selected = false;
-        sketchbook = GameObject.FindGameObjectWithTag("Sketchbook").transform;
-        inventory = Resources.Load<Inventory>("PlayerInventory");
         inventoryDisplay = FindObjectOfType<InventoryDisplay>();
         gameObject.AddComponent<GraphicRaycaster>();
         BoxCollider collider = gameObject.AddComponent<BoxCollider>();
@@ -43,7 +42,7 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         if (inputActions == null) {
             inputActions = FindObjectOfType<InputActionManager>().inputActions;
             outline = gameObject.AddComponent<Outline>();
-            outline.effectColor = Color.white;
+            outline.effectColor = Color.black;
             outline.effectDistance = new Vector2(10, -10);
             outline.enabled = false;
     
@@ -82,10 +81,11 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         Drop(new InputAction.CallbackContext());
     }
 
+    protected abstract void UseStickerBefore ();
+    protected abstract void UseStickerAfter ();
+
     public void Drop(InputAction.CallbackContext context) {
         UseStickerBefore();
-
-        
         Vector3 droppedPosition = transform.position;
         Debug.Log($"Sticker Dropped: Name = {name}, Index = {index}, Position = {droppedPosition}");
 
@@ -110,26 +110,15 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
                 ReturnToInventory();
             }
         }
-        else
-        {
+        else {
             Debug.Log($"Sticker Name is not Fountain, skipping position check: Name = {name}");
         }
 
-        if (InInventory())
-        {
-            if (transform.localPosition.x < -100)
-            {
-                transform.SetParent(sketchbook);
-                inventory.Remove(index);
-                inventoryDisplay.pointToSketchBook();
-                inventoryDisplay.UpdateInventoryDisplay();
-                Debug.Log($"Sticker moved to Sketchbook: Name = {name}, Index = {index}, Position = {transform.position}");
-            }
-            else
-            {
         if (InInventory()) {
             if (transform.localPosition.x < -100) {
                 inventoryDisplay.AddToSketchBook(this);
+                UseStickerAfter();
+                Debug.Log($"Sticker moved to Sketchbook: Name = {name}, Index = {index}, Position = {transform.position}");
             } else {
                 transform.localPosition = Vector3.zero;
                 Debug.Log("Sticker reset to initial position.");
@@ -141,26 +130,19 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         UseStickerAfter();
     }
 
-        private bool CheckIfInTargetArea(Vector3 droppedPosition)
-    {
-        
+    private bool CheckIfInTargetArea(Vector3 droppedPosition) {
         bool isXInRange = Mathf.Abs(droppedPosition.x - targetPosition.x) <= xTolerance;
-        
         bool isYInRange = Mathf.Abs(droppedPosition.y - targetPosition.y) <= yTolerance;
 
-        
         return isXInRange && isYInRange;
     }
 
-        private void ReturnToInventory()
-    {
-        
+    private void ReturnToInventory() {
         transform.position = initialPosition;
         Debug.Log($"Sticker returned to initial position: {initialPosition}");
     }
 
-    protected bool InInventory()
-    {
+    public bool InInventory() {
         bool inInventory = transform.parent.tag == "Inventory";
         Debug.Log($"Sticker InInventory Check: Name = {name}, InInventory = {inInventory}");
         return inInventory;
@@ -197,24 +179,15 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         transform.position += move;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
+    public void OnPointerEnter(PointerEventData eventData) {
         if (InInventory()) {
             inventoryDisplay.PointToInventory(index);
         } else {
             inventoryDisplay.PointToSketchBook(this);
         }
     }
-
-}
-
-        Debug.Log($"Sticker Moving: Name = {name}, New Position = {transform.position}");
-    }
-
-        private void ShowFeedbackMessage(string message, float duration)
-    {
-        if (feedbackText != null)
-        {
+    private void ShowFeedbackMessage(string message, float duration) {
+        if (feedbackText != null) {
             feedbackText.text = message;
             feedbackText.enabled = true;
             Debug.Log($"[ShowFeedbackMessage] Displaying message: {message}");
@@ -227,8 +200,7 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
     }
 
     
-    private IEnumerator HideFeedbackMessage(float duration)
-    {
+    private IEnumerator HideFeedbackMessage(float duration) {
         yield return new WaitForSeconds(duration);
         if (feedbackText != null)
         {
@@ -241,7 +213,4 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
             Debug.LogError("[HideFeedbackMessage] feedbackText is not assigned or found.");
         }
     }
-
-    protected abstract void UseStickerBefore();
-    protected abstract void UseStickerAfter();
 }
