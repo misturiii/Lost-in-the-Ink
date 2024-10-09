@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragHandler, IPointerEnterHandler
 {
@@ -16,11 +17,25 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
     protected Canvas canvas;
 
     public TextMeshProUGUI feedbackText;  
-
-    private readonly Vector3 targetPosition = new Vector3(435.00f, 502.33f, 0.00f); 
     private readonly float xTolerance = 200f; 
     private readonly float yTolerance = 200f; 
     private Vector3 initialPosition;  
+
+    // 存储每个 Sticker 的目标位置
+    private readonly Dictionary<string, List<Vector3>> stickerTargetPositions = new Dictionary<string, List<Vector3>>()
+    {
+        { "Fountain(Clone)", new List<Vector3> { new Vector3(435.00f, 502.33f, 0.00f) } },
+        { "Flower", new List<Vector3> { new Vector3(73.00f, 346.33f, 0.00f), new Vector3(721.00f, 700.33f, 0.00f) } },
+        { "Bench(Clone)", new List<Vector3> { new Vector3(330.00f, 300f, 0.00f) } },
+        { "IceCream(Clone)", new List<Vector3> { new Vector3(330f, -50f, 0.00f) } },
+        { "Tree", new List<Vector3> { new Vector3(916.00f, 83.33f, 0.00f) } },
+        { "Ballon", new List<Vector3> { new Vector3(697.00f, 65.33f, 0.00f) } }
+    };
+
+    // 追踪每个 Sticker 是否被正确放置
+    private readonly Dictionary<string, bool> isPlacedCorrectly = new Dictionary<string, bool>();
+
+
     void Start()
     {
         selected = false;
@@ -29,6 +44,17 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         BoxCollider collider = gameObject.AddComponent<BoxCollider>();
         collider.size = Vector3.one * 300;
         Initialize();
+
+        initialPosition = transform.position;
+
+        // 初始化 isPlacedCorrectly 字典
+        foreach (var stickerName in stickerTargetPositions.Keys)
+        {
+            if (!isPlacedCorrectly.ContainsKey(stickerName))
+            {
+                isPlacedCorrectly.Add(stickerName, false);
+            }
+        }
     }
 
     void OnEnable () {
@@ -64,7 +90,8 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         }
 
         Debug.Log($"Sticker Initialized: Name = {name}, Index = {index}, Position = {transform.position}");
-    }    }
+        }    
+    }
 
     protected abstract void Initialize();
 
@@ -89,29 +116,27 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         Vector3 droppedPosition = transform.position;
         Debug.Log($"Sticker Dropped: Name = {name}, Index = {index}, Position = {droppedPosition}");
 
-        
-        if (name.Contains("Fountain"))
+        // 检查 Sticker 是否有指定的目标位置
+        if (stickerTargetPositions.ContainsKey(name))
         {
-            
-            bool isInTargetArea = CheckIfInTargetArea(droppedPosition);
+            bool isInTargetArea = CheckIfInTargetArea(droppedPosition, stickerTargetPositions[name]);
 
             if (isInTargetArea)
             {
                 ShowFeedbackMessage("Success", 1f);
+                isPlacedCorrectly[name] = true; // 设置为已放置正确
                 Debug.Log("Success: Sticker placed in the correct area!");
-                
             }
             else
             {
                 ShowFeedbackMessage("Try Again", 1f);
                 Debug.Log("Try Again: Sticker not placed in the correct area.");
-
-                
                 ReturnToInventory();
             }
         }
-        else {
-            Debug.Log($"Sticker Name is not Fountain, skipping position check: Name = {name}");
+        else
+        {
+            Debug.Log($"Sticker {name} does not have a specified target area.");
         }
 
         if (InInventory()) {
@@ -130,11 +155,20 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
         UseStickerAfter();
     }
 
-    private bool CheckIfInTargetArea(Vector3 droppedPosition) {
-        bool isXInRange = Mathf.Abs(droppedPosition.x - targetPosition.x) <= xTolerance;
-        bool isYInRange = Mathf.Abs(droppedPosition.y - targetPosition.y) <= yTolerance;
+    private bool CheckIfInTargetArea(Vector3 droppedPosition, List<Vector3> targetPositions)
+    {
+        foreach (var targetPosition in targetPositions)
+        {
+            bool isXInRange = Mathf.Abs(droppedPosition.x - targetPosition.x) <= xTolerance;
+            bool isYInRange = Mathf.Abs(droppedPosition.y - targetPosition.y) <= yTolerance;
 
-        return isXInRange && isYInRange;
+            if (isXInRange && isYInRange)
+            {
+                return true; // 只要有一个目标区域满足条件，则返回 true
+            }
+        }
+
+        return false; // 如果所有目标区域都不满足，则返回 false
     }
 
     private void ReturnToInventory() {

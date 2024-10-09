@@ -5,7 +5,7 @@ public class ColorChange : MonoBehaviour
 {
     [SerializeField] float duration = 5f;
     protected Material mat;
-    protected float progress = 0;
+    public float progress = 0;
 
     protected static readonly int progressId = Shader.PropertyToID("_Progress");
 
