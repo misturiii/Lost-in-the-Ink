@@ -13,6 +13,8 @@ TagManager:
   - Inventory
   - TicketTarget
   - PlayerTarget
+  - key
+  - fountain
   layers:
   - Default
   - TransparentFX
