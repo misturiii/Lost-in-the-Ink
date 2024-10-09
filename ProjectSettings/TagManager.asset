@@ -15,6 +15,7 @@ TagManager:
   - PlayerTarget
   - Sticker
   - key
+  - fountain
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbeb1f451691341da8760d52a7bd6101, type: 3}
-  m_Name: GlassSticker
+  m_Name: BenchSticker
   m_EditorClassIdentifier: 
-  itemName: Glass
+  itemName: Bench
   prefab: {fileID: 1263774752063172929, guid: e152866a9dc4af84fb7a85fe8635b84e, type: 3}

@@ -5,6 +5,7 @@ public class InventoryToggle : MonoBehaviour
 {
     public GameObject inventoryPanel;  // Reference to the inventory panel
     public GameObject inventoryPanel2;  // Reference to the second inventory panel (if any)
+    // public GameObject inventoryChat;
 
     private bool isInventoryOpen = false;  // Track whether the inventory is open
     InputActions inputActions;
