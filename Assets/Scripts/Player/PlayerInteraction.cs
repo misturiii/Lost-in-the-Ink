@@ -26,49 +26,49 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
+    // private void Update()
+    // {
         
-        if (dialogue.isInitialComplete && isPlayerInRange && !isDialogueTriggered &&
-            (Input.GetKeyDown(KeyCode.T) || (Gamepad.current != null && Gamepad.current.leftShoulder.wasPressedThisFrame)))
-        {
+    //     if (dialogue.isInitialComplete && isPlayerInRange && !isDialogueTriggered &&
+    //         (Input.GetKeyDown(KeyCode.T) || (Gamepad.current != null && Gamepad.current.leftShoulder.wasPressedThisFrame)))
+    //     {
             
-            TriggerDialogueInteraction();
-        }
+    //         TriggerDialogueInteraction();
+    //     }
 
         
-        if (dialogue.started)
-        {
+    //     if (dialogue.started)
+    //     {
            
-            if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.leftTrigger.wasPressedThisFrame))
-            {
-                ContinueDialogue();
-            }
-        }
-    }
+    //         if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.leftTrigger.wasPressedThisFrame))
+    //         {
+    //             ContinueDialogue();
+    //         }
+    //     }
+    // }
 
     
-    private void TriggerDialogueInteraction()
-    {
-        if (!dialogue.started)
-        {
+    // private void TriggerDialogueInteraction()
+    // {
+    //     if (!dialogue.started)
+    //     {
             
-            dialogue.gameObject.SetActive(true);
-            dialogue.SetInteracted(); 
-            dialogue.started = true;  
-            isDialogueTriggered = true; 
+    //         dialogue.gameObject.SetActive(true);
+    //         dialogue.SetInteracted(); 
+    //         dialogue.started = true;  
+    //         isDialogueTriggered = true; 
 
-            Debug.Log("Dialogue interaction started with NPC.");
-        }
-    }
+    //         Debug.Log("Dialogue interaction started with NPC.");
+    //     }
+    // }
 
     
-    private void ContinueDialogue()
-    {
-        if (dialogue.started)
-        {
-            dialogue.NextLine();  
-            Debug.Log("Continuing dialogue...");
-        }
-    }
+    // private void ContinueDialogue()
+    // {
+    //     if (dialogue.started)
+    //     {
+    //         dialogue.NextLine();  
+    //         Debug.Log("Continuing dialogue...");
+    //     }
+    // }
 }

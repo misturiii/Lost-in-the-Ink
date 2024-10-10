@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class ItemObject : MonoBehaviour
+public class NPC : MonoBehaviour
 {
-    public Item item; // Reference to the ScriptableObject that holds item data
+    DialogueObject dialogueObject {get; set;}
+    [SerializeField] string dialogueName;
     QuickOutline outline;
-    Color outlineColor = Color.black;
+    Color outlineColor = new Color(0.7f, 0.9f, 1f);
 
     void Start () {
+        dialogueObject = Resources.Load<DialogueObject>(dialogueName);
         outline = gameObject.AddComponent<QuickOutline>();
         outline.OutlineColor = outlineColor;
         outline.OutlineMode = QuickOutline.Mode.OutlineVisible;
@@ -14,8 +16,9 @@ public class ItemObject : MonoBehaviour
         outline.enabled = false;
     }
 
-    public void Enter () {
+    public DialogueObject Enter () {
         outline.enabled = true;
+        return dialogueObject;
     }
 
     public void Exit () {

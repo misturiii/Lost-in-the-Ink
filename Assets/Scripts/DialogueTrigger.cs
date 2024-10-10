@@ -9,7 +9,7 @@ public class DialogueTrigger : MonoBehaviour
         // Check if the player entered the trigger area
         if (other.CompareTag(" ")) 
         {
-            dialogue.StartDialogue(true); // Start the dialogue
+            // dialogue.StartDialogue(true); // Start the dialogue
         }
     }
 
