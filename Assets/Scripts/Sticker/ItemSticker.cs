@@ -9,19 +9,15 @@ public class ItemSticker : Sticker
     [SerializeField] protected GameObject prefab;
     [SerializeField] public string stickername;
     public TextMeshProUGUI feedbackText;  
-    private readonly float xTolerance = 200f; 
-    private readonly float yTolerance = 200f; 
+    private readonly float xTolerance = 160f; 
+    private readonly float yTolerance = 160f; 
     private Vector3 initialPosition;  
 
     // 存储每个 Sticker 的目标位置
     private readonly Dictionary<string, List<Vector3>> stickerTargetPositions = new Dictionary<string, List<Vector3>>()
     {
-        { "Fountain(Clone)", new List<Vector3> { new Vector3(435.00f, 502.33f, 0.00f) } },
-        { "Flower", new List<Vector3> { new Vector3(73.00f, 346.33f, 0.00f), new Vector3(721.00f, 700.33f, 0.00f) } },
-        { "Bench(Clone)", new List<Vector3> { new Vector3(330.00f, 300f, 0.00f) } },
-        { "IceCream(Clone)", new List<Vector3> { new Vector3(330f, -50f, 0.00f) } },
-        { "Tree", new List<Vector3> { new Vector3(916.00f, 83.33f, 0.00f) } },
-        { "Ballon", new List<Vector3> { new Vector3(697.00f, 65.33f, 0.00f) } }
+        { "Bench(Clone)", new List<Vector3> { new Vector3(150.00f, 330f, 0.00f) } },
+        { "IceCream(Clone)", new List<Vector3> { new Vector3(370f, 80.0f, 0.00f) } }
     };
 
         // 追踪每个 Sticker 是否被正确放置
@@ -69,7 +65,7 @@ public class ItemSticker : Sticker
 
             if (isInTargetArea)
             {
-                ShowFeedbackMessage("Success", 1f);
+                // ShowFeedbackMessage("Success", 1f);
                 isPlacedCorrectly[name] = true; // 设置为已放置正确
                 Debug.Log("Success: Sticker placed in the correct area!");
                 if (!copy) {
@@ -81,10 +77,12 @@ public class ItemSticker : Sticker
             }
             else
             {
-                ShowFeedbackMessage("Try Again", 1f);
+                // ShowFeedbackMessage("Try Again", 1f);
                 Debug.Log("Try Again: Sticker not placed in the correct area.");
                 inventoryDisplay.AddToInventory(this, null);
-                Destroy(copy.gameObject);
+                if (copy) {
+                    Destroy(copy.gameObject);
+                }
                 Destroy(gameObject);
                 return;
             }
