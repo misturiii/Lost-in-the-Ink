@@ -89,5 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  feedbackText: {fileID: 0}
   prefab: {fileID: 8347712863312571353, guid: ac01e4ff8abeb544d8ffebd987fe3918, type: 3}
+  stickername: BenchSticker
+  feedbackText: {fileID: 0}

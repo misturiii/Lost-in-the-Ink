@@ -89,5 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  feedbackText: {fileID: 0}
   prefab: {fileID: 6973881313497166318, guid: 5cb38590ed3d84014ba5c7fd63545b2a, type: 3}
+  name: BallonSticker
+  feedbackText: {fileID: 0}

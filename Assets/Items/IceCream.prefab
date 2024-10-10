@@ -89,5 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  feedbackText: {fileID: 0}
   prefab: {fileID: 2464042667838315789, guid: 1422bb1936309454c84d3e7d34455f96, type: 3}
+  stickername: IceCreamSticker
+  feedbackText: {fileID: 0}

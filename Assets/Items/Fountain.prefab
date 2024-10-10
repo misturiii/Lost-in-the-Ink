@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5658093242596591195}
   - component: {fileID: 6410707626794223097}
   - component: {fileID: 7474888625593500139}
-  - component: {fileID: 6990097613139864329}
+  - component: {fileID: -4958389864113466844}
   m_Layer: 5
   m_Name: Fountain
   m_TagString: Sticker
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6990097613139864329
+--- !u!114 &-4958389864113466844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1263774752063172929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea05f6b87233c7945b8bd07659b9eea0, type: 3}
+  m_Script: {fileID: 11500000, guid: 812de3aa1eb62aa49882dcc913a4ced0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
