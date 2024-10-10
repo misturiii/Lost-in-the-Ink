@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Rr]ecordings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -62,3 +63,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+.DS_Store
+.vscode/
+
+.DS_Store
+.vscode/
+/.vscode
+
+.fake
