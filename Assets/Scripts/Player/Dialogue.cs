@@ -12,6 +12,8 @@ public class Dialogue : MonoBehaviour
     float textSpeed = 0.05f; // Speed of text typing
     String curLine;
     bool inProgress;
+    string styleStart = "<b><color=#af001c>";
+    string styleEnd = "</color></b>";
 
     void Start()
     {
@@ -27,8 +29,6 @@ public class Dialogue : MonoBehaviour
             gameObject.SetActive(true);
             if (inProgress) {
                 // StopCoroutine(TypeLine());
-                inProgress = false;
-                textComponent.text = curLine;
                 inProgress = false;
             } else {
                 if (!dialogueObject.IsOver()) {
@@ -47,10 +47,15 @@ public class Dialogue : MonoBehaviour
         textComponent.text = string.Empty; // Ensure text is cleared before typing the current line
         // Type out each character one by one
 
-        foreach (char c in curLine.ToCharArray())
-        {
-            if(inProgress){
+        foreach (char c in curLine.ToCharArray()) {
+            if (c == '<') {
+                textComponent.text += styleStart;
+            } else if (c == '>') {
+                textComponent.text += styleEnd;
+            } else {
                 textComponent.text += c; // Append character
+            }
+            if (inProgress) {
                 yield return new WaitForSeconds(textSpeed); // Wait before typing the next character
 
             }

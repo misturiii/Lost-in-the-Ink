@@ -21,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     void OnTriggerEnter (Collider collider) {
         if (collider.tag == "Npc") {
             dialogue.dialogueObject = collider.GetComponent<NPC>().Enter();
+            dialogue.dialogueObject.Reset();
         } 
         if (collider.tag == "PickableItem") {
             collider.GetComponent<ItemObject>().Enter();
@@ -29,7 +30,6 @@ public class DialogueManager : MonoBehaviour
     void OnTriggerExit (Collider collider) {
         if (collider.tag == "Npc") {
             dialogue.gameObject.SetActive(false);
-            dialogue.dialogueObject.Reset();
             dialogue.dialogueObject = null;
             collider.GetComponent<NPC>().Exit();
         }

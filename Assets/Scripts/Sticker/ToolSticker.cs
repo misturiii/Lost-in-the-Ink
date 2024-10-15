@@ -3,7 +3,7 @@ using UnityEngine;
 public class ToolSticker : Sticker
 {
     Transform target;
-    Vector2 tolerance  = new Vector2(125, 160);
+    Vector2 tolerance  = new Vector2(100, 140);
     [SerializeField] protected GameObject prefab;
     bool removed = false;
 

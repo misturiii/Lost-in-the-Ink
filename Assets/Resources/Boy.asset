@@ -28,8 +28,8 @@ MonoBehaviour:
     - You wouldn't know them. My two friends. Mia and Leo.
     - Or at least I thought we were friends. We were supposed to meet around 6:12
       here.
-    - "By the benches. We would always gather here around the benches and play but
-      \u2026"
+    - "By the <benches>. We would always gather here around the benches and play
+      but \u2026"
   - speaker: WILLIAM
     lines:
     - "But this place\u2026 it looks very empty\u2026 has it always been like this?  "
@@ -51,5 +51,5 @@ MonoBehaviour:
     - "Sure, let\u2019s do it. How would you describe the positions?"
   - speaker: THE CHILD
     lines:
-    - So there were four of the same bench. All put around this circle and near the
-      fountain.
+    - So there were four of the same bench. All <put around this circle and near
+      the fountain>.
