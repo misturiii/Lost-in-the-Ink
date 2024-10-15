@@ -5,7 +5,6 @@ using System;
 
 public class Dialogue : MonoBehaviour
 {
-
     public TextMeshProUGUI textComponent; // The TextMeshPro component for displaying dialogue
     public TextMeshProUGUI speakerCompoent;
     public DialogueObject dialogueObject;
@@ -14,6 +13,8 @@ public class Dialogue : MonoBehaviour
     bool inProgress;
     string styleStart = "<b><color=#af001c>";
     string styleEnd = "</color></b>";
+    
+    private DialogueManager dialogueManager;  // 引用 DialogueManager
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class Dialogue : MonoBehaviour
         gameObject.SetActive(false); // Hide the dialogue box initially
         curLine = null;
         inProgress = false;
+        dialogueManager = FindObjectOfType<DialogueManager>();  // 查找 DialogueManager 组件
     }
 
     public void DsiplayDialogue()
@@ -36,6 +38,7 @@ public class Dialogue : MonoBehaviour
                     StartCoroutine(TypeLine());
                 } else {
                     gameObject.SetActive(false);
+                    OnDialogueFinish();  // 当对话结束时，调用这个方法
                 }
             } 
         }
@@ -57,9 +60,21 @@ public class Dialogue : MonoBehaviour
             }
             if (inProgress) {
                 yield return new WaitForSeconds(textSpeed); // Wait before typing the next character
-
             }
         }
         inProgress = false;
+    }
+
+    // 当对话结束时调用的方法
+    private void OnDialogueFinish()
+    {
+        if (dialogueManager != null)
+        {
+            dialogueManager.OnDialogueEnd();  // 通知 DialogueManager 对话结束
+        }
+        else
+        {
+            Debug.LogError("DialogueManager not found when trying to end dialogue.");
+        }
     }
 }
