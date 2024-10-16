@@ -15,39 +15,36 @@ MonoBehaviour:
   dialogues:
   - speaker: THE JESTER
     lines:
-    - 'Oh look who we have here! William, the <painter>! Did you get lost or something? '
-    - 'I thought you had forgotten me by now. Never I imagined that I would see you
-      again '
+    - Oh look who we have here! William, the painter! You got lost or something?
+    - "Never I imagined that we\u2019d see each other again."
   - speaker: WILLIAM
     lines:
-    - "I\u2019m sorry I think I am lost?\u2026 um\u2026 sorry do I know you? "
+    - "I\u2019m sorry I think I am lost?\u2026 um\u2026 sorry do I know you?"
   - speaker: THE JESTER
     lines:
-    - 'Some things never change huh? Lost again just as you were when you came here
-      as a little boy. '
+    - Some things never change huh? Lost again just as you were when you came here
+      as a little boy.
     - "I remember it well indeed and I\u2019m sure that you do too\u2026? "
   - speaker: WILLIAM
     lines:
     - "I\u2019m not sure\u2026 where is thi-"
   - speaker: THE JESTER
     lines:
-    - "Oh same old same old William. But hey! I\u2019ve got your back. "
-    - 'You see, I too forget stuff all the time. '
-    - "But I\u2019ve noticed how these memories have been serving me as a bridge
-      in time.  "
-    - 'Past and future.It maintains the flow of events and the never-ending cycle
-      of life.  '
-    - "Liken it to the image of Ouroboros or\u2026 or a <fountain>. See how the flow
-      of water is never ending and it sustains\u2026 within itself."
+    - 'Oh same old same old William. '
+    - You see, I too forget stuff all the time.
+    - These memories have been serving me as a bridge in time. Past and future.
+    - "It maintains the flow of events and the never-ending cycle of life. Liken
+      it to the image of Ouroboros or\u2026 or a <fountain>. "
   - speaker: WILLIAM
     lines:
     - "I don\u2019t think I\u2019m understanding what you\u2019re sa-"
   - speaker: THE JESTER
     lines:
-    - 'Forget all that nonsense. Here, take this. Let this be a gift for our reunion.
-      Now go on.  '
-    - That <child near the fountain> seems to be just as lost as you are. Why not
+    - 'Forget all that nonsense. Here, take this <sticker>. Let this be a gift for
+      our reunion. Now go open your <sketchbook> '
+    - You will see the magic of this little sticker.
+    - That <child> near the fountain seems to be just as lost as you are. Why not
       brighten them up a little huh?
   - speaker: WILLIAM
     lines:
-    - "But I don\u2019t see any\u2014"
+    - "But I don\u2019t see any\u2014 "

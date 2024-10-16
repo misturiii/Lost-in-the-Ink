@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5542368356494096441}
   - component: {fileID: 4783509037140690546}
   - component: {fileID: 1532475992837809066}
-  - component: {fileID: 1899368436897987432}
+  - component: {fileID: -5250913991754891705}
   m_Layer: 5
   m_Name: IceCream
   m_TagString: Sticker
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 80, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4783509037140690546
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: da53c5e6f897947f9a71eb9c0a1f25a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c0c415bc39cd71f42b917077ae7fa617, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1899368436897987432
+--- !u!114 &-5250913991754891705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,10 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9042687586338586798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea05f6b87233c7945b8bd07659b9eea0, type: 3}
+  m_Script: {fileID: 11500000, guid: 812de3aa1eb62aa49882dcc913a4ced0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
   prefab: {fileID: 2464042667838315789, guid: 1422bb1936309454c84d3e7d34455f96, type: 3}
-  stickername: IceCreamSticker
-  feedbackText: {fileID: 0}
+  targetName: BallonCartTarget
+  prefabPosition: {x: 11, y: 0, z: 12.5}

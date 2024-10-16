@@ -25,25 +25,24 @@ MonoBehaviour:
     - "Who are you waiting for? I\u2019m sure they haven\u2019t forgotten about you. "
   - speaker: THE CHILD
     lines:
-    - You wouldn't know them. My two friends. Mia and Leo.
-    - Or at least I thought we were friends. We were supposed to meet around 6:12
-      here.
-    - "By the <benches>. We would always gather here around the benches and play
-      but \u2026"
+    - You wouldn't know them. My best friend. Leo.
+    - 'We were supposed to meet around 6 here. By the benches. '
+    - "We would always gather here and play but \u2026  "
   - speaker: WILLIAM
     lines:
     - "But this place\u2026 it looks very empty\u2026 has it always been like this?  "
   - speaker: THE CHILD
     lines:
     - "You\u2019re right\u2026 This isn\u2019t the same place as I remember it to
-      be. Oh! Maybe That\u2019s why my friends can\u2019t find me."
+      be. Oh! Maybe that\u2019s why my friends can\u2019t find me."
     - Do you think you could help me find them?
   - speaker: WILLIAM
     lines:
-    - Uh sure. Do you want to describe what the place looked like? Maybe we could
-      go look for it?
+    - 'Uh sure. Do you want to describe what the place looked like? Maybe we could
+      go look for it? '
   - speaker: THE CHILD
     lines:
+    - "I don\u2019t know if I can describe it in words very well "
     - "The sketchbook! If you could draw them on a page, it\u2019d be easier for
       me to remember the look of that place."
   - speaker: WILLIAM
@@ -51,5 +50,5 @@ MonoBehaviour:
     - "Sure, let\u2019s do it. How would you describe the positions?"
   - speaker: THE CHILD
     lines:
-    - So there were four of the same bench. All <put around this circle and near
+    - So there were <four> of the same bench. All put <around this circle> and <near
       the fountain>.

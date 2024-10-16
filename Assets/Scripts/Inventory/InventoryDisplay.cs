@@ -125,7 +125,7 @@ public class InventoryDisplay : MonoBehaviour
     public void AddToSketchBook (Sticker sticker) {   
         sticker.transform.SetParent(sketchbook);
         RemoveSticker(sticker);
-        PointToSketchBook(sticker);
+        // PointToSketchBook(sticker);
         UpdateInventoryDisplay();
     }
 
@@ -162,6 +162,8 @@ public class InventoryDisplay : MonoBehaviour
             GameObject sticker = Instantiate(item.prefab, inventoryBoxes[i].transform); 
             stickers[i] = sticker.GetComponent<Sticker>();
             stickers[i].index = i;
+            Debug.Log(stickers[i].name);
+            Debug.Log(stickers[i].index);
         }
     }
 }

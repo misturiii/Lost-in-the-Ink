@@ -36,7 +36,7 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
             inputActions = FindObjectOfType<InputActionManager>().inputActions;
             outline = gameObject.AddComponent<Outline>();
             outline.effectColor = Color.black;
-            outline.effectDistance = new Vector2(10, -10);
+            outline.effectDistance = new Vector2(2, -2);
             outline.enabled = false;
         } 
     }

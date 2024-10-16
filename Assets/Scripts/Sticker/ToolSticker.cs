@@ -5,11 +5,12 @@ public class ToolSticker : Sticker
     Transform target;
     Vector2 tolerance  = new Vector2(100, 140);
     [SerializeField] protected GameObject prefab;
-    bool removed = false;
+    [SerializeField] string targetName;
+    [SerializeField] Vector3 prefabPosition;
 
     protected override void Initialize() {
         enabled = true;
-        target = GameObject.FindWithTag("Puzzle").transform;
+        target = GameObject.Find(targetName).transform;
     }
 
     protected override void UseStickerAfter() {}
@@ -22,8 +23,11 @@ public class ToolSticker : Sticker
                 return;
             }
         }
-        Instantiate(prefab).transform.position = TransformationFunction.BookToWorld(target.localPosition);
-        inventoryDisplay.RemoveSticker(this);
+        Transform item = Instantiate(prefab).transform;
+        item.position = prefabPosition;
+        item.GetComponent<ColorChange>().Initialize();
+        // inventoryDisplay.RemoveSticker(this);
+        target.GetComponent<StickerChange>().Change();
         Destroy(gameObject);
     }
 }
