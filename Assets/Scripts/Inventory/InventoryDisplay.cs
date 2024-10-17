@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -123,16 +122,20 @@ public class InventoryDisplay : MonoBehaviour
         SelectInventory(i);
     }
 
-    public void AddToSketchBook (Sticker sticker) {
-        
+    public void AddToSketchBook (Sticker sticker) {   
         sticker.transform.SetParent(sketchbook);
-        inventory.Remove(sticker.index);
-        PointToSketchBook(sticker);
+        RemoveSticker(sticker);
+        // PointToSketchBook(sticker);
         UpdateInventoryDisplay();
     }
 
-    public void AddToInventory (ToolSticker sticker, Sticker next) {
-        inventory.Add(Resources.Load<Item>(sticker.itemName));
+    public void RemoveSticker (Sticker sticker) {
+        inventory.Remove(sticker.index);
+    }
+
+    public void AddToInventory (ItemSticker sticker, Sticker next) {
+        inventory.Add(Resources.Load<Item>(sticker.stickername));
+        UpdateInventoryDisplay();
         PointToInventory(inventory.items.Count - 1);
         sketchbookSelect = next;
     }
@@ -159,6 +162,8 @@ public class InventoryDisplay : MonoBehaviour
             GameObject sticker = Instantiate(item.prefab, inventoryBoxes[i].transform); 
             stickers[i] = sticker.GetComponent<Sticker>();
             stickers[i].index = i;
+            Debug.Log(stickers[i].name);
+            Debug.Log(stickers[i].index);
         }
     }
 }

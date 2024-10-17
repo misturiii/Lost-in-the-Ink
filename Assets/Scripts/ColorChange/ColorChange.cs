@@ -1,19 +1,24 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ColorChange : MonoBehaviour
 {
     [SerializeField] float duration = 5f;
     protected Material mat;
     public float progress = 0;
+    InputAction inputAction;
 
     protected static readonly int progressId = Shader.PropertyToID("_Progress");
 
-    void Start () {
+    public void Initialize () {
         mat = GetComponent<Renderer>().material;
+        inputAction = FindObjectOfType<InputActionManager>().inputActions.Player.Trigger;
+        inputAction.performed += Change;
     }
 
     protected IEnumerator AutoColorChange () {
+        inputAction.performed -= Change;
         while (progress < 1) {
             progress += Time.deltaTime / duration;
             mat.SetFloat(progressId, progress);
@@ -21,9 +26,7 @@ public class ColorChange : MonoBehaviour
         }
     }
 
-    void OnCollisionStay (Collision collision) {
-        if (progress == 0 && collision.collider.tag == "Ground") {
-            StartCoroutine(AutoColorChange());
-        }
+    void Change (InputAction.CallbackContext context) {
+        StartCoroutine(AutoColorChange());
     }
 }

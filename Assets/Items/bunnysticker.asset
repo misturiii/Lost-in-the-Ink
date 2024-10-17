@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbeb1f451691341da8760d52a7bd6101, type: 3}
+  m_Name: bunnysticker
+  m_EditorClassIdentifier: 
+  itemName: bunnysticker
+  icon: {fileID: 21300000, guid: 9213776cedb194e39b3831e98670cad5, type: 3}
+  itemType: BunnySticker
+  prefab: {fileID: 5935079644648123318, guid: 2fb5d8662205f5547971e125e5c22cf5, type: 3}

@@ -1,31 +1,33 @@
-using System;
 using UnityEngine;
 
 public class ToolSticker : Sticker
 {
-    [SerializeField] float distance = 10;
-    [SerializeField] public String itemName;
-    ToolBehaviour behaviour;
     Transform target;
+    Vector2 tolerance  = new Vector2(100, 140);
+    [SerializeField] protected GameObject prefab;
+    [SerializeField] string targetName;
+    [SerializeField] Vector3 prefabPosition;
 
     protected override void Initialize() {
         enabled = true;
-        behaviour = GetComponent<ToolBehaviour>();
-        target = behaviour.GetTarget();
+        target = GameObject.Find(targetName).transform;
     }
 
     protected override void UseStickerAfter() {}
 
     protected override void UseStickerBefore()
     {
-        if ((transform.position - target.position).magnitude > distance) {
-            if (InInventory()) {
+        for (int i = 0; i < 2; i++) {
+            if (Mathf.Abs(transform.position[i] - target.position[i]) > tolerance[i]) {
                 transform.localPosition = Vector3.zero;
-            } else {
-                
+                return;
             }
-        } else {
-            behaviour.StartBehaviour();
         }
+        Transform item = Instantiate(prefab).transform;
+        item.position = prefabPosition;
+        item.GetComponent<ColorChange>().Initialize();
+        // inventoryDisplay.RemoveSticker(this);
+        target.GetComponent<StickerChange>().Change();
+        Destroy(gameObject);
     }
 }

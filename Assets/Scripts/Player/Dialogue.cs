@@ -1,92 +1,80 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent; // The TextMeshPro component for displaying dialogue
-    public string[] initialLines; // Lines to show before interaction
-    public string[] followUpLines; // Lines to show after interaction
-    public float textSpeed = 0.05f; // Speed of text typing
-    private int index; // Current index of the line being displayed
-    public bool canProceed; // Determines if the player can interact
-    public bool isDialogueComplete; // Indicates if the current dialogue is complete
-    public bool hasInteracted; // Tracks if the player has interacted
-    public bool started; // Tracks if the dialogue has started
-    public bool isInitialComplete; // Tracks if the initial dialogue is complete
+    public TextMeshProUGUI speakerCompoent;
+    public DialogueObject dialogueObject;
+    float textSpeed = 0.05f; // Speed of text typing
+    String curLine;
+    bool inProgress;
+    string styleStart = "<b><color=#af001c>";
+    string styleEnd = "</color></b>";
+    
+    private DialogueManager dialogueManager;  // 引用 DialogueManager
 
     void Start()
     {
         textComponent.text = string.Empty; // Clear text at start
         gameObject.SetActive(false); // Hide the dialogue box initially
-        StartDialogue(true);
+        curLine = null;
+        inProgress = false;
+        dialogueManager = FindObjectOfType<DialogueManager>();  // 查找 DialogueManager 组件
     }
 
-    public void StartDialogue(bool init)
+    public void DsiplayDialogue()
     {
-        index = 0; // Reset index
-        canProceed = false; // Disable interaction initially
-        isDialogueComplete = false; // Reset dialogue completion status
-        started = true; // Set dialogue started flag
-        if (init) {
-            isInitialComplete = false;
-            hasInteracted = false;
+        if (dialogueObject) {
+            gameObject.SetActive(true);
+            if (inProgress) {
+                // StopCoroutine(TypeLine());
+                inProgress = false;
+            } else {
+                if (!dialogueObject.IsOver()) {
+                    (speakerCompoent.text, curLine) = dialogueObject.CurrentLine(); 
+                    StartCoroutine(TypeLine());
+                } else {
+                    gameObject.SetActive(false);
+                    OnDialogueFinish();  // 当对话结束时，调用这个方法
+                }
+            } 
         }
-        else{
-            isInitialComplete = true;
-            hasInteracted = true;
-        }
-        gameObject.SetActive(true); // Show the dialogue box
-        textComponent.text = string.Empty; // Ensure text is cleared before typing new dialogue
-        StartCoroutine(TypeLine()); // Start typing the first line
     }
 
     IEnumerator TypeLine()
     {
+        inProgress = true;
         textComponent.text = string.Empty; // Ensure text is cleared before typing the current line
         // Type out each character one by one
-        foreach (char c in GetCurrentDialogue()[index].ToCharArray())
-        {
-            textComponent.text += c; // Append character
-            yield return new WaitForSeconds(textSpeed); // Wait before typing the next character
+
+        foreach (char c in curLine.ToCharArray()) {
+            if (c == '<') {
+                textComponent.text += styleStart;
+            } else if (c == '>') {
+                textComponent.text += styleEnd;
+            } else {
+                textComponent.text += c; // Append character
+            }
+            if (inProgress) {
+                yield return new WaitForSeconds(textSpeed); // Wait before typing the next character
+            }
         }
-        isDialogueComplete = true; // Mark dialogue as complete
-        canProceed = true; // Allow interaction
+        inProgress = false;
     }
 
-    public void NextLine()
+    // 当对话结束时调用的方法
+    private void OnDialogueFinish()
     {
-        // Move to the next line in the dialogue
-        if (index < GetCurrentDialogue().Length - 1)
+        if (dialogueManager != null)
         {
-            index++; // Increment the index
-            textComponent.text = string.Empty; // Clear current text
-            StartCoroutine(TypeLine()); // Start typing the next line
+            dialogueManager.OnDialogueEnd();  // 通知 DialogueManager 对话结束
         }
         else
         {
-            // End the dialogue when all lines are completed
-            if (!isInitialComplete)
-            {
-                isInitialComplete = true; // Set initial dialogue completion status
-            }
-            started = false; // Reset started flag
-            index = 0; // Reset index to 0 for follow-up dialogue
-            gameObject.SetActive(false); // Hide dialogue box
+            Debug.LogError("DialogueManager not found when trying to end dialogue.");
         }
-    }
-
-    private string[] GetCurrentDialogue()
-    {
-        // Return the current dialogue based on interaction status
-        return hasInteracted ? followUpLines : initialLines; 
-    }
-
-    public void SetInteracted()
-    {   
-        StartDialogue(false); // Start the follow-up dialogue
-        hasInteracted = true; // Mark as interacted only if the initial dialogue is complete
-        index = 0; // Reset the index to 0 for the follow-up dialogue
-        textComponent.text = string.Empty; // Clear any previous text
     }
 }

@@ -23,7 +23,7 @@ public class ColorChange1 : MonoBehaviour
     }
 
     void Update() {
-        if (progress == 0 && target.progress >= 1) {
+        if (progress == 0 && target.progress > 0) {
             StartCoroutine(AutoColorChange());
         }
     }

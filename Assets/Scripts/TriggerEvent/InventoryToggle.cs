@@ -21,8 +21,19 @@ public class InventoryToggle : MonoBehaviour
     // Method to toggle the inventory visibility
     void ToggleInventory(InputAction.CallbackContext context)
     {
+        ToggleInventory();
+    }
+
+    public void ToggleInventory() {
         isInventoryOpen = !isInventoryOpen;  // Toggle the inventory state
         inventoryPanel.SetActive(isInventoryOpen);  // Show or hide the panel based on the state
         inventoryPanel2.SetActive(isInventoryOpen);  // Show or hide the panel based on the state
+        if (isInventoryOpen) {
+            inputActions.Player.Disable();
+            inputActions.UI.Enable();
+        } else {
+            inputActions.Player.Enable();
+            inputActions.UI.Disable();
+        }
     }
 }
