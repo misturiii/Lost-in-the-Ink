@@ -11,9 +11,9 @@ public class ColorChange : MonoBehaviour
 
     protected static readonly int progressId = Shader.PropertyToID("_Progress");
 
-    public void Initialize () {
+    public void Awake () {
         mat = GetComponent<Renderer>().material;
-        inputAction = FindObjectOfType<InputActionManager>().inputActions.Player.Trigger;
+        inputAction = FindObjectOfType<InputActionManager>().inputActions.UI.Trigger;
         inputAction.performed += Change;
     }
 

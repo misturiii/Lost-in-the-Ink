@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ToolSticker : Sticker
@@ -7,6 +8,7 @@ public class ToolSticker : Sticker
     [SerializeField] protected GameObject prefab;
     [SerializeField] string targetName;
     [SerializeField] Vector3 prefabPosition;
+    Transform item;
 
     protected override void Initialize() {
         enabled = true;
@@ -23,11 +25,12 @@ public class ToolSticker : Sticker
                 return;
             }
         }
-        Transform item = Instantiate(prefab).transform;
-        item.position = prefabPosition;
-        item.GetComponent<ColorChange>().Initialize();
-        // inventoryDisplay.RemoveSticker(this);
-        target.GetComponent<StickerChange>().Change();
-        Destroy(gameObject);
+        if (!item) {
+            item = Instantiate(prefab).transform;
+            item.position = prefabPosition;
+            // inventoryDisplay.RemoveSticker(this);
+            target.GetComponent<StickerChange>().Change();
+            gameObject.SetActive(false);
+        }
     }
 }

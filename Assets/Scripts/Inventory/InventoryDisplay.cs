@@ -148,7 +148,7 @@ public class InventoryDisplay : MonoBehaviour
             foreach (InventoryBox box in inventoryBoxes)
             {
                 if (box.transform.childCount == 1) {
-                    Destroy(box.transform.GetChild(0).gameObject);
+                    box.transform.GetChild(0).gameObject.SetActive(false);
                 }
             }
         }

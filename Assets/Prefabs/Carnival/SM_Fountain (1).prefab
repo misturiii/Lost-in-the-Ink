@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 4377904641233592826}
   - component: {fileID: 6030011849947401424}
   - component: {fileID: 6271549732974580343}
+  - component: {fileID: 3127018180975306129}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Npc
@@ -240,6 +241,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueName: Boy
+--- !u!136 &3127018180975306129
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160540397807548936}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.49999997
+  m_Height: 1.9999998
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.000000059604645, z: 0}
 --- !u!1001 &733518351098815178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -352,10 +376,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 84374998e4b1d4e949a8916953f5f07a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1913654622872123933}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 84374998e4b1d4e949a8916953f5f07a,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2120621064826048943}
   m_SourcePrefab: {fileID: 100100000, guid: 84374998e4b1d4e949a8916953f5f07a, type: 3}
 --- !u!1 &498935133218578331 stripped
@@ -386,33 +406,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1436397947792444526, guid: 84374998e4b1d4e949a8916953f5f07a, type: 3}
---- !u!54 &-1913654622872123933
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498935133218578331}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &2120621064826048943
 MonoBehaviour:
   m_ObjectHideFlags: 0
