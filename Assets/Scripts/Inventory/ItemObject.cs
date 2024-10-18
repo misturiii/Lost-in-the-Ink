@@ -1,16 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemObject : MonoBehaviour
 {
     public Item item; // Reference to the ScriptableObject that holds item data
-    QuickOutline outline;
-    Color outlineColor = Color.black;
+    Outline outline;
 
     void Start () {
-        outline = gameObject.AddComponent<QuickOutline>();
-        outline.OutlineColor = outlineColor;
-        outline.OutlineMode = QuickOutline.Mode.OutlineVisible;
-        outline.OutlineWidth = 10;
+        outline = gameObject.AddComponent<Outline>();
+        outline.effectColor = Color.black;
+        outline.effectDistance = Vector2.one * 3;
         outline.enabled = false;
     }
 

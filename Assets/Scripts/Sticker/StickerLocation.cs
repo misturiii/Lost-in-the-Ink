@@ -227,7 +227,7 @@ public abstract class StickerLocation : MonoBehaviour, IDragHandler, IDropHandle
     {
         if (InInventory())
         {
-            inventoryDisplay.PointToInventory(index);
+            inventoryDisplay.SelectInventory(index);
         }
         else
         {

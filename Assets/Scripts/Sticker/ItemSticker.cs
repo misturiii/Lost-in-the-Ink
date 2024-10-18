@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ItemSticker : Sticker
 {
@@ -51,10 +52,9 @@ public class ItemSticker : Sticker
         }
 
         Debug.Log($"Sticker Initialized: Name = {name}, Index = {index}, Position = {transform.position}");
-        }   
+        }
 
-    protected override void UseStickerBefore() {}
-    protected override void UseStickerAfter() {
+    public override void Drop (InputAction.CallbackContext context) {
         Vector3 droppedPosition = transform.position;
         Debug.Log($"Sticker Dropped: Name = {name}, Index = {index}, Position = {droppedPosition}");
 
@@ -79,7 +79,6 @@ public class ItemSticker : Sticker
             {
                 // ShowFeedbackMessage("Try Again", 1f);
                 Debug.Log("Try Again: Sticker not placed in the correct area.");
-                inventoryDisplay.AddToInventory(this, null);
                 if (copy) {
                     Destroy(copy.gameObject);
                 }

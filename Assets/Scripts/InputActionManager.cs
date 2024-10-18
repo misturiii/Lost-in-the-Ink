@@ -12,7 +12,6 @@ public class InputActionManager : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Global.Quit.performed += Quit;
         inputActions.UI.Disable();
-        inputActions.Puzzle.Disable();
     }
 
     void Quit (InputAction.CallbackContext context) {

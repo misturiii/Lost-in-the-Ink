@@ -10,6 +10,7 @@ public class InventoryBox : MonoBehaviour, IPointerEnterHandler
     Image bg;
     InventoryDisplay inventoryDisplay;
     public int index;
+    public Sticker sticker;
 
     public void initialize () {
         bg = GetComponent<Image>();
@@ -20,14 +21,25 @@ public class InventoryBox : MonoBehaviour, IPointerEnterHandler
     public void Select () {
         bg.color = selectColor;
         inventoryDisplay.index = index;
+        if (sticker) {
+            sticker.Select();
+        }
     }
 
     public void Deselect () {
         bg.color = initialColor;
+        if (sticker) {
+            sticker.Deselect();
+        }
+    }
+
+    public void RemoveSticker () {
+        inventoryDisplay.RemoveSticker(sticker.index);
+        sticker = null;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        inventoryDisplay.PointToInventory(index);
+        inventoryDisplay.SelectInventory(index);
     }
 }

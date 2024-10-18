@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,8 @@ using UnityEngine;
 public class Inventory : ScriptableObject
 {
     public List<Item> items = new List<Item>();
+    public event Action OnEmptyInventory;
+    public event Action OnContainSticker;
 
     // Method to add an item to the inventory
     public void Add(Item item)
@@ -17,12 +19,15 @@ public class Inventory : ScriptableObject
         {
             Debug.Log("Sticker: " + items[i].name); // Assuming 'name' is a property in your Item class
         }
+        OnContainSticker?.Invoke();
     }
 
     public void Remove (int index) {
-        Debug.Log(items[0]);
-        Debug.Log(index);
+        Debug.Log($"remove item at index {index}");
         items.Remove(items[index]);
+        if (items.Count == 0) {
+            OnEmptyInventory?.Invoke();
+        }
     }
 
     // New method to clear the inventory

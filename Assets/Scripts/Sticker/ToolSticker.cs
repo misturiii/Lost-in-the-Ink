@@ -1,36 +1,36 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ToolSticker : Sticker
 {
     Transform target;
-    Vector2 tolerance  = new Vector2(100, 140);
+    Vector2 tolerance;
     [SerializeField] protected GameObject prefab;
     [SerializeField] string targetName;
     [SerializeField] Vector3 prefabPosition;
     Transform item;
-
     protected override void Initialize() {
         enabled = true;
         target = GameObject.Find(targetName).transform;
+        tolerance = 0.5f * target.GetComponent<RectTransform>().sizeDelta;
+        Debug.Log($"sticker {name} has tolerance {tolerance}");
     }
 
-    protected override void UseStickerAfter() {}
 
-    protected override void UseStickerBefore()
-    {
+    public override void Drop(InputAction.CallbackContext context) {
         for (int i = 0; i < 2; i++) {
             if (Mathf.Abs(transform.position[i] - target.position[i]) > tolerance[i]) {
                 transform.localPosition = Vector3.zero;
+                sketchbookGuide.DisplayResult(false);
                 return;
             }
         }
-        if (!item) {
-            item = Instantiate(prefab).transform;
-            item.position = prefabPosition;
-            // inventoryDisplay.RemoveSticker(this);
-            target.GetComponent<StickerChange>().Change();
-            gameObject.SetActive(false);
-        }
+        sketchbookGuide.DisplayResult(true);
+        item = Instantiate(prefab).transform;
+        item.position = prefabPosition;
+        target.GetComponent<StickerChange>().Change();
+        inventoryBox.RemoveSticker();
+        inputActions.UI.Click.canceled -= Drop;
+        Destroy(gameObject);
     }
 }

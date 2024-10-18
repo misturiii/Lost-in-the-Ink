@@ -1,15 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using System;
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent; // The TextMeshPro component for displaying dialogue
     public TextMeshProUGUI speakerCompoent;
+    public GameObject more;
     public DialogueObject dialogueObject;
     float textSpeed = 0.05f; // Speed of text typing
-    String curLine;
+    string curLine;
     bool inProgress;
     string styleStart = "<b><color=#af001c>";
     string styleEnd = "</color></b>";
@@ -23,9 +23,18 @@ public class Dialogue : MonoBehaviour
         curLine = null;
         inProgress = false;
         dialogueManager = FindObjectOfType<DialogueManager>();  // 查找 DialogueManager 组件
+        more.SetActive(false);
     }
 
-    public void DsiplayDialogue()
+    public void Reset() {
+        inProgress = false;
+        curLine = string.Empty;
+        if (dialogueObject) {
+            dialogueObject.Reset();
+        }
+    }
+
+    public void DisplayDialogue()
     {
         if (dialogueObject) {
             gameObject.SetActive(true);
@@ -39,6 +48,7 @@ public class Dialogue : MonoBehaviour
                 } else {
                     gameObject.SetActive(false);
                     OnDialogueFinish();  // 当对话结束时，调用这个方法
+                    dialogueObject.Reset();
                 }
             } 
         }
@@ -46,6 +56,7 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator TypeLine()
     {
+        more.SetActive(false);
         inProgress = true;
         textComponent.text = string.Empty; // Ensure text is cleared before typing the current line
         // Type out each character one by one
@@ -63,6 +74,7 @@ public class Dialogue : MonoBehaviour
             }
         }
         inProgress = false;
+        more.SetActive(true);
     }
 
     // 当对话结束时调用的方法

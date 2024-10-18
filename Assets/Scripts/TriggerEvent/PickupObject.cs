@@ -35,6 +35,8 @@ public class PickupObject : MonoBehaviour
         if (other.CompareTag("PickableItem"))
         {
             currentItem = other.gameObject; // Store the currently detected item
+            currentItem.GetComponent<ItemObject>().Enter();
+            
             Debug.Log("Detected item: " + currentItem.name);
 
             // Show the pickup text and background
@@ -48,6 +50,7 @@ public class PickupObject : MonoBehaviour
         if (other.CompareTag("PickableItem"))
         {
             Debug.Log("Exited item: " + currentItem.name);
+            currentItem.GetComponent<ItemObject>().Exit();
             currentItem = null;
 
             // Hide the pickup text and background

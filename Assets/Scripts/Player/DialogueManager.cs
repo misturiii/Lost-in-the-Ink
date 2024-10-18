@@ -40,7 +40,7 @@ public class DialogueManager : MonoBehaviour
 
     void AccessDialogue(InputAction.CallbackContext context) {
         if (dialogue) {
-            dialogue.DsiplayDialogue();
+            dialogue.DisplayDialogue();
 
             // 隐藏 NPC 交互提示
             if (npcInteractionBackground != null && npcInteractionText != null&& controllerInteract != null) {
@@ -94,7 +94,7 @@ public class DialogueManager : MonoBehaviour
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Npc") {
             dialogue.dialogueObject = collider.GetComponent<NPC>().Enter();
-            dialogue.dialogueObject.Reset();
+            dialogue.Reset();
 
             // 显示NPC交互提示
             if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
