@@ -63,7 +63,7 @@ public class SketchbookGuide : MonoBehaviour
     IEnumerator DisplayResultForSeconds (bool success) {
         textComponent.text = success ? "Sticker placed at the correct location" : "<color=#af001c>Sticker placed at the wrong location</color>";
         yield return new WaitForSeconds(duration);
-        textComponent.text = dragGuide;
+        textComponent.text = DecideGuide();
         textComponent.enabled = notPlaced;
     }
 
