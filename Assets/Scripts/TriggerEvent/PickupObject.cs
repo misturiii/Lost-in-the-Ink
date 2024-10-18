@@ -53,6 +53,7 @@ public class PickupObject : MonoBehaviour
             if (hit.collider.CompareTag("PickableItem"))
             {   
                 currentItem = hit.collider.gameObject; // Store the currently detected item
+                currentItem.GetComponent<ItemObject>().Enter();
                 Debug.Log("HITTTTTTTTTT " + currentItem.name);
                 Debug.Log("Detected item: " + currentItem.name);
                 ShowPickupGuide();
@@ -62,6 +63,7 @@ public class PickupObject : MonoBehaviour
             }
         }
         else{
+            currentItem.GetComponent<ItemObject>().Exit();
             HidePickupGuide();
         }
 

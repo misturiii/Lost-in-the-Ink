@@ -48,7 +48,7 @@ public class Dialogue : MonoBehaviour
                 } else {
                     gameObject.SetActive(false);
                     OnDialogueFinish();  // 当对话结束时，调用这个方法
-                    dialogueObject.Reset();
+                    // dialogueObject.Reset();
                 }
             } 
         }

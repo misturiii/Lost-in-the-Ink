@@ -62,7 +62,7 @@ public class DialogueManager : MonoBehaviour
         if (dialogue) {
             isDialogueActive = true;
            
-            dialogue.DsiplayDialogue();
+            dialogue.DisplayDialogue();
 
             // 隐藏 NPC 交互提示
             if (npcInteractionBackground != null && npcInteractionText != null&& controllerInteract != null) {
