@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 6271549732974580343}
   - component: {fileID: 3127018180975306129}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Child
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

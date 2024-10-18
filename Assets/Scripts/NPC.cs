@@ -14,6 +14,14 @@ public class NPC : MonoBehaviour
         outline.OutlineMode = QuickOutline.Mode.OutlineVisible;
         outline.OutlineWidth = 10;
         outline.enabled = false;
+
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("Npc");
+        foreach (GameObject npc in npcs) {
+            if (npc != gameObject && npc.name == name) {
+                Destroy(npc);
+                return;
+            }
+        }
     }
 
     public DialogueObject Enter () {

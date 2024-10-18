@@ -149,16 +149,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225984609543823783}
-  m_LocalRotation: {x: 0.6633882, y: 0.24477798, z: -0.2447781, w: 0.663388}
-  m_LocalPosition: {x: 0, y: 0, z: -0.2574315}
+  m_LocalRotation: {x: 0.5705798, y: -0.41765884, z: 0.41765854, w: 0.57057965}
+  m_LocalPosition: {x: 0, y: 0, z: -0.53}
   m_LocalScale: {x: 0.00200247, y: 0.0025883429, z: 0.0030567865}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3217428014469722903}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -170.095}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 72.408}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.633577, y: 0.03}
+  m_AnchoredPosition: {x: -8.629, y: 0.03}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5392553375318760413
@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 2142311209922440747}
   - component: {fileID: 5601327626631424947}
   m_Layer: 0
-  m_Name: The child
+  m_Name: Child
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
