@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI npcInteractionText;  // 提示文字
 
     public Image controllerInteract;
-    public float rayDistance = 20f;
+    public float rayDistance = 1.5f;
     private GameObject currentNpc; 
     private bool isDialogueActive = false;
 
@@ -43,23 +43,17 @@ public class DialogueManager : MonoBehaviour
     }
 
     void Update() {
-        // Perform a raycast each frame to detect NPCs
-        if(isDialogueActive){
-            Debug.Log("In Update isdialogueactive is true");
-             Debug.Log("Did not detect the RaycastForNPC");
-
-        }
-       //是false 进这个
+    
         if(!isDialogueActive){
-            Debug.Log("Enter the RaycastForNPC");
+            // Debug.Log("Enter the RaycastForNPC");
             RaycastForNpc();
         }
         
     }
 
   void AccessDialogue(InputAction.CallbackContext context) {
-        Debug.Log("enter AccessDialogue");
-        if (dialogue) {
+        // Debug.Log("enter AccessDialogue");
+        if (dialogue && currentNpc) {
             isDialogueActive = true;
            
             dialogue.DisplayDialogue();
@@ -133,6 +127,7 @@ public class DialogueManager : MonoBehaviour
         dialogue.dialogueObject = null;
         if(currentNpc){
             currentNpc.GetComponent<NPC>().Exit();
+            currentNpc = null; 
         }
         if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
             npcInteractionBackground.enabled = false;
