@@ -277,7 +277,7 @@ MonoBehaviour:
   pickupBackground: {fileID: 824416855}
   pickupText: {fileID: 2021644823}
   controllerGuide: {fileID: 1433519861}
-  rayDistance: 20
+  rayDistance: 1.2
 --- !u!114 &134521153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
   npcInteractionBackground: {fileID: 109385614}
   npcInteractionText: {fileID: 1182917255}
   controllerInteract: {fileID: 1867009391}
-  rayDistance: 20
+  rayDistance: 1.2
 --- !u!1 &135796444
 GameObject:
   m_ObjectHideFlags: 0
@@ -5444,8 +5444,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 300, y: 300, z: 300}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 300, y: 405.075, z: 309.5333}
+  m_Center: {x: -5.0713184e-14, y: 52.53754, z: -4.766677}
 --- !u!1 &1428096105
 GameObject:
   m_ObjectHideFlags: 0
@@ -6849,7 +6849,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 2.5
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
