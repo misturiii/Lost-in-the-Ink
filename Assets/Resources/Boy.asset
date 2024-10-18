@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Boy
   m_EditorClassIdentifier: 
   dialogues:
-  - speaker: William
+  - speaker: WILLIAM
     lines:
     - Hello? Are you ok?
   - speaker: THE CHILD
     lines:
     - "I\u2019ve been waiting for them for quite some time now. Did they just forget
       about me or something?"
-  - speaker: Wiliam
+  - speaker: WILLIAM
     lines:
     - "Who are you waiting for? I\u2019m sure they haven\u2019t forgotten about you. "
   - speaker: THE CHILD
