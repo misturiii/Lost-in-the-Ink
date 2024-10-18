@@ -13,6 +13,8 @@ public class PickupObject : MonoBehaviour
     public Image pickupBackground;       // Reference to the background image
     public TextMeshProUGUI pickupText;   // Reference to the text component
     public Image controllerGuide;
+
+    public float rayDistance = 20f;  // Distance the ray can detect
     void Start()
     {
         inventory = Resources.Load<Inventory>("PlayerInventory");
@@ -29,30 +31,40 @@ public class PickupObject : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider other)
+     void Update()
     {
-        // Check if the object is tagged as "PickableItem"
-        if (other.CompareTag("PickableItem"))
-        {
-            currentItem = other.gameObject; // Store the currently detected item
-            Debug.Log("Detected item: " + currentItem.name);
-
-            // Show the pickup text and background
-            ShowPickupGuide();
-        }
+        // Cast a ray from the player's camera forward
+        RaycastFromCamera();
     }
 
-    private void OnTriggerExit(Collider other)
+     void RaycastFromCamera()
     {
-        // Clear the current item when the player exits the trigger area
-        if (other.CompareTag("PickableItem"))
-        {
-            Debug.Log("Exited item: " + currentItem.name);
-            currentItem = null;
+        // Cast a ray from the camera's position forward, I placed it 0,0,0
+        Camera mainCamera = Camera.main;
+        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);  // Ray cast from the camera's position forward
+        RaycastHit hit;
 
-            // Hide the pickup text and background
+        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red,1f);
+
+
+         if (Physics.Raycast(ray, out hit, rayDistance))
+        {
+            // Check if the object has the Pickable tag
+            if (hit.collider.CompareTag("PickableItem"))
+            {   
+                currentItem = hit.collider.gameObject; // Store the currently detected item
+                Debug.Log("HITTTTTTTTTT " + currentItem.name);
+                Debug.Log("Detected item: " + currentItem.name);
+                ShowPickupGuide();
+            }
+            else{
+                HidePickupGuide();// Do not show guide
+            }
+        }
+        else{
             HidePickupGuide();
         }
+
     }
 
     void Grab(InputAction.CallbackContext context)

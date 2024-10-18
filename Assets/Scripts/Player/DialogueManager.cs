@@ -16,6 +16,10 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI npcInteractionText;  // 提示文字
 
     public Image controllerInteract;
+    public float rayDistance = 20f;
+    private GameObject currentNpc; 
+    private bool isDialogueActive = false;
+
     void Start () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.Click.Enable();
@@ -38,8 +42,26 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void AccessDialogue(InputAction.CallbackContext context) {
+    void Update() {
+        // Perform a raycast each frame to detect NPCs
+        if(isDialogueActive){
+            Debug.Log("In Update isdialogueactive is true");
+             Debug.Log("Did not detect the RaycastForNPC");
+
+        }
+       //是false 进这个
+        if(!isDialogueActive){
+            Debug.Log("Enter the RaycastForNPC");
+            RaycastForNpc();
+        }
+        
+    }
+
+  void AccessDialogue(InputAction.CallbackContext context) {
+        Debug.Log("enter AccessDialogue");
         if (dialogue) {
+            isDialogueActive = true;
+           
             dialogue.DsiplayDialogue();
 
             // 隐藏 NPC 交互提示
@@ -51,6 +73,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+
     // 对话结束时调用
     public void OnDialogueEnd() {
         // 当对话结束时，启用 Fountain Sticker 的 PickableItem tag
@@ -59,69 +82,65 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Fountain Sticker is now pickable.");
 
             // 检查玩家是否在 Fountain Sticker 的范围内
-            CheckPlayerProximityToSticker();
+            isDialogueActive = false;
+            Debug.Log("after dialogue, the state of isdialogueactive is " + isDialogueActive);
         }
+       
+
     }
 
-    // 检查玩家和 Fountain Sticker 之间的距离
-    private void CheckPlayerProximityToSticker() {
-        if (player != null && fountainSticker != null) {
-            float distance = Vector3.Distance(player.transform.position, fountainSticker.transform.position);
-            
-            // 如果玩家距离 Fountain Sticker 在一定范围内，则手动触发 pickup 提示
-            if (distance < 3.0f) {  // 距离值可以根据你的游戏设计调整
-                Debug.Log("Player is close to the Fountain Sticker after dialogue.");
+    private void RaycastForNpc() {
+        // Cast a ray from the camera's position forward
+        Camera mainCamera = Camera.main;
+        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        RaycastHit hit;
+
+        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.blue, 1f);
+
+        if (Physics.Raycast(ray, out hit, rayDistance)) {
+            if (hit.collider.CompareTag("Npc")) {
+                Debug.Log("NPCCCC HITTTT");
                 
-                // 模拟 OnTriggerEnter 的行为
-                SimulateTriggerEnter();
+                currentNpc = hit.collider.gameObject;  // Store the currently detected NPC
+                Debug.Log("NPC detected: " + currentNpc.name); // Debug
+                ShowNpcInteractionGuide();
+
             } else {
-                Debug.Log("Player is too far from the Fountain Sticker.");
+
+                HideNpcInteractionGuide();  // No NPC detected, hide the interaction guide
             }
-        }
-    }
-
-    // 手动模拟触发 OnTriggerEnter 行为
-    private void SimulateTriggerEnter() {
-        Collider fountainCollider = fountainSticker.GetComponent<Collider>();
-        if (fountainCollider != null) {
-            Debug.Log("Simulating OnTriggerEnter for the Fountain Sticker.");
-            pickupObject.OnTriggerEnter(fountainCollider);  // 模拟玩家重新进入检测区域
         } else {
-            Debug.LogError("Fountain Sticker does not have a Collider.");
+            HideNpcInteractionGuide();  // Nothing hit, hide the interaction guide
         }
     }
 
-    void OnTriggerEnter(Collider collider) {
-        if (collider.tag == "Npc") {
-            dialogue.dialogueObject = collider.GetComponent<NPC>().Enter();
+    // Show NPC interaction UI prompt
+    private void ShowNpcInteractionGuide() {
+            dialogue.dialogueObject = currentNpc.GetComponent<NPC>().Enter();
             dialogue.dialogueObject.Reset();
 
-            // 显示NPC交互提示
-            if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
-                npcInteractionBackground.enabled = true;
-                npcInteractionText.enabled = true;
-                controllerInteract.enabled =true;
-                npcInteractionText.text = "Press T or Left Click to start talking                    or";
-            }
-        } 
-        if (collider.tag == "PickableItem") {
-            collider.GetComponent<ItemObject>().Enter();
+        if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
+            npcInteractionBackground.enabled = true;
+            npcInteractionText.enabled = true;
+            controllerInteract.enabled = true;
+            npcInteractionText.text = "Press T or Left Click to start talking                    or";
         }
     }
 
-    void OnTriggerExit(Collider collider) {
-        if (collider.tag == "Npc") {
-            dialogue.gameObject.SetActive(false);
-            dialogue.dialogueObject = null;
-            collider.GetComponent<NPC>().Exit();
-            if (npcInteractionBackground != null && npcInteractionText != null&& controllerInteract != null) {
-                npcInteractionBackground.enabled = false;
-                npcInteractionText.enabled = false;
-                controllerInteract.enabled = false;
-            }
+    // Hide NPC interaction UI prompt
+    private void HideNpcInteractionGuide() {
+        dialogue.gameObject.SetActive(false);
+        dialogue.dialogueObject = null;
+        if(currentNpc){
+            currentNpc.GetComponent<NPC>().Exit();
         }
-        if (collider.tag == "PickableItem") {
-            collider.GetComponent<ItemObject>().Exit();
+        if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
+            npcInteractionBackground.enabled = false;
+            npcInteractionText.enabled = false;
+            controllerInteract.enabled = false;
         }
     }
+
+
+
 }
