@@ -14,7 +14,7 @@ public class PickupObject : MonoBehaviour
     public TextMeshProUGUI pickupText;   // Reference to the text component
     public Image controllerGuide;
 
-    public float rayDistance = 20f;  // Distance the ray can detect
+    public float rayDistance = 2f;  // Distance the ray can detect
     void Start()
     {
         inventory = Resources.Load<Inventory>("PlayerInventory");
@@ -54,26 +54,29 @@ public class PickupObject : MonoBehaviour
             {   
                 currentItem = hit.collider.gameObject; // Store the currently detected item
                 currentItem.GetComponent<ItemObject>().Enter();
-                Debug.Log("HITTTTTTTTTT " + currentItem.name);
-                Debug.Log("Detected item: " + currentItem.name);
                 ShowPickupGuide();
             }
             else{
+                
                 HidePickupGuide();// Do not show guide
             }
         }
         else{
-            currentItem.GetComponent<ItemObject>().Exit();
+            if(currentItem){
+                currentItem.GetComponent<ItemObject>().Exit();
+                currentItem = null;
+            }
             HidePickupGuide();
         }
 
     }
 
     void Grab(InputAction.CallbackContext context)
-    {
+    {   
         // Check for the E key press and if there's a current item
         if (context.performed && currentItem != null)
         {
+          
             ItemObject itemObject = currentItem.GetComponent<ItemObject>();
             if (itemObject != null)
             {

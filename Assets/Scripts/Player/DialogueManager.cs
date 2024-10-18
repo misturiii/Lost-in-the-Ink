@@ -55,6 +55,9 @@ public class DialogueManager : MonoBehaviour
         // Debug.Log("enter AccessDialogue");
         if (dialogue && currentNpc) {
             isDialogueActive = true;
+            // inputActions.Player.Disable();
+            inputActions.Player.Move.Disable();
+            inputActions.Player.Look.Disable(); 
            
             dialogue.DisplayDialogue();
 
@@ -73,12 +76,12 @@ public class DialogueManager : MonoBehaviour
         // 当对话结束时，启用 Fountain Sticker 的 PickableItem tag
         if (fountainSticker != null) {
             fountainSticker.tag = "PickableItem";
-            Debug.Log("Fountain Sticker is now pickable.");
-
-            // 检查玩家是否在 Fountain Sticker 的范围内
-            isDialogueActive = false;
+            
             Debug.Log("after dialogue, the state of isdialogueactive is " + isDialogueActive);
         }
+        inputActions.Player.Move.Enable();
+        inputActions.Player.Look.Enable(); 
+        isDialogueActive = false;
        
 
     }
@@ -93,10 +96,9 @@ public class DialogueManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, rayDistance)) {
             if (hit.collider.CompareTag("Npc")) {
-                Debug.Log("NPCCCC HITTTT");
                 
                 currentNpc = hit.collider.gameObject;  // Store the currently detected NPC
-                Debug.Log("NPC detected: " + currentNpc.name); // Debug
+                // Debug.Log("NPC detected: " + currentNpc.name); // Debug
                 ShowNpcInteractionGuide();
 
             } else {
