@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BallonSticker
   m_EditorClassIdentifier: 
   itemName: BallonSticker
-  prefab: {fileID: 0}
+  prefab: {fileID: 9042687586338586798, guid: 568315047ae7242e89d1bea8354028c7, type: 3}

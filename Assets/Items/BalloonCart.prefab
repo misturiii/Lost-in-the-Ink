@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1532475992837809066}
   - component: {fileID: -5250913991754891705}
   m_Layer: 5
-  m_Name: IceCream
+  m_Name: BalloonCart
   m_TagString: Sticker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

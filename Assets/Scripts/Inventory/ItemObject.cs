@@ -1,23 +1,26 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ItemObject : MonoBehaviour
 {
     public Item item; // Reference to the ScriptableObject that holds item data
-    Outline outline;
+    Material mat;
+
+    protected static readonly int useOutlineId = Shader.PropertyToID("_UseOutline");
 
     void Start () {
-        outline = gameObject.AddComponent<Outline>();
-        outline.effectColor = Color.black;
-        outline.effectDistance = Vector2.one * 3;
-        outline.enabled = false;
+        BoxCollider collider = gameObject.AddComponent<BoxCollider>();
+        collider.center = Vector3.zero;
+        collider.size = Vector3.one * 20;
+        collider.isTrigger = true;
+        mat = GetComponent<SpriteRenderer>().material;
+        mat.SetInt(useOutlineId, 0);
     }
 
     public void Enter () {
-        outline.enabled = true;
+        mat.SetInt(useOutlineId, 1);
     }
 
     public void Exit () {
-        outline.enabled = false;
+        mat.SetInt(useOutlineId, 0);
     }
 }
