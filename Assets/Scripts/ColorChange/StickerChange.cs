@@ -2,14 +2,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StickerChange : MonoBehaviour {
-    RawImage image;
-    [SerializeField]Sprite coloredImage;
+    Material mat;
+    float duration = 0.5f;
 
+    protected static readonly int 
+        durationId = Shader.PropertyToID("_Duration"), 
+        startTimeId = Shader.PropertyToID("_StartTime");
     void Start () {
-        image = GetComponent<RawImage>();
+        mat = GetComponent<Image>().material;
+        mat.SetFloat(durationId, 0);
     }
 
     public void Change () {
-        image.texture = coloredImage.texture;
+        mat.SetFloat(durationId, duration);
+        mat.SetFloat(startTimeId, Time.time);
     }
 }

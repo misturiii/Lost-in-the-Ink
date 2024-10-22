@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -19,11 +20,18 @@ public class DialogueManager : MonoBehaviour
     public float rayDistance = 1.5f;
     private GameObject currentNpc; 
     private bool isDialogueActive = false;
+    public Transform skipBar;
+    public GameObject skipText;
+    public GameObject skip;
+    float skipProgress;
+    float skipDuration = 2.0f;
+    bool cooling;
 
     void Start () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.Click.Enable();
         inputActions.Player.Click.performed += AccessDialogue;
+        inputActions.Player.Click.canceled += PauseSkip;
 
         // 初始化UI提示为隐藏状态
         if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
@@ -35,11 +43,19 @@ public class DialogueManager : MonoBehaviour
         pickupObject = FindObjectOfType<PickupObject>();
         fountainSticker = GameObject.Find("FountainSticker");
         player = GameObject.FindWithTag("Player");
+        
+        cooling = false;
 
         // 禁用 Fountain Sticker 的 tag
         if (fountainSticker != null) {
             fountainSticker.tag = "Untagged";  // 暂时移除 PickableItem tag
         }
+    }
+
+    IEnumerator CoolDown () {
+        cooling = true;
+        yield return new WaitForSeconds(1.0f);
+        cooling = false;
     }
 
     void Update() {
@@ -48,19 +64,32 @@ public class DialogueManager : MonoBehaviour
             // Debug.Log("Enter the RaycastForNPC");
             RaycastForNpc();
         }
-        
+        if (skip.activeSelf && inputActions.Player.Click.inProgress) {
+            if (skipProgress > 0.1) {
+                skipBar.parent.gameObject.SetActive(true);
+                skipText.SetActive(false);
+            }
+            skipProgress += Time.deltaTime / skipDuration;
+            skipBar.localScale = new Vector3 (skipProgress, 1, 0);
+        }
+        if (skipProgress >= 1) {
+            dialogue.Reset();
+            OnDialogueEnd();
+        }
     }
 
   void AccessDialogue(InputAction.CallbackContext context) {
         // Debug.Log("enter AccessDialogue");
-        if (dialogue && currentNpc) {
+        if (dialogue && currentNpc && !cooling) {
             isDialogueActive = true;
             // inputActions.Player.Disable();
             inputActions.Player.Move.Disable();
             inputActions.Player.Look.Disable(); 
             inputActions.Player.Trigger.Disable();
            
-            dialogue.DisplayDialogue();
+            if (!dialogue.DisplayDialogue()) {
+                StartCoroutine(CoolDown());
+            }
 
             // 隐藏 NPC 交互提示
             if (npcInteractionBackground != null && npcInteractionText != null&& controllerInteract != null) {
@@ -71,10 +100,18 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    void PauseSkip (InputAction.CallbackContext context) {
+        skipBar.parent.gameObject.SetActive(false);
+        skipText.SetActive(true);
+        skipProgress = 0;
+        skipBar.localScale = new Vector3(0, 1, 0);
+    }
+
 
     // 对话结束时调用
     public void OnDialogueEnd() {
         // 当对话结束时，启用 Fountain Sticker 的 PickableItem tag
+        skip.SetActive(true);
         if (fountainSticker != null) {
             fountainSticker.tag = "PickableItem";
            
@@ -84,8 +121,6 @@ public class DialogueManager : MonoBehaviour
         inputActions.Player.Look.Enable(); 
         inputActions.Player.Trigger.Enable();
         isDialogueActive = false;
-       
-
     }
 
     private void RaycastForNpc() {
@@ -116,6 +151,8 @@ public class DialogueManager : MonoBehaviour
     private void ShowNpcInteractionGuide() {
             dialogue.dialogueObject = currentNpc.GetComponent<NPC>().Enter();
             dialogue.dialogueObject.Reset();
+            skip.SetActive(dialogue.notFirstTime);
+
 
         if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
             npcInteractionBackground.enabled = true;

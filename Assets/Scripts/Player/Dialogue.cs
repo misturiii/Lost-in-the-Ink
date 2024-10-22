@@ -5,14 +5,16 @@ using TMPro;
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent; // The TextMeshPro component for displaying dialogue
-    public TextMeshProUGUI speakerCompoent;
+    public TextMeshProUGUI speakerComponent;
+    public GameObject william;
     public GameObject more;
     public DialogueObject dialogueObject;
-    float textSpeed = 0.05f; // Speed of text typing
+    float textSpeed = 0.02f; // Speed of text typing
     string curLine;
     bool inProgress;
     string styleStart = "<b><color=#af001c>";
     string styleEnd = "</color></b>";
+    public bool notFirstTime => dialogueObject.notFirstTime;
     
     private DialogueManager dialogueManager;  // 引用 DialogueManager
 
@@ -29,12 +31,13 @@ public class Dialogue : MonoBehaviour
     public void Reset() {
         inProgress = false;
         curLine = string.Empty;
+        gameObject.SetActive(false);
         if (dialogueObject) {
             dialogueObject.Reset();
         }
     }
 
-    public void DisplayDialogue()
+    public bool DisplayDialogue()
     {
         if (dialogueObject) {
             gameObject.SetActive(true);
@@ -43,15 +46,26 @@ public class Dialogue : MonoBehaviour
                 inProgress = false;
             } else {
                 if (!dialogueObject.IsOver()) {
-                    (speakerCompoent.text, curLine) = dialogueObject.CurrentLine(); 
+                    string speaker;
+                    (speaker, curLine) = dialogueObject.CurrentLine(); 
+                    if (speaker == "WILLIAM") {
+                        speakerComponent.gameObject.SetActive(false);
+                        william.SetActive(true);
+                    } else {
+                        william.SetActive(false);
+                        speakerComponent.gameObject.SetActive(true);
+                        speakerComponent.text = speaker;
+                    }
                     StartCoroutine(TypeLine());
                 } else {
                     gameObject.SetActive(false);
                     OnDialogueFinish();  // 当对话结束时，调用这个方法
                     // dialogueObject.Reset();
+                    return false;
                 }
             } 
         }
+        return true;
     }
 
     IEnumerator TypeLine()

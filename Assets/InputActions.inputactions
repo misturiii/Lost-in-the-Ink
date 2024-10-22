@@ -366,15 +366,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Switch",
-                    "type": "Button",
-                    "id": "cfa8b185-6161-4f74-b8fc-16a1eec3fc22",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -403,7 +394,7 @@
                 {
                     "name": "",
                     "id": "d3485573-8ec6-4f18-87ba-1b7f9212790e",
-                    "path": "<Gamepad>/rightStick",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -513,7 +504,7 @@
                 {
                     "name": "",
                     "id": "b9cf8b62-8a59-42f6-9bdd-1c5b34494a78",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -534,19 +525,8 @@
                 },
                 {
                     "name": "",
-                    "id": "46437556-26f9-4724-b3af-b64afe55fc96",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4bd8d1d9-1f29-4ed2-b0b4-484db9bf8757",
-                    "path": "<Gamepad>/leftStick",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -608,17 +588,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "d068ba15-a428-4933-9ea5-281956ad668b",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Switch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -637,17 +606,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "9206c760-07b4-47a0-82bb-5fea1d62ef35",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Quit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "17cdf742-6d78-4299-ab9f-71b4e518de8c",
