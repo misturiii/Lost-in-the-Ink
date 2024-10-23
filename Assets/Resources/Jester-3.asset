@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980cc5f0077809c4787ceb1df42a493c, type: 3}
+  m_Name: Jester-3
+  m_EditorClassIdentifier: 
+  dialogues:
+  - speaker: William
+    lines:
+    - I see a fountain... then what?
+  - speaker: Jester
+    lines:
+    - "See how the flow of water is never ending and it sustains\u2026 within itself\u2026?"
+    - 'That <child> over there seems to be just as lost as you are. Why not brighten
+      him up a little? What say you? '
+  - speaker: Willaim
+    lines:
+    - Child? Where is-

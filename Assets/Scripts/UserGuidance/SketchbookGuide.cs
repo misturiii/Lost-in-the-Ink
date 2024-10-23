@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -5,20 +6,17 @@ using UnityEngine.InputSystem;
 
 public class SketchbookGuide : MonoBehaviour
 {
-    string sketchbookGuide = "Open the sketchbook to place the sticker";
-    string dragGuide = "Use mouse or hold left trigger and move left stick to drag";
-    string dropGuide = "Release the mouse or left trigger to drop";
-    TextMeshProUGUI textComponent;
     InputActions inputActions;
     bool OnSketchbook;
     float duration = 1.0f;
     bool notPlaced;
+    [SerializeField] GameObject dragGuide, dropGuide;
+    [SerializeField] TextMeshProUGUI inventoryGuide, resultGuide;
+    Inventory inventory;
 
     void Start()
     {
-        Inventory inventory = Resources.Load<Inventory>("PlayerInventory");
-        textComponent = GetComponent<TextMeshProUGUI>();
-        textComponent.text = sketchbookGuide;
+        inventory = Resources.Load<Inventory>("PlayerInventory");
         notPlaced = false;
         OnSketchbook = false;
         inventory.OnContainSticker += ShowGuide;
@@ -29,7 +27,15 @@ public class SketchbookGuide : MonoBehaviour
     }
 
     void ShowGuide () {
-        textComponent.enabled = notPlaced = true;
+        notPlaced  = true;
+        StartCoroutine(ShowInventoryGuide());
+    }
+
+    IEnumerator ShowInventoryGuide () {
+        inventoryGuide.text = inventory.items[inventory.items.Count - 1].itemName;
+        inventoryGuide.text += " sticker collected";
+        yield return new WaitForSeconds(duration);
+        inventoryGuide.text = string.Empty;
     }
 
     void HideGuide () {
@@ -38,22 +44,18 @@ public class SketchbookGuide : MonoBehaviour
 
     void ChangeGuide (InputAction.CallbackContext context) {
         OnSketchbook = !OnSketchbook;
-        textComponent.text = DecideGuide();
+        if (OnSketchbook && notPlaced) {
+            dragGuide.SetActive(true);
+        } else {
+            dragGuide.SetActive(false);
+        }
     }
 
-    string DecideGuide () {
-        if (OnSketchbook) {
-            textComponent.color = Color.black;
-            return dragGuide;
-        } else {
-            textComponent.color = Color.white;
-            return sketchbookGuide;
-        }
-    } 
-
     public void DisplayDropGuide () {
-        textComponent.text = dropGuide;
+        dragGuide.SetActive(false);
+        dropGuide.SetActive(true);
         StopAllCoroutines();
+        resultGuide.text = string.Empty;
     }
 
     public void DisplayResult (bool success) {
@@ -61,10 +63,19 @@ public class SketchbookGuide : MonoBehaviour
     }
 
     IEnumerator DisplayResultForSeconds (bool success) {
-        textComponent.text = success ? "Sticker placed at the correct location" : "<color=#af001c>Sticker placed at the wrong location</color>";
+        dropGuide.SetActive(false);
+        resultGuide.text = success ? "Sticker placed at the correct location" : "<color=#af001c>Sticker placed at the wrong location</color>";
         yield return new WaitForSeconds(duration);
-        textComponent.text = DecideGuide();
-        textComponent.enabled = notPlaced;
+        resultGuide.text = string.Empty;
+        if (notPlaced) {
+            dragGuide.SetActive(true);
+        }
     }
 
+    void OnDestroy () {
+        inventory.OnContainSticker -= ShowGuide;
+        inventory.OnEmptyInventory -= HideGuide;
+        inputActions.UI.Trigger.performed -= ChangeGuide;
+        inputActions.Player.Trigger.performed -= ChangeGuide;
+    }
 }

@@ -10,7 +10,7 @@ public class InputActionManager : MonoBehaviour
         inputActions = new InputActions();
         inputActions.Global.Enable();
         inputActions.Player.Enable();
-        inputActions.Global.Quit.performed += Quit;
+        // inputActions.Global.Quit.performed += Quit;
         inputActions.UI.Disable();
     }
 

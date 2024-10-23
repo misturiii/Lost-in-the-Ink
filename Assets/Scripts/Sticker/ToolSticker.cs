@@ -18,10 +18,12 @@ public class ToolSticker : Sticker
 
 
     public override void Drop(InputAction.CallbackContext context) {
+        inputActions.UI.Click.canceled -= Drop;
         for (int i = 0; i < 2; i++) {
             if (Mathf.Abs(transform.position[i] - target.position[i]) > tolerance[i]) {
                 transform.localPosition = Vector3.zero;
                 sketchbookGuide.DisplayResult(false);
+                inputActions.UI.Click.canceled += Drop;
                 return;
             }
         }
@@ -30,7 +32,6 @@ public class ToolSticker : Sticker
         item.position = prefabPosition;
         target.GetComponent<StickerChange>().Change();
         inventoryBox.RemoveSticker();
-        inputActions.UI.Click.canceled -= Drop;
         Destroy(gameObject);
     }
 }

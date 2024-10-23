@@ -8,15 +8,11 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] Dialogue dialogue;
     InputActions inputActions;
-    private GameObject fountainSticker;  // 追踪 Fountain Sticker
     private PickupObject pickupObject;
     private GameObject player;  // 追踪 Player 位置
 
     // 新增的UI元素：提示“Press T or left click to start talking”
-    public Image npcInteractionBackground;  // 背景图片
-    public TextMeshProUGUI npcInteractionText;  // 提示文字
-
-    public Image controllerInteract;
+    public GameObject interactionGuide;
     public float rayDistance = 1.5f;
     private GameObject currentNpc; 
     private bool isDialogueActive = false;
@@ -27,29 +23,20 @@ public class DialogueManager : MonoBehaviour
     float skipDuration = 2.0f;
     bool cooling;
 
+    NPC npc = null;
+
     void Start () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.Click.Enable();
         inputActions.Player.Click.performed += AccessDialogue;
         inputActions.Player.Click.canceled += PauseSkip;
 
-        // 初始化UI提示为隐藏状态
-        if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
-            npcInteractionBackground.enabled = false;
-            npcInteractionText.enabled = false;
-            controllerInteract.enabled = false;
-        }
+        interactionGuide.SetActive(false);
 
         pickupObject = FindObjectOfType<PickupObject>();
-        fountainSticker = GameObject.Find("FountainSticker");
         player = GameObject.FindWithTag("Player");
         
         cooling = false;
-
-        // 禁用 Fountain Sticker 的 tag
-        if (fountainSticker != null) {
-            fountainSticker.tag = "Untagged";  // 暂时移除 PickableItem tag
-        }
     }
 
     IEnumerator CoolDown () {
@@ -92,11 +79,7 @@ public class DialogueManager : MonoBehaviour
             }
 
             // 隐藏 NPC 交互提示
-            if (npcInteractionBackground != null && npcInteractionText != null&& controllerInteract != null) {
-                npcInteractionBackground.enabled = false;
-                npcInteractionText.enabled = false;
-                controllerInteract.enabled = false;
-            }
+            interactionGuide.SetActive(false);
         }
     }
 
@@ -112,11 +95,13 @@ public class DialogueManager : MonoBehaviour
     public void OnDialogueEnd() {
         // 当对话结束时，启用 Fountain Sticker 的 PickableItem tag
         skip.SetActive(true);
-        if (fountainSticker != null) {
-            fountainSticker.tag = "PickableItem";
+        npc.DialogueEnds();
+        // if (fountainSticker != null) {
+        //     fountainSticker.tag = "PickableItem";
            
-            Debug.Log("after dialogue, the state of isdialogueactive is " + isDialogueActive);
-        }
+        //     Debug.Log("after dialogue, the state of isdialogueactive is " + isDialogueActive);
+        // }
+
         inputActions.Player.Move.Enable();
         inputActions.Player.Look.Enable(); 
         inputActions.Player.Trigger.Enable();
@@ -149,32 +134,25 @@ public class DialogueManager : MonoBehaviour
 
     // Show NPC interaction UI prompt
     private void ShowNpcInteractionGuide() {
-            dialogue.dialogueObject = currentNpc.GetComponent<NPC>().Enter();
-            dialogue.dialogueObject.Reset();
-            skip.SetActive(dialogue.notFirstTime);
+        npc = currentNpc.GetComponent<NPC>();
+        dialogue.dialogueObject = npc.Enter();
+        dialogue.dialogueObject.Reset();
+        skip.SetActive(dialogue.notFirstTime);
 
 
-        if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
-            npcInteractionBackground.enabled = true;
-            npcInteractionText.enabled = true;
-            controllerInteract.enabled = true;
-            npcInteractionText.text = "Press T or Left Click to start talking                    or";
-        }
+        interactionGuide.SetActive(true);
     }
 
     // Hide NPC interaction UI prompt
     private void HideNpcInteractionGuide() {
+        npc = null;
         dialogue.gameObject.SetActive(false);
         dialogue.dialogueObject = null;
         if(currentNpc){
             currentNpc.GetComponent<NPC>().Exit();
             currentNpc = null; 
         }
-        if (npcInteractionBackground != null && npcInteractionText != null && controllerInteract != null) {
-            npcInteractionBackground.enabled = false;
-            npcInteractionText.enabled = false;
-            controllerInteract.enabled = false;
-        }
+        interactionGuide.SetActive(false);
     }
 
 

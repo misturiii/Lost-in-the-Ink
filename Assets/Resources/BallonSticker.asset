@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbeb1f451691341da8760d52a7bd6101, type: 3}
   m_Name: BallonSticker
   m_EditorClassIdentifier: 
-  itemName: BallonSticker
+  itemName: Balloon
   prefab: {fileID: 9042687586338586798, guid: 568315047ae7242e89d1bea8354028c7, type: 3}

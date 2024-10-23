@@ -242,7 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f4d9f10f15ef64f96e288c777f71d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueName: Jester2
+  dialogueName: Jester-4
+  sticker: {fileID: 0}
 --- !u!136 &1690758123608664222
 CapsuleCollider:
   m_ObjectHideFlags: 0

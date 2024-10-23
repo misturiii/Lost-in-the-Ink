@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980cc5f0077809c4787ceb1df42a493c, type: 3}
+  m_Name: Boy-1
+  m_EditorClassIdentifier: 
+  dialogues:
+  - speaker: WILLIAM
+    lines:
+    - Hello? Are you ok?
+  - speaker: THE CHILD
+    lines:
+    - "I\u2019ve been waiting for him for quite some time now. Did he just forget
+      about me?"
+  - speaker: WILLIAM
+    lines:
+    - "Who are you waiting for? I\u2019m sure they haven\u2019t forgotten about you."
+  - speaker: THE CHILD
+    lines:
+    - My best friend. Leo.
+    - "We were supposed to meet here by the <benches surrounded by trees>. We would
+      always gather here and play but\u2026 "
+  - speaker: WILLIAM
+    lines:
+    - "Trees and benches? I don\u2019t see any trees and there\u2019s only one bench"
+    - "And this place\u2026 it looks very empty\u2026 has it always been like this?"
+  - speaker: THE CHILD
+    lines:
+    - "They were here, I swear... Seems like something\u2019s missing now\u2014maybe
+      the tree, maybe my friend... maybe memory\u2026 "
+    - 'Do you think you could help me find him? '
+  - speaker: WILLIAM
+    lines:
+    - 'Uh sure. Do you want to describe what the place looked like? '
+  - speaker: THE CHILD
+    lines:
+    - There are <trees> all around the five <benches>... Hmmm, I remember <two> groups
+      of benches used to <face each other>.
+    - Oh! There are also <bushes> between the benches. We always used to drop things
+      there when we played.
+  - speaker: WILLIAM
+    lines:
+    - "Between the bushes and benches, huh? I\u2019ll take a look."

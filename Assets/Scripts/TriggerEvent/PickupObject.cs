@@ -10,10 +10,7 @@ public class PickupObject : MonoBehaviour
     private GameObject currentItem;      // Track the currently detected item
     InputActions inputActions;
 
-    public Image pickupBackground;       // Reference to the background image
-    public TextMeshProUGUI pickupText;   // Reference to the text component
-    public Image controllerGuide;
-
+    public GameObject pickUpGuide;
     public float rayDistance = 2f;  // Distance the ray can detect
     void Start()
     {
@@ -23,12 +20,7 @@ public class PickupObject : MonoBehaviour
         inputActions.Player.GrabSticker.performed += Grab;
 
         // Initially hide the pickup text and background
-        if (pickupBackground != null && pickupText != null && controllerGuide !=null)
-        {
-            pickupBackground.enabled = false;
-            pickupText.enabled = false;
-            controllerGuide.enabled = false;
-        }
+        pickUpGuide.SetActive(false);
     }
 
      void Update()
@@ -111,23 +103,12 @@ public class PickupObject : MonoBehaviour
     // Show the pickup guide (text and background)
     private void ShowPickupGuide()
     {
-        if (pickupBackground != null && pickupText != null && controllerGuide != null)
-        {
-            pickupBackground.enabled = true;
-            pickupText.enabled = true;
-            controllerGuide.enabled = true;
-            pickupText.text = "Press E to pickup           or";  // Set the text
-        }
+        pickUpGuide.SetActive(true);
     }
 
     // Hide the pickup guide (text and background)
     private void HidePickupGuide()
     {
-        if (pickupBackground != null && pickupText != null && controllerGuide != null)
-        {
-            pickupBackground.enabled = false;
-            pickupText.enabled = false;
-            controllerGuide.enabled = false;
-        }
+        pickUpGuide.SetActive(false);
     }
 }

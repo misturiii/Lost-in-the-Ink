@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980cc5f0077809c4787ceb1df42a493c, type: 3}
+  m_Name: Boy-2
+  m_EditorClassIdentifier: 
+  dialogues:
+  - speaker: THE CHILD
+    lines:
+    - "He\u2019s kinda upset with me. Saying that he\u2019s been waiting for me for
+      a long time."
+    - 'I want to make it up to him. '
+  - speaker: WILLIAM
+    lines:
+    - 'Sure we could do something about that. '
+    - 'Is there maybe something that he likes and you wanna get for him? '
+  - speaker: THE CHILD
+    lines:
+    - "I bought a balloon sticker, in his favorite color. I remember putting it in
+      my pocket\u2026"
+    - "Oh no! I can\u2019t believe I lost it. I was sitting on the bench and \u2026"
+    - I remember there used to be a <balloon cart> here... maybe we can get him a
+      real balloon instead.
+  - speaker: WILLIAM
+    lines:
+    - "Alright, let\u2019s see if we can find the sticker or that cart.  "

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2428007840868396207}
   - component: {fileID: 2275668738520694644}
   - component: {fileID: 1179115358642974235}
-  - component: {fileID: 4446234938239982583}
+  - component: {fileID: -7873113274393167912}
   m_Layer: 5
   m_Name: Tree
   m_TagString: Sticker
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4446234938239982583
+--- !u!114 &-7873113274393167912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,9 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6036459349250047641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea05f6b87233c7945b8bd07659b9eea0, type: 3}
+  m_Script: {fileID: 11500000, guid: 812de3aa1eb62aa49882dcc913a4ced0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  feedbackText: {fileID: 0}
-  prefab: {fileID: 243301954581716773, guid: 0aff668294d324a68933ac32768a7b19, type: 3}
+  prefab: {fileID: 0}
+  targetName: 
+  prefabPosition: {x: 0, y: 0, z: 0}
