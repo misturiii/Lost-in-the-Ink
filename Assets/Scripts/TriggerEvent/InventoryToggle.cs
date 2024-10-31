@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InventoryToggle : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class InventoryToggle : MonoBehaviour
 
     private bool isInventoryOpen = false;  // Track whether the inventory is open
     InputActions inputActions;
+    [SerializeField] GameObject current;
     
 
     void Start()

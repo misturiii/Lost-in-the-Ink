@@ -90,17 +90,11 @@ public class DialogueManager : MonoBehaviour
         skipBar.localScale = new Vector3(0, 1, 0);
     }
 
-
     // 对话结束时调用
     public void OnDialogueEnd() {
         // 当对话结束时，启用 Fountain Sticker 的 PickableItem tag
         skip.SetActive(true);
         npc.DialogueEnds();
-        // if (fountainSticker != null) {
-        //     fountainSticker.tag = "PickableItem";
-           
-        //     Debug.Log("after dialogue, the state of isdialogueactive is " + isDialogueActive);
-        // }
 
         inputActions.Player.Move.Enable();
         inputActions.Player.Look.Enable(); 

@@ -42,10 +42,11 @@ MonoBehaviour:
     - 'Uh sure. Do you want to describe what the place looked like? '
   - speaker: THE CHILD
     lines:
-    - There are <trees> all around the five <benches>... Hmmm, I remember <two> groups
+    - There are <trees> all around the five <benches>... Hmmm, I remember two groups
       of benches used to <face each other>.
     - Oh! There are also <bushes> between the benches. We always used to drop things
       there when we played.
   - speaker: WILLIAM
     lines:
     - "Between the bushes and benches, huh? I\u2019ll take a look."
+  notFirstTime: 0

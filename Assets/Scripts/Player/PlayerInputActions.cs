@@ -388,6 +388,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad1ee46c-085e-4ef0-8ab0-de7df308f9b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -610,6 +619,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6963aa1-cdae-49a7-b2f1-b8689e3b10a9"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -885,6 +905,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""98e5ab0d-2337-4a03-a305-f0a18688ba6d"",
                     ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a5d7183-c7f1-4e9e-93e1-e316d6b61e59"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1324,6 +1355,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_UI_MovePointer = m_UI.FindAction("MovePointer", throwIfNotFound: true);
         m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
+        m_UI_Switch = m_UI.FindAction("Switch", throwIfNotFound: true);
         // Global
         m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
         m_Global_Quit = m_Global.FindAction("Quit", throwIfNotFound: true);
@@ -1489,6 +1521,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_MovePointer;
     private readonly InputAction m_UI_Click;
     private readonly InputAction m_UI_Move;
+    private readonly InputAction m_UI_Switch;
     public struct UIActions
     {
         private @InputActions m_Wrapper;
@@ -1497,6 +1530,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @MovePointer => m_Wrapper.m_UI_MovePointer;
         public InputAction @Click => m_Wrapper.m_UI_Click;
         public InputAction @Move => m_Wrapper.m_UI_Move;
+        public InputAction @Switch => m_Wrapper.m_UI_Switch;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1518,6 +1552,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Switch.started += instance.OnSwitch;
+            @Switch.performed += instance.OnSwitch;
+            @Switch.canceled += instance.OnSwitch;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1534,6 +1571,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Switch.started -= instance.OnSwitch;
+            @Switch.performed -= instance.OnSwitch;
+            @Switch.canceled -= instance.OnSwitch;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1745,6 +1785,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnMovePointer(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnSwitch(InputAction.CallbackContext context);
     }
     public interface IGlobalActions
     {

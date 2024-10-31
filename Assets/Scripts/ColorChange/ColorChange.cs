@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 public class ColorChange : MonoBehaviour
 {
     float duration = 0.12f;
-    [SerializeField] Material mat;
-    InputAction inputAction;
+    [SerializeField] Material[] mats;
+    InputActions inputActions;
     Camera cam;
     bool isVisible;
 
@@ -13,20 +13,22 @@ public class ColorChange : MonoBehaviour
         durationId = Shader.PropertyToID("_Duration"), 
         startTimeId = Shader.PropertyToID("_StartTime");
 
-    void Awake () {
+    void Start () {
         isVisible = false;
-        mat = GetComponent<Renderer>().material;
-        inputAction = FindObjectOfType<InputActionManager>().inputActions.UI.Trigger;
-        inputAction.performed += CloseSketchBook;
+        mats = GetComponent<Renderer>().materials;
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
+        inputActions.UI.Trigger.performed += CloseSketchBook;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     void Update () {
-        if (isVisible && mat.GetFloat(durationId) == 0) {
-            Vector2 viewPos = cam.WorldToViewportPoint(transform.localPosition);
-            if (0 < viewPos.x && viewPos.x < 1 && 0 < viewPos.y && viewPos.y < 1) {
-                mat.SetFloat(durationId, duration);
-                mat.SetFloat(startTimeId, Time.time);
+        if (isVisible && mats[0].GetFloat(durationId) == 0) {
+            foreach (Material mat in mats) {
+                Vector2 viewPos = cam.WorldToViewportPoint(transform.position);
+                if (0 < viewPos.x && viewPos.x < 1 && 0 < viewPos.y && viewPos.y < 1) {
+                    mat.SetFloat(durationId, duration);
+                    mat.SetFloat(startTimeId, Time.time);
+                }
             }
         }
     }

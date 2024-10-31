@@ -1,45 +1,52 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryBox : MonoBehaviour, IPointerEnterHandler
+public class InventoryBox : Selectable
 {
-    [SerializeField] Color selectColor;
-    Color initialColor;
-    Image bg;
-    InventoryDisplay inventoryDisplay;
+    public InventoryDisplay inventoryDisplay;
     public int index;
     public Sticker sticker;
 
     public void initialize () {
-        bg = GetComponent<Image>();
-        initialColor = bg.color;
         inventoryDisplay = GetComponentInParent<InventoryDisplay>();
     }
 
-    public void Select () {
-        bg.color = selectColor;
-        inventoryDisplay.index = index;
+    public override void OnSelect (BaseEventData data) {
+        base.OnSelect(null);
+        inventoryDisplay.inventoryIndex = index;
         if (sticker) {
-            sticker.Select();
+            sticker.OnSelect(null);
         }
     }
 
-    public void Deselect () {
-        bg.color = initialColor;
+    public override void Select()
+    {
+        base.Select();
+        OnSelect(null);
+    }
+
+    public override void OnDeselect (BaseEventData data) {
+        base.OnDeselect(null);
         if (sticker) {
-            sticker.Deselect();
+            sticker.OnDeselect(null);
         }
     }
 
     public void RemoveSticker () {
-        inventoryDisplay.RemoveSticker(sticker.index);
+        ItemSticker temp = (ItemSticker)sticker;
         sticker = null;
+        OnDeselect(null);
+        inventoryDisplay.RemoveFromInventory(index, temp);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData eventData)
     {
-        inventoryDisplay.SelectInventory(index);
+        Select();
+    }
+
+    public void SetSticker(GameObject prefab) {
+        sticker = Instantiate(prefab, transform).GetComponent<Sticker>();
+        sticker.Initialize();
     }
 }

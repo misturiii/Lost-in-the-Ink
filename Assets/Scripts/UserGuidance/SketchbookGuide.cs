@@ -48,6 +48,9 @@ public class SketchbookGuide : MonoBehaviour
             dragGuide.SetActive(true);
         } else {
             dragGuide.SetActive(false);
+            dropGuide.SetActive(false);
+            resultGuide.text = string.Empty;
+            inventoryGuide.text = string.Empty;
         }
     }
 

@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,15 +8,17 @@ public class InventoryDisplay : MonoBehaviour
     Inventory inventory;             // Reference to the inventory
     InventoryBox[] inventoryBoxes;
     InputActions inputActions; 
-    public int index = 0;
+    public int inventoryIndex = 0;
+    Selectable sketchbookSelect = null;
     public GraphicRaycaster graphicRaycaster;  // Reference to the Canvas' GraphicRaycaster
+    bool inInventory = true;
 
 
     void Awake () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.MovePointer.Enable();
-        inputActions.UI.MovePointer.started += MovePointer;
         inputActions.UI.Click.Enable();
+        inputActions.UI.Switch.performed += Switch;
         
         inventoryBoxes = GetComponentsInChildren<InventoryBox>(true);
 
@@ -30,23 +33,43 @@ public class InventoryDisplay : MonoBehaviour
 
     void OnEnable () {
         UpdateInventoryDisplay();
-        SelectInventory(index);
+        Select();
     }
 
-    void MovePointer (InputAction.CallbackContext context) {
-        Vector2 input = context.ReadValue<Vector2>();
-        input.x = input.x > 0 ? 1 : -1;
-        input.y = input.y > 0 ? 1 : -1;
-        SelectInventory(Mathf.Clamp(index - (int)input.y, 0, inventoryBoxes.Length - 1));
+    void Select () {
+        if (!inInventory && sketchbookSelect) {
+            sketchbookSelect.Select();
+        } else {
+            inventoryBoxes[inventoryIndex].Select();
+            inInventory = true;
+        }
     }
 
-    public void SelectInventory(int i) {
-        inventoryBoxes[index].Deselect();
-        inventoryBoxes[i].Select();
+    void Switch (InputAction.CallbackContext context) {
+        inInventory = !inInventory;
+        Select();
     }
 
-    public void RemoveSticker (int i) {
+    public void RemoveFromInventory (int i, ItemSticker sticker) {
         inventory.Remove(i);
+        inInventory = false;
+        sketchbookSelect = sticker;
+        OnEnable();
+    }
+
+    public void RemoveFromSketchbook (Sticker sticker) {
+        sketchbookSelect = FindNext(sticker.navigation);
+        Destroy(sticker.gameObject);
+        Select();
+    }
+
+    Selectable FindNext(Navigation navigation) {
+        Selectable next = null;
+        if (next = navigation.selectOnUp) { return next; }
+        if (next = navigation.selectOnLeft) { return next; }
+        if (next = navigation.selectOnDown) { return next; }
+        if (next = navigation.selectOnRight) { return next; }
+        return null;
     }
 
     // Method to update the inventory UI when items are added
@@ -57,7 +80,7 @@ public class InventoryDisplay : MonoBehaviour
             foreach (InventoryBox box in inventoryBoxes)
             {
                 if (box.sticker) {
-                    Destroy(box.sticker.gameObject);
+                    box.sticker.Delete();
                     box.sticker = null;
                 }
             }
@@ -67,7 +90,7 @@ public class InventoryDisplay : MonoBehaviour
         for (int i = 0; i < inventory.items.Count; i++)
         {
             Item item = inventory.items[i];
-            inventoryBoxes[i].sticker = Instantiate(item.prefab, inventoryBoxes[i].transform).GetComponent<Sticker>(); 
+            inventoryBoxes[i].SetSticker(item.prefab);
         }
     }
 }

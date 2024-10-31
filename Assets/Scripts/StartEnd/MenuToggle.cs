@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class MenuToggle : MonoBehaviour
@@ -7,10 +9,10 @@ public class MenuToggle : MonoBehaviour
     public GameObject menuUI;  // Reference to the UI panel for the menu
     private bool isPaused = false;
     InputActions inputActions;
+    [SerializeField] GameObject current;
 
     void Start()
     {
-        
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Global.Quit.performed += Toggle;
     }
@@ -39,6 +41,7 @@ public class MenuToggle : MonoBehaviour
         inputActions.UI.Enable();
         inputActions.Player.Enable();
         isPaused = false;
+        current = EventSystem.current.currentSelectedGameObject;
     }
 
     public void PauseGame()
@@ -52,6 +55,7 @@ public class MenuToggle : MonoBehaviour
     // inputActions.Player.Click.Disable();
     inputActions.UI.Disable();
     inputActions.Player.Disable();
+    EventSystem.current.SetSelectedGameObject(current);
 }
 
 
