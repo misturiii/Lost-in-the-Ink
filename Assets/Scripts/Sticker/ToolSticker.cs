@@ -9,15 +9,16 @@ public class ToolSticker : Sticker
     ToolBehaviour behaviour;
     GraphicRaycaster raycaster;
 
-    public override void Initialize()
+    public override void Initialize(Item item)
     {
-        base.Initialize();
+        base.Initialize(item);
         behaviour = GetComponent<ToolBehaviour>();
-        raycaster = GameObject.FindWithTag("Sketchbook").GetComponent<GraphicRaycaster>();
+        raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
         material.SetColor(lineColorId, new Color(0.7f, 0.9f, 1f));
     }
     public override void Drop(InputAction.CallbackContext context)
     {
+        inventoryBox.Select();
         PointerEventData data = new PointerEventData(EventSystem.current) { position = transform.position};
         List<RaycastResult> results = new List<RaycastResult>();
         raycaster.Raycast(data, results);

@@ -32,7 +32,7 @@ public class SketchbookGuide : MonoBehaviour
     }
 
     IEnumerator ShowInventoryGuide () {
-        inventoryGuide.text = inventory.items[inventory.items.Count - 1].itemName;
+        inventoryGuide.text = inventory.newItem;
         inventoryGuide.text += " sticker collected";
         yield return new WaitForSeconds(duration);
         inventoryGuide.text = string.Empty;

@@ -11,7 +11,8 @@ public class PickupObject : MonoBehaviour
     InputActions inputActions;
 
     public GameObject pickUpGuide;
-    public float rayDistance = 2f;  // Distance the ray can detect
+    float rayDistance = 6f;  // Distance the ray can detect
+    public float minDistance = 3f;
     void Start()
     {
         inventory = Resources.Load<Inventory>("PlayerInventory");
@@ -45,8 +46,8 @@ public class PickupObject : MonoBehaviour
             if (hit.collider.CompareTag("PickableItem"))
             {   
                 currentItem = hit.collider.gameObject; // Store the currently detected item
-                currentItem.GetComponent<ItemObject>().Enter();
-                ShowPickupGuide();
+                currentItem.GetComponent<ItemObject>().Enter();      
+                ShowPickupGuide();          
             }
             else{
                 
@@ -68,24 +69,28 @@ public class PickupObject : MonoBehaviour
         // Check for the E key press and if there's a current item
         if (context.performed && currentItem != null)
         {
-          
-            ItemObject itemObject = currentItem.GetComponent<ItemObject>();
-            if (itemObject != null)
-            {
-                inventory.Add(itemObject.item); // Add the item to the inventory
-                Debug.Log("Picked up item: " + itemObject.item.itemName);
+            if ((currentItem.transform.position - transform.localPosition).magnitude < minDistance) {
+                ItemObject itemObject = currentItem.GetComponent<ItemObject>();
+                if (itemObject != null)
+                {
+                    inventory.Add(itemObject.item); // Add the item to the inventory
+                    Debug.Log("Picked up item: " + itemObject.item.itemName);
 
-                // Destroy the item from the scene
-                Destroy(currentItem);
-                currentItem = null; // Reset current item
+                    // Destroy the item from the scene
+                    Destroy(currentItem);
+                    currentItem = null; // Reset current item
 
-                // Hide the pickup text and background after pickup
-                HidePickupGuide();
+                    // Hide the pickup text and background after pickup
+                    HidePickupGuide();
+                }
+                else
+                {
+                    Debug.LogError("ItemObject component is missing on: " + currentItem.name);
+                }
+            } else {
+                Debug.Log("Too far away, nned to find a tool");
             }
-            else
-            {
-                Debug.LogError("ItemObject component is missing on: " + currentItem.name);
-            }
+            
         }
     }
 

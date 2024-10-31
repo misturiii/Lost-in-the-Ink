@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -41,7 +42,7 @@ public class MenuToggle : MonoBehaviour
         inputActions.UI.Enable();
         inputActions.Player.Enable();
         isPaused = false;
-        current = EventSystem.current.currentSelectedGameObject;
+        SetCurrentSelection();
     }
 
     public void PauseGame()
@@ -55,8 +56,14 @@ public class MenuToggle : MonoBehaviour
     // inputActions.Player.Click.Disable();
     inputActions.UI.Disable();
     inputActions.Player.Disable();
-    EventSystem.current.SetSelectedGameObject(current);
+    SetCurrentSelection();
 }
+
+    public void SetCurrentSelection () {
+        GameObject temp = EventSystem.current.currentSelectedGameObject;
+        EventSystem.current.SetSelectedGameObject(current);
+        current = temp;
+    }
 
 
 }

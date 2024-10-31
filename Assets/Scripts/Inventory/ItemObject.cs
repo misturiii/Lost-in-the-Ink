@@ -10,7 +10,7 @@ public class ItemObject : MonoBehaviour
     void Start () {
         BoxCollider collider = gameObject.AddComponent<BoxCollider>();
         collider.center = Vector3.zero;
-        collider.size = Vector3.one * 20;
+        collider.size = Vector3.one * 10;
         collider.isTrigger = true;
         mat = GetComponent<SpriteRenderer>().material;
         mat.SetInt(useOutlineId, 0);

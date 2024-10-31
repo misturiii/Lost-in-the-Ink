@@ -1,12 +1,9 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class InventoryToggle : MonoBehaviour
 {
     public GameObject inventoryPanel;  // Reference to the inventory panel
-    public GameObject inventoryPanel2;  // Reference to the second inventory panel (if any)
     // public GameObject inventoryChat;
     public AudioSource audioSource;    // Reference to the AudioSource component
     public AudioClip openSound;        // Sound to play when the inventory is opened
@@ -34,7 +31,6 @@ public class InventoryToggle : MonoBehaviour
     public void ToggleInventory() {
         isInventoryOpen = !isInventoryOpen;  // Toggle the inventory state
         inventoryPanel.SetActive(isInventoryOpen);  // Show or hide the panel based on the state
-        inventoryPanel2.SetActive(isInventoryOpen);  // Show or hide the panel based on the state
         if (isInventoryOpen) {
             if (audioSource != null && openSound != null)
             {

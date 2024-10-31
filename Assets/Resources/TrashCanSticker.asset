@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbeb1f451691341da8760d52a7bd6101, type: 3}
   m_Name: TrashCanSticker
   m_EditorClassIdentifier: 
-  itemName: TrashCan
+  itemName: Trash can
+  count: -15
+  total: 1
   prefab: {fileID: 9042687586338586798, guid: 836a21c9fbd97284db2e95d963b99e2d, type: 3}
+  isTool: 1

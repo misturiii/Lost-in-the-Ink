@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -6,14 +8,12 @@ public class ItemSticker : Sticker
 {
     [SerializeField] protected GameObject prefab;
     InventoryDisplay inventoryDisplay = null;
-    Transform sketchbookPanel;
-    Transform item = null;
+    Transform copy = null;
     public float rototation = 0;
     public int index;
     
-    public override void Initialize() {
-        base.Initialize();
-        sketchbookPanel = GameObject.FindWithTag("Sketchbook").transform.GetChild(0);
+    public override void Initialize(Item item) {
+        base.Initialize(item);
         enabled = true;
         SetNavigationMode(Navigation.Mode.None);
     }
@@ -25,31 +25,59 @@ public class ItemSticker : Sticker
     }
 
     public override void Drop(InputAction.CallbackContext context) {
-        Destroy(GetComponent<GraphicRaycaster>());
-        Destroy(GetComponent<Canvas>());
         if (inventoryBox && transform.localPosition.x >= -100) {
-            transform.localPosition = Vector3.zero;
+            inventoryBox.UpdateCount(++item.count);
+            inventoryBox.Select();
+            if (item.count == 1) {
+                transform.localPosition = Vector3.zero;    
+            } else {
+                Delete();
+            }
         } else {
-            if (!item) {
+            if (!copy) {
                 inventoryDisplay = inventoryBox.inventoryDisplay;
-                transform.SetParent(sketchbookPanel);
-                item = Instantiate(prefab).transform;
+                transform.SetParent(stickerPanel);
+                copy = Instantiate(prefab, GameObject.FindWithTag("World").transform).transform;
                 SetNavigationMode(Navigation.Mode.Automatic);
                 inventoryBox.RemoveSticker();
                 inventoryBox = null;
             }
-            item.localPosition = TransformationFunction.BookToWorld(transform.localPosition);
-            item.localEulerAngles = new Vector3(0, rototation, 0);
+            if (canvas) {
+                Destroy(GetComponent<GraphicRaycaster>());
+                Destroy(GetComponent<Canvas>());
+                canvas = null;
+            }
+            copy.localPosition = TransformationFunction.BookToWorld(transform.localPosition);
+            copy.localEulerAngles = new Vector3(0, rototation, 0);
+            Select();
+        }
+    }
+
+    public override void OnSelect(BaseEventData data)
+    {
+        base.OnSelect(null);
+        if (inventoryDisplay) {
+            inventoryDisplay.sketchbookSelect = this;
         }
     }
 
     public override void Delete()
     {
         base.Delete();
-        if (item) {
-            Destroy(item.gameObject);
+        if (copy) {
+            Destroy(copy.gameObject);
             inventoryDisplay.RemoveFromSketchbook(this);  
         }
         Destroy(gameObject); 
+    }
+
+    public bool TrashCan() {
+        if (item.total == 1) {
+            return false;
+        } else {
+            item.total -= 1;
+            Delete();
+            return true;
+        }
     }
 }

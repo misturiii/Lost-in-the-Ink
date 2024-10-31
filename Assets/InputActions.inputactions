@@ -250,17 +250,6 @@
                 },
                 {
                     "name": "",
-                    "id": "55d19bdb-c664-48a2-aaf9-cd1cbc6114a5",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4c3f4a82-3f7b-44d7-ade2-b614adab1773",
                     "path": "<Keyboard>/e",
                     "interactions": "",

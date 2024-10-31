@@ -1,4 +1,5 @@
-using UnityEngine;
+using System.Diagnostics;
+using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,9 +8,13 @@ public class InventoryBox : Selectable
     public InventoryDisplay inventoryDisplay;
     public int index;
     public Sticker sticker;
+    public int count = 0;
+    public TextMeshProUGUI countText;
 
-    public void initialize () {
+    public void Initialize () {
         inventoryDisplay = GetComponentInParent<InventoryDisplay>();
+        countText = GetComponentInChildren<TextMeshProUGUI>();
+        countText.text = string.Empty;
     }
 
     public override void OnSelect (BaseEventData data) {
@@ -35,18 +40,22 @@ public class InventoryBox : Selectable
 
     public void RemoveSticker () {
         ItemSticker temp = (ItemSticker)sticker;
-        sticker = null;
+        if (sticker.item.count == 0) {
+            sticker = null;
+            inventoryDisplay.RemoveFromInventory(index);
+        }
         OnDeselect(null);
-        inventoryDisplay.RemoveFromInventory(index, temp);
+        inventoryDisplay.AddToSketchbook(temp);
+        
     }
 
-    public override void OnPointerEnter(PointerEventData eventData)
-    {
-        Select();
+    public void SetSticker(Item item) {
+        sticker = Instantiate(item.prefab, transform).GetComponent<Sticker>();
+        sticker.Initialize(item);
+        UpdateCount(item.count);
     }
 
-    public void SetSticker(GameObject prefab) {
-        sticker = Instantiate(prefab, transform).GetComponent<Sticker>();
-        sticker.Initialize();
+    public void UpdateCount (int count) {
+        countText.text = count > 0 ? count.ToString() : string.Empty;
     }
 }

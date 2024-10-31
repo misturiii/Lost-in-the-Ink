@@ -5,20 +5,29 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory/Inventory")]
 public class Inventory : ScriptableObject
 {
+    public List<Item> tools = new List<Item>();
     public List<Item> items = new List<Item>();
     public event Action OnEmptyInventory;
     public event Action OnContainSticker;
+    public string newItem;
 
     // Method to add an item to the inventory
     public void Add(Item item)
     {
-        items.Add(item);
+        if (item.isTool) {
+            tools.Add(item);
+        } else if (!items.Contains(item)) {
+            items.Add(item);
+        } 
+        item.count++;
+        item.total++;
         Debug.Log(item.itemName + " added to inventory");
         Debug.Log("Inventory contains the following stickers:");
         for (int i = 0; i < items.Count; i++)
         {
             Debug.Log("Sticker: " + items[i].name); // Assuming 'name' is a property in your Item class
         }
+        newItem = item.itemName;
         OnContainSticker?.Invoke();
     }
 
@@ -34,6 +43,7 @@ public class Inventory : ScriptableObject
     public void Clear()
     {
         items.Clear();
+        tools.Clear();
         Debug.Log("Inventory cleared");
     }
 
