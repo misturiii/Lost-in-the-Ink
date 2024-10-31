@@ -1,106 +1,112 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragHandler, IPointerEnterHandler
+public abstract class Sticker : Selectable, IDragHandler
 {
     protected float moveSpeed = 1000f;
-    public int index;
-    protected InventoryDisplay inventoryDisplay;
+    protected InventoryBox inventoryBox;
     protected InputActions inputActions;
-    protected bool selected;
-    protected Outline outline;
+    protected Material material;
+    protected SketchbookGuide sketchbookGuide;
     protected Canvas canvas;
+    public Item item;
+    protected Transform stickerPanel;
+    protected bool isSelected;
 
+    static protected readonly int 
+        useOutlineId = Shader.PropertyToID("_UseOutline"),
+        lineWidthId = Shader.PropertyToID("_LineWidth"),
+        lineColorId = Shader.PropertyToID("_LineColor");
 
-    void Start()
+    public virtual void Initialize(Item item)
     {
-        selected = false;
-        inventoryDisplay = FindObjectOfType<InventoryDisplay>();
-        gameObject.AddComponent<GraphicRaycaster>();
-        BoxCollider collider = gameObject.AddComponent<BoxCollider>();
-        collider.size = Vector3.one * 300;
-        Initialize();
-    }
+        this.item = item;
+        inventoryBox = GetComponentInParent<InventoryBox>();
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
 
-    void OnEnable () {
-        if (!canvas) {
-            canvas = gameObject.AddComponent<Canvas>();
-        } else {
-            canvas = gameObject.GetComponent<Canvas>();
-        }
+        material = Instantiate(image.material);
+        image.material = material;
+        
+        material.SetInt(useOutlineId, 0);
+        material.SetFloat(lineWidthId, 6);
+
+        sketchbookGuide = GameObject.Find("PlayerGuide").GetComponentInChildren<SketchbookGuide>();
+        canvas = gameObject.AddComponent<Canvas>();
         canvas.overrideSorting = true;
         canvas.sortingOrder = 1;
-        if (inputActions == null) {
-            inputActions = FindObjectOfType<InputActionManager>().inputActions;
-            outline = gameObject.AddComponent<Outline>();
-            outline.effectColor = Color.black;
-            outline.effectDistance = new Vector2(2, -2);
-            outline.enabled = false;
-        } 
+        stickerPanel = GameObject.FindGameObjectWithTag("Sketchbook").transform.GetChild(0);
+        gameObject.AddComponent<GraphicRaycaster>();
+    }
+    void Update () {
+        if (isSelected && inputActions.UI.Click.inProgress) {
+            Drag(moveSpeed * inputActions.UI.Move.ReadValue<Vector2>() * Time.deltaTime);
+        }
     }
 
-    protected abstract void Initialize();
+    void OnBeginDrag(InputAction.CallbackContext context) {
+        if (isSelected) {
+            OnBeginDrag();
+        }
+    }
 
-    void Update () {
-        if (selected && inputActions.UI.Click.inProgress) {
-            if (inputActions.UI.Click.inProgress) {
-                Drag(moveSpeed * inputActions.UI.Move.ReadValue<Vector2>() * Time.deltaTime);
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        OnBeginDrag();
+    }
+
+    void OnBeginDrag () {
+        Debug.Log($"Sticker Begin Drag: Name = {name}, Position = {transform.position}");
+        Select();
+        if (inventoryBox) {
+            if (item.count-- > 1) {
+                inventoryBox.SetSticker(item);
+            } else {
+                inventoryBox.UpdateCount(0);
             }
         }
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public override void OnPointerUp(PointerEventData eventData)
     {
         Drop(new InputAction.CallbackContext());
     }
 
-    protected abstract void UseStickerBefore ();
-    protected abstract void UseStickerAfter ();
+    public abstract void Drop(InputAction.CallbackContext context);
 
-    public void Drop(InputAction.CallbackContext context) {
-        UseStickerBefore();
-
-        if (InInventory()) {
-            if (transform.localPosition.x < -100) {
-                inventoryDisplay.AddToSketchBook(this);
-                UseStickerAfter();
-                Debug.Log($"Sticker moved to Sketchbook: Name = {name}, Index = {index}, Position = {transform.position}");
-            } else {
-                transform.localPosition = Vector3.zero;
-                Debug.Log("Sticker reset to initial position.");
-            }
-            return;
+    override public void OnSelect(BaseEventData data) {
+        isSelected = true;
+        if (canvas) {
+            canvas.sortingOrder = 50;
+        } else {
+            transform.SetAsLastSibling();
         }
-
-        UseStickerAfter();
-    }
-
-    public bool InInventory() {
-        bool inInventory = transform.parent.tag == "Inventory";
-        Debug.Log($"Sticker InInventory Check: Name = {name}, InInventory = {inInventory}");
-        return inInventory;
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        Select();
-        Debug.Log($"Sticker Begin Drag: Name = {name}, Index = {index}, Position = {transform.position}");
-    }
-
-    public void Select() {
-        selected = true;
-        outline.enabled = true;
-        canvas.sortingOrder = 5000;
+        base.OnSelect(null);
+        material.SetInt(useOutlineId, 1);
         inputActions.UI.Click.canceled += Drop;
+        inputActions.UI.Click.performed += OnBeginDrag;
+        Debug.Log($"sticker {name} selected");
     }
     
-    public void Deselect () {
-        selected = false;
-        outline.enabled = false;
-        canvas.sortingOrder = 1;
+    override public void OnDeselect(BaseEventData data) {
+        isSelected = false;
+        if (canvas) {
+            canvas.sortingOrder = 1;
+        }
+        base.OnDeselect(null);
+        material.SetInt(useOutlineId, 0);
         inputActions.UI.Click.canceled -= Drop;
+        inputActions.UI.Click.performed -= OnBeginDrag;
+        Debug.Log($"sticker {name} deselected");
+    }
+
+    public override void Select()
+    {
+        Debug.Log("Select");
+        base.Select();
+        OnSelect(null);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -112,13 +118,22 @@ public abstract class Sticker : MonoBehaviour, IDragHandler, IDropHandler, IBegi
     public void Drag(Vector3 move)
     {
         transform.position += move;
+        sketchbookGuide.DisplayDropGuide();
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {
-        if (InInventory()) {
-            inventoryDisplay.PointToInventory(index);
-        } else {
-            inventoryDisplay.PointToSketchBook(this);
+    public virtual void Delete() {
+        inputActions.UI.Click.canceled -= Drop;
+        inputActions.UI.Click.performed -= OnBeginDrag;
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!isSelected) {
+            if (inventoryBox) {
+                inventoryBox.Select();
+            } else {
+                Select();
+        }
         }
     }
 }
