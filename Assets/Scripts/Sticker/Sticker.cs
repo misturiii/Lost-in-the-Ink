@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -134,7 +133,7 @@ public abstract class Sticker : Selectable, IDragHandler
                 inventoryBox.Select();
             } else {
                 Select();
-        }
+            }
         }
     }
 }

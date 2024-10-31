@@ -64,18 +64,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ViewPuzzle"",
+                    ""name"": ""Trigger"",
                     ""type"": ""Button"",
-                    ""id"": ""2d41327a-4800-4d81-9db3-7fe6fa5257ca"",
+                    ""id"": ""b692d141-3310-425d-9c87-16d042c9ced5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Trigger"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""b692d141-3310-425d-9c87-16d042c9ced5"",
+                    ""id"": ""26f8076c-339d-4ab9-9e80-09d1dd222694"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -272,6 +272,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""88ed5f0f-b811-4c27-882a-d0be867cf230"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""4c3f4a82-3f7b-44d7-ade2-b614adab1773"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -284,44 +295,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""db5e5685-27d9-4423-b79f-67d4e53464e2"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""GrabSticker"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c4d411db-f803-4949-ac48-da1fe8cb9442"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""ViewPuzzle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d058f88a-8b05-4e22-a524-d93cbc017bc3"",
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""ViewPuzzle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""91e93eeb-e058-48c1-a44d-db4a14e4f728"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Trigger"",
+                    ""action"": ""GrabSticker"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -333,6 +311,39 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b79c3ae1-6ac8-480c-b9dc-03c37d1a5cf5"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7232406d-3b04-40dc-8acf-3d64cbdf7575"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae69af9e-91dc-4466-b69b-9d6b5181fe22"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -750,7 +761,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""083b5c0f-a296-4c88-9ea1-3a5ec24686fd"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -1336,8 +1347,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
         m_Player_GrabSticker = m_Player.FindAction("GrabSticker", throwIfNotFound: true);
-        m_Player_ViewPuzzle = m_Player.FindAction("ViewPuzzle", throwIfNotFound: true);
         m_Player_Trigger = m_Player.FindAction("Trigger", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Trigger = m_UI.FindAction("Trigger", throwIfNotFound: true);
@@ -1424,8 +1435,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Click;
     private readonly InputAction m_Player_GrabSticker;
-    private readonly InputAction m_Player_ViewPuzzle;
     private readonly InputAction m_Player_Trigger;
+    private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -1434,8 +1445,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Click => m_Wrapper.m_Player_Click;
         public InputAction @GrabSticker => m_Wrapper.m_Player_GrabSticker;
-        public InputAction @ViewPuzzle => m_Wrapper.m_Player_ViewPuzzle;
         public InputAction @Trigger => m_Wrapper.m_Player_Trigger;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1457,12 +1468,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GrabSticker.started += instance.OnGrabSticker;
             @GrabSticker.performed += instance.OnGrabSticker;
             @GrabSticker.canceled += instance.OnGrabSticker;
-            @ViewPuzzle.started += instance.OnViewPuzzle;
-            @ViewPuzzle.performed += instance.OnViewPuzzle;
-            @ViewPuzzle.canceled += instance.OnViewPuzzle;
             @Trigger.started += instance.OnTrigger;
             @Trigger.performed += instance.OnTrigger;
             @Trigger.canceled += instance.OnTrigger;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1479,12 +1490,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GrabSticker.started -= instance.OnGrabSticker;
             @GrabSticker.performed -= instance.OnGrabSticker;
             @GrabSticker.canceled -= instance.OnGrabSticker;
-            @ViewPuzzle.started -= instance.OnViewPuzzle;
-            @ViewPuzzle.performed -= instance.OnViewPuzzle;
-            @ViewPuzzle.canceled -= instance.OnViewPuzzle;
             @Trigger.started -= instance.OnTrigger;
             @Trigger.performed -= instance.OnTrigger;
             @Trigger.canceled -= instance.OnTrigger;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1765,8 +1776,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnGrabSticker(InputAction.CallbackContext context);
-        void OnViewPuzzle(InputAction.CallbackContext context);
         void OnTrigger(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -1,8 +1,9 @@
 public class CameraBehaviour : ToolBehaviour
 {
 
-    public override void StartBehaviour(ItemSticker sticker)
+    public override string StartBehaviour(ItemSticker sticker)
     {
         sticker.Camera();
+        return "";
     }
 }

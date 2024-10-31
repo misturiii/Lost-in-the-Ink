@@ -43,9 +43,6 @@ public class InventoryDisplay : MonoBehaviour
     }
 
     void Select () {
-        if (!sketchbookSelect && stickers.Count > 0) {
-            sketchbookSelect = stickers[stickers.Count - 1];
-        }
         if (!inInventory && sketchbookSelect) {
             sketchbookSelect.Select();
         } else {
@@ -83,7 +80,7 @@ public class InventoryDisplay : MonoBehaviour
         if (next = navigation.selectOnLeft) { return next; }
         if (next = navigation.selectOnDown) { return next; }
         if (next = navigation.selectOnRight) { return next; }
-        return null;
+        return stickers.Count > 0 ? stickers[stickers.Count - 1] : null;
     }
 
     // Method to update the inventory UI when items are added
@@ -113,5 +110,10 @@ public class InventoryDisplay : MonoBehaviour
             inventoryBoxes[i++].SetSticker(item);
         }
         inventoryBoxes[i].UpdateCount(0);
+    }
+
+    public void InventoryAdd(Item item){
+        inventory.Add(item);
+        UpdateInventoryDisplay();
     }
 }

@@ -25,7 +25,6 @@ public class ItemSticker : Sticker
     }
 
     public override void Drop(InputAction.CallbackContext context) {
-        sketchbookGuide.DisplayDragGuide();
         if (inventoryBox && transform.localPosition.x >= -100) {
             inventoryBox.UpdateCount(++item.count);
             inventoryBox.Select();
@@ -48,8 +47,7 @@ public class ItemSticker : Sticker
                 Destroy(GetComponent<Canvas>());
                 canvas = null;
             }
-            copy.localPosition = FunctionLibrary.BookToWorld(transform.localPosition);
-            copy.localEulerAngles = new Vector3(0, rototation, 0);
+            GenerateObject();
             Select();
         }
     }
@@ -80,5 +78,36 @@ public class ItemSticker : Sticker
             Delete();
             return true;
         }
+    }
+
+    public bool Camera() {
+        if (item.total == 9) {
+            return false;
+        } else {
+            inventoryDisplay.InventoryAdd(item);
+            return true;
+        }
+    }
+
+    public bool Mirror(){
+
+         if (item != null)
+        {
+          
+           
+            transform.Rotate(0, 0, 45);
+            rototation += 45;
+            GenerateObject();
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public void GenerateObject(){
+        copy.localPosition = FunctionLibrary.BookToWorld(transform.localPosition);
+        copy.localEulerAngles = new Vector3(0, rototation, 0);
+
     }
 }
