@@ -119,6 +119,7 @@ public abstract class Sticker : Selectable, IDragHandler
     public void Drag(Vector3 move)
     {
         transform.position += move;
+        sketchbookGuide.DisplayDropGuide();
     }
 
     public virtual void Delete() {
