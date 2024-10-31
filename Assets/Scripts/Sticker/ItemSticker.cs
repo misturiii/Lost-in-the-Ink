@@ -25,6 +25,7 @@ public class ItemSticker : Sticker
     }
 
     public override void Drop(InputAction.CallbackContext context) {
+        sketchbookGuide.DisplayDragGuide();
         if (inventoryBox && transform.localPosition.x >= -100) {
             inventoryBox.UpdateCount(++item.count);
             inventoryBox.Select();
@@ -47,7 +48,7 @@ public class ItemSticker : Sticker
                 Destroy(GetComponent<Canvas>());
                 canvas = null;
             }
-            copy.localPosition = TransformationFunction.BookToWorld(transform.localPosition);
+            copy.localPosition = FunctionLibrary.BookToWorld(transform.localPosition);
             copy.localEulerAngles = new Vector3(0, rototation, 0);
             Select();
         }

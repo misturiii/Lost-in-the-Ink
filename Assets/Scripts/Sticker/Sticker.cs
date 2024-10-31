@@ -60,6 +60,7 @@ public abstract class Sticker : Selectable, IDragHandler
     void OnBeginDrag () {
         Debug.Log($"Sticker Begin Drag: Name = {name}, Position = {transform.position}");
         Select();
+        sketchbookGuide.DisplayDropGuide();
         if (inventoryBox) {
             if (item.count-- > 1) {
                 inventoryBox.SetSticker(item);
@@ -118,7 +119,6 @@ public abstract class Sticker : Selectable, IDragHandler
     public void Drag(Vector3 move)
     {
         transform.position += move;
-        sketchbookGuide.DisplayDropGuide();
     }
 
     public virtual void Delete() {

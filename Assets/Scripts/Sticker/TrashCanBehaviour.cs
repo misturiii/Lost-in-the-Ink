@@ -1,8 +1,11 @@
 public class TrashCanBehaviour : ToolBehaviour
 {
-
-    public override void StartBehaviour(ItemSticker sticker)
+    public override string StartBehaviour(ItemSticker sticker)
     {
-        sticker.TrashCan();
+        if (sticker.TrashCan()) {
+            return $"Successfully deleted {sticker.item.itemName} sticker";
+        } else {
+            return FunctionLibrary.HighlightString($"{sticker.item.itemName} sticker is unique, cannot delete it");
+        }
     }
 }

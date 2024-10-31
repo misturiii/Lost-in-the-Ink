@@ -9,6 +9,6 @@ public class Location : MonoBehaviour
     }
 
     void OnEnable () {
-        transform.localPosition = TransformationFunction.WorldToBook(fountain.localPosition);
+        transform.localPosition = FunctionLibrary.WorldToBook(fountain.localPosition);
     }
 }

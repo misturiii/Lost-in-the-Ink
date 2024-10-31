@@ -12,8 +12,8 @@ public class Dialogue : MonoBehaviour
     float textSpeed = 0.02f; // Speed of text typing
     string curLine;
     bool inProgress;
-    string styleStart = "<b><color=#af001c>";
-    string styleEnd = "</color></b>";
+    string styleStart = FunctionLibrary.styleStart;
+    string styleEnd = FunctionLibrary.styleEnd;
     public bool notFirstTime => dialogueObject.notFirstTime;
     
     private DialogueManager dialogueManager;  // 引用 DialogueManager

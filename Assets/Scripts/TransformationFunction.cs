@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TransformationFunction
+public class FunctionLibrary
 {
     static float sketchbookWidth = 1780;
     static float sketchbookHeight = 1080;
@@ -18,5 +18,12 @@ public class TransformationFunction
         float x = -position.x * worldWidth / sketchbookWidth;
         float z = -position.y * worldHeight / sketchbookHeight;
         return new Vector3(x, initialHeight, z);
+    }
+
+    static public string styleStart = "<b><color=#af001c>";
+    static public string styleEnd = "</color></b>";
+
+    static public string HighlightString (string s) {
+        return styleStart + s + styleEnd;
     }
 }

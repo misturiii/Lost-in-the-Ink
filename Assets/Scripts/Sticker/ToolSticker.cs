@@ -18,6 +18,7 @@ public class ToolSticker : Sticker
     }
     public override void Drop(InputAction.CallbackContext context)
     {
+        sketchbookGuide.DisplayDragGuide();
         inventoryBox.Select();
         PointerEventData data = new PointerEventData(EventSystem.current) { position = transform.position};
         List<RaycastResult> results = new List<RaycastResult>();
@@ -29,7 +30,7 @@ public class ToolSticker : Sticker
             Debug.Log("Hit UI element: " + result.gameObject.name);
             ItemSticker sticker = result.gameObject.GetComponent<ItemSticker>();
             if (sticker) {
-                behaviour.StartBehaviour(sticker);
+                sketchbookGuide.DisplayResult(behaviour.StartBehaviour(sticker));
                 break;
             }
         }

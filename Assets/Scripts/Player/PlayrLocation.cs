@@ -9,6 +9,6 @@ public class PlayrLocation : MonoBehaviour
     }
 
     void OnEnable () {
-        transform.localPosition = TransformationFunction.WorldToBook(player.localPosition);
+        transform.localPosition = FunctionLibrary.WorldToBook(player.localPosition);
     }
 }

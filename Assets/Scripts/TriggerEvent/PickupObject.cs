@@ -7,9 +7,8 @@ public class PickupObject : MonoBehaviour
 {
     Inventory inventory;                // Reference to the Inventory ScriptableObject
     public InventoryDisplay inventoryDisplay;  // Reference to the InventoryDisplay
-    private GameObject currentItem;      // Track the currently detected item
+    private ItemObject currentItem;      // Track the currently detected item
     InputActions inputActions;
-
     public GameObject pickUpGuide;
     float rayDistance = 6f;  // Distance the ray can detect
     public float minDistance = 3f;
@@ -45,23 +44,23 @@ public class PickupObject : MonoBehaviour
             // Check if the object has the Pickable tag
             if (hit.collider.CompareTag("PickableItem"))
             {   
-                currentItem = hit.collider.gameObject; // Store the currently detected item
-                currentItem.GetComponent<ItemObject>().Enter();      
+                UpdateCurrentItem(hit.collider.gameObject.GetComponent<ItemObject>());      
                 ShowPickupGuide();          
             }
             else{
-                
                 HidePickupGuide();// Do not show guide
             }
         }
         else{
-            if(currentItem){
-                currentItem.GetComponent<ItemObject>().Exit();
-                currentItem = null;
-            }
+            UpdateCurrentItem(null);
             HidePickupGuide();
         }
+    }
 
+    void UpdateCurrentItem(ItemObject other) {
+        currentItem?.Exit();
+        currentItem = other;
+        currentItem?.Enter();
     }
 
     void Grab(InputAction.CallbackContext context)
@@ -70,38 +69,20 @@ public class PickupObject : MonoBehaviour
         if (context.performed && currentItem != null)
         {
             if ((currentItem.transform.position - transform.localPosition).magnitude < minDistance) {
-                ItemObject itemObject = currentItem.GetComponent<ItemObject>();
-                if (itemObject != null)
-                {
-                    inventory.Add(itemObject.item); // Add the item to the inventory
-                    Debug.Log("Picked up item: " + itemObject.item.itemName);
+                inventory.Add(currentItem.item); // Add the item to the inventory
+                Debug.Log("Picked up item: " + currentItem.item.itemName);
 
-                    // Destroy the item from the scene
-                    Destroy(currentItem);
-                    currentItem = null; // Reset current item
+                // Destroy the item from the scene
+                Destroy(currentItem.gameObject);
+                currentItem = null; // Reset current item
 
-                    // Hide the pickup text and background after pickup
-                    HidePickupGuide();
-                }
-                else
-                {
-                    Debug.LogError("ItemObject component is missing on: " + currentItem.name);
-                }
+                // Hide the pickup text and background after pickup
+                HidePickupGuide();
+                
             } else {
-                Debug.Log("Too far away, nned to find a tool");
+                Debug.Log("Too far away, need to find a tool");
             }
             
-        }
-    }
-
-    // Method to manually check if player is in the pickup area
-    public void CheckForPickupItem()
-    {
-        if (currentItem != null && currentItem.CompareTag("PickableItem"))
-        {
-            // Manually display pickup guide if player is in the area after dialogue ends
-            Debug.Log("Player is in the pickup area after dialogue ended, item is now pickable.");
-            ShowPickupGuide();
         }
     }
 
