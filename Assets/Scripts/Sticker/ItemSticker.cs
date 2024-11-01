@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ItemSticker : Sticker
 {
     [SerializeField] protected GameObject prefab;
+    [SerializeField] float scale = 1;
     InventoryDisplay inventoryDisplay = null;
     Transform copy = null;
     public float rototation = 0;
@@ -15,7 +16,6 @@ public class ItemSticker : Sticker
     public override void Initialize(Item item) {
         base.Initialize(item);
         enabled = true;
-        SetNavigationMode(Navigation.Mode.None);
     }
 
     private void SetNavigationMode (Navigation.Mode mode) {
@@ -41,6 +41,7 @@ public class ItemSticker : Sticker
                 SetNavigationMode(Navigation.Mode.Automatic);
                 inventoryBox.RemoveSticker();
                 inventoryBox = null;
+                transform.localScale *= scale;
             }
             if (canvas) {
                 Destroy(GetComponent<GraphicRaycaster>());

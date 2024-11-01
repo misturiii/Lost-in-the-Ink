@@ -14,6 +14,7 @@ public abstract class Sticker : Selectable, IDragHandler
     public Item item;
     protected Transform stickerPanel;
     protected bool isSelected;
+    protected Color lineColor;
 
     static protected readonly int 
         useOutlineId = Shader.PropertyToID("_UseOutline"),
@@ -29,8 +30,10 @@ public abstract class Sticker : Selectable, IDragHandler
         material = Instantiate(image.material);
         image.material = material;
         
-        material.SetInt(useOutlineId, 0);
+        material.SetInt(useOutlineId, 1);
         material.SetFloat(lineWidthId, 6);
+        lineColor = material.GetColor(lineColorId);
+        material.SetColor(lineColorId, Color.white);
 
         sketchbookGuide = GameObject.Find("PlayerGuide").GetComponentInChildren<SketchbookGuide>();
         canvas = gameObject.AddComponent<Canvas>();
@@ -84,7 +87,7 @@ public abstract class Sticker : Selectable, IDragHandler
             transform.SetAsLastSibling();
         }
         base.OnSelect(null);
-        material.SetInt(useOutlineId, 1);
+        material.SetColor(lineColorId, lineColor);
         inputActions.UI.Click.canceled += Drop;
         inputActions.UI.Click.performed += OnBeginDrag;
         Debug.Log($"sticker {name} selected");
@@ -96,7 +99,7 @@ public abstract class Sticker : Selectable, IDragHandler
             canvas.sortingOrder = 1;
         }
         base.OnDeselect(null);
-        material.SetInt(useOutlineId, 0);
+        material.SetColor(lineColorId, Color.white);
         inputActions.UI.Click.canceled -= Drop;
         inputActions.UI.Click.performed -= OnBeginDrag;
         Debug.Log($"sticker {name} deselected");

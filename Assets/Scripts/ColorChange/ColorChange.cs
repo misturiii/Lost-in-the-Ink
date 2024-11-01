@@ -4,10 +4,13 @@ using UnityEngine.InputSystem;
 public class ColorChange : MonoBehaviour
 {
     float duration = 0.12f;
-    [SerializeField] Material[] mats;
+    Material[] mats;
     InputActions inputActions;
     Camera cam;
     bool isVisible;
+    Rigidbody rb;
+    MeshCollider MeshCollider;
+    bool IsSleeping = false;
 
     protected static readonly int 
         durationId = Shader.PropertyToID("_Duration"), 
@@ -19,9 +22,17 @@ public class ColorChange : MonoBehaviour
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.Trigger.performed += CloseSketchBook;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        rb = gameObject.AddComponent<Rigidbody>();
+        MeshCollider = GetComponent<MeshCollider>();
+        MeshCollider.convex = true;
     }
 
     void Update () {
+        if (rb.IsSleeping() != IsSleeping) {
+            rb.isKinematic = !IsSleeping;
+            MeshCollider.convex = IsSleeping;
+            IsSleeping = !IsSleeping;
+        }
         if (isVisible && mats[0].GetFloat(durationId) == 0) {
             foreach (Material mat in mats) {
                 Vector2 viewPos = cam.WorldToViewportPoint(transform.position);
