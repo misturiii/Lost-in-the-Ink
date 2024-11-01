@@ -12,14 +12,13 @@ public class ItemSticker : Sticker
     Transform copy = null;
     public float rototation = 0;
     public int index;
-    public AudioClip dropStickerAudioClip; 
-    public AudioClip deleteStickerAudioClip; 
-    //  private AudioSource audioSourceItem; 
+    public AudioClip dropStickerAudioClip;
+    public AudioClip duplicateStickerClip; 
+    public AudioClip rotateStickerClip; 
     
     public override void Initialize(Item item) {
         base.Initialize(item);
         enabled = true;
-        // audioSource = GetComponent<AudioSource>();
     }
 
     private void SetNavigationMode (Navigation.Mode mode) {
@@ -87,6 +86,7 @@ public class ItemSticker : Sticker
             return false;
         } else {
             item.total -= 1;
+           
             Delete();
             return true;
         }
@@ -96,20 +96,21 @@ public class ItemSticker : Sticker
         if (item.total == 9) {
             return false;
         } else {
+            if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(duplicateStickerClip);
+            }
             inventoryDisplay.InventoryAdd(item);
             return true;
         }
     }
 
     public bool Mirror(){
-
          if (item != null)
         {
-          
-           if (audioSource != null && !audioSource.isPlaying)
+            if (audioSource != null && !audioSource.isPlaying)
             {
-                audioSource.PlayOneShot(deleteStickerAudioClip);
-                Debug.Log("audio for delete is played");
+                audioSource.PlayOneShot(rotateStickerClip);
             }
             transform.Rotate(0, 0, 45);
             rototation += 45;
@@ -118,7 +119,6 @@ public class ItemSticker : Sticker
         }else{
             return false;
         }
-
     }
 
     public void GenerateObject(){
