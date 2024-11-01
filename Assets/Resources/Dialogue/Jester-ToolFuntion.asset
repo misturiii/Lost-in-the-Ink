@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980cc5f0077809c4787ceb1df42a493c, type: 3}
+  m_Name: Jester-ToolFuntion
+  m_EditorClassIdentifier: 
+  dialogues:
+  - speaker: THE JESTER
+    lines:
+    - Oh, my bad! Let me tell you the funtionality of those stickers
+    - The camera sticker will let you <make copies> of certain objects.
+    - "The trashcan sticker helps you <clear away> anything that doesn\u2019t belong"
+    - the mirror sticker allows you to <rotate stickers> to fit the scene perfectly.
+  - speaker: WILLIAM
+    lines:
+    - Where should I use it?
+  - speaker: THE JESTER
+    lines:
+    - Here, this bench sticker is for you to test out the tools on your <skecthbook>.
+    - All item stickers can be draged to the sketchbook, and tool stickers can be
+      draged onto the other sticker to apply change.
+    - 'Don''t forget there is a <map> that might be helpful as well. '
+    - "Take a good look, William\u2014each detail matters if we\u2019re to restore
+      things as they once were."
+    - "With these in hand, you\u2019re ready to start piecing things together. Let\u2019s
+      bring this world back!"
+  notFirstTime: 1

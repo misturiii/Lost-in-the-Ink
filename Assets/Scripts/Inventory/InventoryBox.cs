@@ -19,7 +19,7 @@ public class InventoryBox : Selectable
 
     public override void OnSelect (BaseEventData data) {
         base.OnSelect(null);
-        inventoryDisplay.inventoryIndex = index;
+        inventoryDisplay.SelectInventory(index);
         if (sticker) {
             sticker.OnSelect(null);
         }
@@ -46,7 +46,6 @@ public class InventoryBox : Selectable
         }
         OnDeselect(null);
         inventoryDisplay.AddToSketchbook(temp);
-        
     }
 
     public void SetSticker(Item item) {

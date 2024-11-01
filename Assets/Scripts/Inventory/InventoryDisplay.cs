@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections;
-using Unity.VisualScripting;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,8 +10,8 @@ public class InventoryDisplay : MonoBehaviour
     Inventory inventory;             // Reference to the inventory
     InventoryBox[] inventoryBoxes;
     InputActions inputActions; 
-    public int inventoryIndex = 0;
-    public Selectable sketchbookSelect = null;
+    int inventoryIndex = 0;
+    Selectable sketchbookSelect = null;
     public GraphicRaycaster graphicRaycaster;  // Reference to the Canvas' GraphicRaycaster
     bool inInventory = true;
     List<Selectable> stickers;
@@ -35,6 +34,13 @@ public class InventoryDisplay : MonoBehaviour
         inventory = Resources.Load<Inventory>("PlayerInventory");
         graphicRaycaster = gameObject.AddComponent<GraphicRaycaster>();
         stickers = new List<Selectable>();
+
+        Sticker[] stickerPanel = transform.parent.GetChild(0).GetComponentsInChildren<Sticker>(true);
+        foreach (var sticker in stickerPanel) {
+            stickers.Add(sticker);
+            sticker.SetUp();
+            sketchbookSelect = sticker;
+        }
     }
 
     void OnEnable () {
@@ -115,5 +121,15 @@ public class InventoryDisplay : MonoBehaviour
     public void InventoryAdd(Item item){
         inventory.Add(item);
         UpdateInventoryDisplay();
+    }
+
+    public void SelectSketchbook (Selectable selectable) {
+        sketchbookSelect = selectable;
+        inInventory = false;
+    }
+
+    public void SelectInventory (int i) {
+        inventoryIndex = i;
+        inInventory = true;
     }
 }

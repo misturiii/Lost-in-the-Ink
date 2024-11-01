@@ -6,7 +6,7 @@ public class FunctionLibrary
     static float sketchbookHeight = 1080;
     static float worldWidth = 40;
     static float worldHeight = 30;
-    static float initialHeight = 5;
+    static float initialHeight = 10;
 
     static public Vector2 WorldToBook (Vector3 position) {
         float x = position.x * sketchbookWidth / worldWidth;
@@ -20,10 +20,13 @@ public class FunctionLibrary
         return new Vector3(x, initialHeight, z);
     }
 
-    static public string styleStart = "<b><color=#af001c>";
+    static public string styleStart = "<b><color=#a10103>";
     static public string styleEnd = "</color></b>";
 
     static public string HighlightString (string s) {
         return styleStart + s + styleEnd;
     }
+
+    public static Color LineColor1 = new Color(0.7f, 0.9f, 1f);
+    public static Color LineColor2 = new Color(1, 0.86f, 0.26f);
 }

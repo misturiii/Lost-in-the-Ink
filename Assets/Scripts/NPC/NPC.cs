@@ -6,19 +6,19 @@ public class NPC : MonoBehaviour
     [SerializeField] string dialogueName;
     QuickOutline outline;
     [SerializeField] GameObject[] sticker;
+    [SerializeField] GameObject[] objects;
+    [SerializeField] NPC next;
 
     void Start () {
-        dialogueObject = Resources.Load<DialogueObject>(dialogueName);
+        dialogueObject = Resources.Load<DialogueObject>("Dialogue/" + dialogueName);
         outline = gameObject.AddComponent<QuickOutline>();
-        outline.OutlineColor = new Color(0.7f, 0.9f, 1f);
+        outline.OutlineColor = FunctionLibrary.LineColor1;
         outline.OutlineMode = QuickOutline.Mode.OutlineVisible;
         outline.OutlineWidth = 10;
         outline.enabled = false;
-        if (sticker.Length > 0) {
-            foreach (var s in sticker) {
-                // Set each sticker to active
-                s?.SetActive(false);
-            }
+        foreach (var s in sticker) {
+            // Set each sticker to active
+            s?.SetActive(false);
         }
 
         GameObject[] npcs = GameObject.FindGameObjectsWithTag("Npc");
@@ -40,13 +40,17 @@ public class NPC : MonoBehaviour
     }
 
     public void DialogueEnds () {
-        if (sticker.Length > 0) {
-            foreach (var s in sticker) {
-                // Set each sticker to active
-                if (s != null) {
-                    s.SetActive(true);
-                }
+        foreach (var s in sticker) {
+            // Set each sticker to active
+            if (s != null) {
+                s.SetActive(true);
             }
+        }
+        foreach (var obj in objects) {
+            obj.tag = "Npc";
+        }
+        if (next) {
+            next.enabled = true;
         }
     }
 }

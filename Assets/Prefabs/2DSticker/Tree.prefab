@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: 100}
+  m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2275668738520694644
 CanvasRenderer:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
   item: {fileID: 0}
-  prefab: {fileID: 7509233132969192463, guid: 09f01f82ab436194398f7e884c2f9335, type: 3}
-  scale: 2
+  prefab: {fileID: 477337634148274155, guid: 4f42624a26f1b6e44bcc311761e62797, type: 3}
+  scale: 4
   rototation: 0
   index: 0

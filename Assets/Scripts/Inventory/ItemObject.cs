@@ -4,8 +4,9 @@ public class ItemObject : MonoBehaviour
 {
     public Item item; // Reference to the ScriptableObject that holds item data
     Material mat;
+    Color color = FunctionLibrary.LineColor2;
 
-    protected static readonly int useOutlineId = Shader.PropertyToID("_UseOutline");
+    protected static readonly int lineColorId = Shader.PropertyToID("_LineColor");
 
     void Start () {
         BoxCollider collider = gameObject.AddComponent<BoxCollider>();
@@ -13,14 +14,15 @@ public class ItemObject : MonoBehaviour
         collider.size = Vector3.one * 10;
         collider.isTrigger = true;
         mat = GetComponent<SpriteRenderer>().material;
-        mat.SetInt(useOutlineId, 0);
+        mat.SetColor(lineColorId, Color.white);
+        mat.SetFloat("_LineWidth", 0.2f/transform.localScale.x);
     }
 
     public void Enter () {
-        mat.SetInt(useOutlineId, 1);
+        mat.SetColor(lineColorId, color);
     }
 
     public void Exit () {
-        mat.SetInt(useOutlineId, 0);
+        mat.SetColor(lineColorId, Color.white);
     }
 }

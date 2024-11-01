@@ -13,7 +13,7 @@ public class PlayerJump : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         // 初始化输入动作
-        inputActions = new InputActions();
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.Enable();
         inputActions.Player.Jump.performed += OnJump; 
     }

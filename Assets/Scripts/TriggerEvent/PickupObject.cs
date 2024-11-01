@@ -10,8 +10,8 @@ public class PickupObject : MonoBehaviour
     private ItemObject currentItem;      // Track the currently detected item
     InputActions inputActions;
     public GameObject pickUpGuide;
-    float rayDistance = 6f;  // Distance the ray can detect
-    public float minDistance = 3f;
+    float rayDistance = 10f;  // Distance the ray can detect
+    float minDistance = 3f;
     void Start()
     {
         inventory = Resources.Load<Inventory>("PlayerInventory");
@@ -68,7 +68,7 @@ public class PickupObject : MonoBehaviour
         // Check for the E key press and if there's a current item
         if (context.performed && currentItem != null)
         {
-            if ((currentItem.transform.position - transform.localPosition).magnitude < minDistance) {
+            if (CheckPosition()) {
                 inventory.Add(currentItem.item); // Add the item to the inventory
                 Debug.Log("Picked up item: " + currentItem.item.itemName);
 
@@ -84,6 +84,12 @@ public class PickupObject : MonoBehaviour
             }
             
         }
+    }
+
+    bool CheckPosition () {
+        Vector3 p = currentItem.transform.position;
+        Vector3 q = transform.position;
+        return (p - q).magnitude < minDistance;
     }
 
     // Show the pickup guide (text and background)

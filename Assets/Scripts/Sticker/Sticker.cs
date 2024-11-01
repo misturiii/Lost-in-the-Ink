@@ -15,9 +15,9 @@ public abstract class Sticker : Selectable, IDragHandler
     protected Transform stickerPanel;
     protected bool isSelected;
     protected Color lineColor;
+    protected float lineWidth = 6f;
 
     static protected readonly int 
-        useOutlineId = Shader.PropertyToID("_UseOutline"),
         lineWidthId = Shader.PropertyToID("_LineWidth"),
         lineColorId = Shader.PropertyToID("_LineColor");
 
@@ -25,27 +25,29 @@ public abstract class Sticker : Selectable, IDragHandler
     {
         this.item = item;
         inventoryBox = GetComponentInParent<InventoryBox>();
-        inputActions = FindObjectOfType<InputActionManager>().inputActions;
-
-        material = Instantiate(image.material);
-        image.material = material;
-        
-        material.SetInt(useOutlineId, 1);
-        material.SetFloat(lineWidthId, 6);
-        lineColor = material.GetColor(lineColorId);
-        material.SetColor(lineColorId, Color.white);
-
-        sketchbookGuide = GameObject.Find("PlayerGuide").GetComponentInChildren<SketchbookGuide>();
         canvas = gameObject.AddComponent<Canvas>();
         canvas.overrideSorting = true;
         canvas.sortingOrder = 1;
         stickerPanel = GameObject.FindGameObjectWithTag("Sketchbook").transform.GetChild(0);
         gameObject.AddComponent<GraphicRaycaster>();
+        SetUp();
     }
     void Update () {
         if (isSelected && inputActions.UI.Click.inProgress) {
             Drag(moveSpeed * inputActions.UI.Move.ReadValue<Vector2>() * Time.deltaTime);
         }
+    }
+
+    public void SetUp () {
+        isSelected = false;
+        material = Instantiate(image.material);
+        image.material = material;
+    
+        material.SetFloat(lineWidthId, lineWidth);
+        material.SetColor(lineColorId, Color.white);
+        sketchbookGuide = GameObject.Find("PlayerGuide").GetComponentInChildren<SketchbookGuide>();
+        inputActions = FindObjectOfType<InputActionManager>().inputActions;
+        lineColor = FunctionLibrary.LineColor2;
     }
 
     void OnBeginDrag(InputAction.CallbackContext context) {
@@ -69,6 +71,9 @@ public abstract class Sticker : Selectable, IDragHandler
             } else {
                 inventoryBox.UpdateCount(0);
             }
+            canvas.sortingOrder = 50;
+        } else {
+            transform.SetAsLastSibling();
         }
     }
 
@@ -81,11 +86,6 @@ public abstract class Sticker : Selectable, IDragHandler
 
     override public void OnSelect(BaseEventData data) {
         isSelected = true;
-        if (canvas) {
-            canvas.sortingOrder = 50;
-        } else {
-            transform.SetAsLastSibling();
-        }
         base.OnSelect(null);
         material.SetColor(lineColorId, lineColor);
         inputActions.UI.Click.canceled += Drop;
@@ -134,8 +134,6 @@ public abstract class Sticker : Selectable, IDragHandler
         if (!isSelected) {
             if (inventoryBox) {
                 inventoryBox.Select();
-            } else {
-                Select();
             }
         }
     }

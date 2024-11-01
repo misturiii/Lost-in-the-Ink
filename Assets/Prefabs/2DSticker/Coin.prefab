@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7474888625593500139}
   - component: {fileID: -5506699495345131553}
   m_Layer: 5
-  m_Name: Bench2
+  m_Name: Coin
   m_TagString: Sticker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263774752063172929}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 60}
+  m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6410707626794223097
 CanvasRenderer:
@@ -58,7 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: -876546973899608171, guid: 9786a64e051843a4bb5e4c2192bedaa0,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 100, y: 100, z: 100, w: 100}
@@ -66,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01ec4de2990d0e14c8777125794f9974, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c02a026a990727e4f9e6dc56ada9e399, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
   item: {fileID: 0}
-  prefab: {fileID: 8347712863312571353, guid: ac01e4ff8abeb544d8ffebd987fe3918, type: 3}
-  scale: 2
+  prefab: {fileID: 919132149155446097, guid: 64082515348bd294fbd76b9aa05e8e87, type: 3}
+  scale: 0.75
   rototation: 0
   index: 0

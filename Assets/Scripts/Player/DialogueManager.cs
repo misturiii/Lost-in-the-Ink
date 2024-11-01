@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour
 
     // 新增的UI元素：提示“Press T or left click to start talking”
     public GameObject interactionGuide;
-    public float rayDistance = 1.5f;
+    float rayDistance = 10f;
     private GameObject currentNpc; 
     private bool isDialogueActive = false;
     public Transform skipBar;

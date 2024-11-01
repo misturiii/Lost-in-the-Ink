@@ -14,7 +14,7 @@ public class ToolSticker : Sticker
         base.Initialize(item);
         behaviour = GetComponent<ToolBehaviour>();
         raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
-        lineColor = new Color(0.7f, 0.9f, 1f);
+        lineColor = FunctionLibrary.LineColor1;
     }
     public override void Drop(InputAction.CallbackContext context)
     {
