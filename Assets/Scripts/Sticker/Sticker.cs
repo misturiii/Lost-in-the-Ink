@@ -16,6 +16,8 @@ public abstract class Sticker : Selectable, IDragHandler
     protected bool isSelected;
     protected Color lineColor;
     protected float lineWidth = 6f;
+    public AudioClip removeAudioClip; // The audio clip to play when inventory box is removed
+    public AudioSource audioSource; 
 
     static protected readonly int 
         lineWidthId = Shader.PropertyToID("_LineWidth"),
@@ -31,6 +33,8 @@ public abstract class Sticker : Selectable, IDragHandler
         stickerPanel = GameObject.FindGameObjectWithTag("Sketchbook").transform.GetChild(0);
         gameObject.AddComponent<GraphicRaycaster>();
         SetUp();
+        audioSource = GetComponent<AudioSource>();
+
     }
     void Update () {
         if (isSelected && inputActions.UI.Click.inProgress) {
@@ -71,9 +75,13 @@ public abstract class Sticker : Selectable, IDragHandler
             } else {
                 inventoryBox.UpdateCount(0);
             }
-            canvas.sortingOrder = 50;
-        } else {
-            transform.SetAsLastSibling();
+        }
+        if(!inventoryBox){
+            // Play remove audio if not already playing
+            if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(removeAudioClip);
+            }
         }
     }
 
@@ -115,7 +123,7 @@ public abstract class Sticker : Selectable, IDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         Drag((Vector3)eventData.delta);
-        Debug.Log($"Sticker On Drag: Name = {name}, Position = {transform.position}");
+        // Debug.Log($"Sticker On Drag: Name = {name}, Position = {transform.position}");
     }
 
     public void Drag(Vector3 move)

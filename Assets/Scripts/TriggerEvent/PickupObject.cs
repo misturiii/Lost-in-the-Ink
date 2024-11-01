@@ -12,6 +12,9 @@ public class PickupObject : MonoBehaviour
     public GameObject pickUpGuide;
     float rayDistance = 10f;  // Distance the ray can detect
     float minDistance = 3f;
+    public AudioSource audioSource;
+    public AudioClip ToolStickerClip;
+    public AudioClip ItemStickerClip;
     void Start()
     {
         inventory = Resources.Load<Inventory>("PlayerInventory");
@@ -21,6 +24,7 @@ public class PickupObject : MonoBehaviour
 
         // Initially hide the pickup text and background
         pickUpGuide.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
     }
 
      void Update()
@@ -71,6 +75,11 @@ public class PickupObject : MonoBehaviour
             if (CheckPosition()) {
                 inventory.Add(currentItem.item); // Add the item to the inventory
                 Debug.Log("Picked up item: " + currentItem.item.itemName);
+                if(currentItem.item.isTool){
+                    audioSource.PlayOneShot(ToolStickerClip);
+                }else{
+                    audioSource.PlayOneShot(ItemStickerClip);
+                }
 
                 // Destroy the item from the scene
                 Destroy(currentItem.gameObject);
