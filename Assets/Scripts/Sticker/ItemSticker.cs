@@ -12,10 +12,14 @@ public class ItemSticker : Sticker
     Transform copy = null;
     public float rototation = 0;
     public int index;
+    public AudioClip dropStickerAudioClip; 
+    public AudioClip deleteStickerAudioClip; 
+    //  private AudioSource audioSourceItem; 
     
     public override void Initialize(Item item) {
         base.Initialize(item);
         enabled = true;
+        // audioSource = GetComponent<AudioSource>();
     }
 
     private void SetNavigationMode (Navigation.Mode mode) {
@@ -50,7 +54,13 @@ public class ItemSticker : Sticker
             }
             GenerateObject();
             Select();
+             if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(dropStickerAudioClip);
+            }
+
         }
+ 
     }
 
     public override void OnSelect(BaseEventData data)
@@ -62,13 +72,14 @@ public class ItemSticker : Sticker
     }
 
     public override void Delete()
-    {
+    {   
         base.Delete();
         if (copy) {
             Destroy(copy.gameObject);
             inventoryDisplay.RemoveFromSketchbook(this);  
         }
         Destroy(gameObject); 
+
     }
 
     public bool TrashCan() {
@@ -95,7 +106,11 @@ public class ItemSticker : Sticker
          if (item != null)
         {
           
-           
+           if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(deleteStickerAudioClip);
+                Debug.Log("audio for delete is played");
+            }
             transform.Rotate(0, 0, 45);
             rototation += 45;
             GenerateObject();
