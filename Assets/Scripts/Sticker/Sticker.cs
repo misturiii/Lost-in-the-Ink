@@ -75,6 +75,9 @@ public abstract class Sticker : Selectable, IDragHandler
             } else {
                 inventoryBox.UpdateCount(0);
             }
+            canvas.sortingOrder = 20;
+        } else {
+            transform.SetAsLastSibling();
         }
         if(!inventoryBox){
             // Play remove audio if not already playing

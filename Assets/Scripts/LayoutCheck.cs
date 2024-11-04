@@ -11,6 +11,7 @@ public class LayoutCheck : MonoBehaviour
         count++;
         if (colliders.childCount == 0 && count == transform.childCount) {
             win.SetActive(true);
+            Debug.Log("YOU WIN");
         }
     }
 }

@@ -1,16 +1,15 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ColorChange : MonoBehaviour
 {
     float duration = 0.12f;
-    float maxAngle = 20f;
+    float maxAngle = 10f;
     Material[] mats;
     InputActions inputActions;
     Camera cam;
-    bool isVisible;
+    bool isVisible = true;
     Rigidbody rb;
     MeshCollider meshCollider;
     bool IsSleeping = false, IsCorrect = false;
@@ -25,7 +24,7 @@ public class ColorChange : MonoBehaviour
         meshCollider = gameObject.AddComponent<MeshCollider>();
         meshCollider.convex = true;
         rb = gameObject.AddComponent<Rigidbody>();
-        isVisible = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
         mats = GetComponent<Renderer>().materials;
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.Trigger.performed += CloseSketchBook;
@@ -64,7 +63,10 @@ public class ColorChange : MonoBehaviour
 
     public void Reset () {
         IsSleeping = false;
-        if (rb) { rb.velocity = Vector3.zero; }
+        if (rb) { 
+            rb.velocity = Vector3.zero; 
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+        }
     }
 
     void CloseSketchBook (InputAction.CallbackContext context) {
@@ -76,7 +78,7 @@ public class ColorChange : MonoBehaviour
     }
 
     void OnTriggerEnter (Collider collider) {
-        if (collider.name == itemName) {
+        if (!IsCorrect && collider.name == itemName && AngleCheck(collider.transform)) {
             IsCorrect = true;
             foreach (var obj in objects) {
                 obj?.gameObject.SetActive(true);
@@ -84,5 +86,17 @@ public class ColorChange : MonoBehaviour
             GetComponentInParent<LayoutCheck>().Check();
             Destroy(collider.gameObject);
         } 
+    }
+
+    bool AngleCheck (Transform other) {
+        float a = other.transform.eulerAngles.y;
+        float b = transform.eulerAngles.y;
+        return Mathf.Abs(a - b) % 360 < maxAngle;
+    }
+
+    void OnCollisionEnter (Collision collision) {
+        if (collision.collider.tag != "Ground") {
+            rb.constraints = RigidbodyConstraints.None;
+        }
     }
 }

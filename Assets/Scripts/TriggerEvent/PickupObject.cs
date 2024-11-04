@@ -10,8 +10,8 @@ public class PickupObject : MonoBehaviour
     private ItemObject currentItem;      // Track the currently detected item
     InputActions inputActions;
     public GameObject pickUpGuide;
-    float rayDistance = 10f;  // Distance the ray can detect
-    float minDistance = 3f;
+    float rayDistance = 5f;  // Distance the ray can detect
+    float minDistance = 5f;
     public AudioSource audioSource;
     public AudioClip ToolStickerClip;
     public AudioClip ItemStickerClip;
