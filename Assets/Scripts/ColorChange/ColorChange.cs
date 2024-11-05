@@ -1,4 +1,6 @@
 using System.Collections;
+using TreeEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,11 +12,11 @@ public class ColorChange : MonoBehaviour
     InputActions inputActions;
     Camera cam;
     bool isVisible = true;
-    Rigidbody rb;
     MeshCollider meshCollider;
     bool IsSleeping = false, IsCorrect = false;
     public string itemName;
     ItemObject[] objects;
+    public Item item;
 
     protected static readonly int 
         durationId = Shader.PropertyToID("_Duration"), 
@@ -22,9 +24,6 @@ public class ColorChange : MonoBehaviour
 
     void Start () {
         meshCollider = gameObject.AddComponent<MeshCollider>();
-        meshCollider.convex = true;
-        rb = gameObject.AddComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
         mats = GetComponent<Renderer>().materials;
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.Trigger.performed += CloseSketchBook;
@@ -35,13 +34,6 @@ public class ColorChange : MonoBehaviour
     }
 
     void Update () {
-        if (IsSleeping) {
-            rb.isKinematic = true;
-            meshCollider.convex = false;
-        } else {
-            meshCollider.convex = true;
-            rb.isKinematic = false;
-        }
         if (IsCorrect && isVisible && mats[0].GetFloat(durationId) == 0) {
             foreach (Material mat in mats) {
                 Vector2 viewPos = cam.WorldToViewportPoint(transform.position);
@@ -62,10 +54,8 @@ public class ColorChange : MonoBehaviour
     }
 
     public void Reset () {
-        IsSleeping = false;
-        if (rb) { 
-            rb.velocity = Vector3.zero; 
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+        if (item.Check(transform.position)) {
+            Trigger();
         }
     }
 
@@ -76,16 +66,12 @@ public class ColorChange : MonoBehaviour
     void OpenSketchBook (InputAction.CallbackContext context) {
         isVisible = false;
     }
-
-    void OnTriggerEnter (Collider collider) {
-        if (!IsCorrect && collider.name == itemName && AngleCheck(collider.transform)) {
-            IsCorrect = true;
-            foreach (var obj in objects) {
-                obj?.gameObject.SetActive(true);
-            }
-            GetComponentInParent<LayoutCheck>().Check();
-            Destroy(collider.gameObject);
-        } 
+    void Trigger () {
+        IsCorrect = true;
+        foreach (var obj in objects) {
+            obj?.gameObject.SetActive(true);
+        }
+        GetComponentInParent<LayoutCheck>().Check(); 
     }
 
     bool AngleCheck (Transform other) {
@@ -94,9 +80,4 @@ public class ColorChange : MonoBehaviour
         return Mathf.Abs(a - b) % 360 < maxAngle;
     }
 
-    void OnCollisionEnter (Collision collision) {
-        if (collision.collider.tag != "Ground") {
-            rb.constraints = RigidbodyConstraints.None;
-        }
-    }
 }
