@@ -42,7 +42,7 @@ public class ItemSticker : Sticker
                 inventoryDisplay = inventoryBox.inventoryDisplay;
                 transform.SetParent(stickerPanel);
                 copy = Instantiate(prefab, GameObject.FindWithTag("World").transform).transform;
-                copy.AddComponent<ColorChange>().itemName = item.itemName;
+                copy.AddComponent<ColorChange>().item = item;
                 SetNavigationMode(Navigation.Mode.Automatic);
                 inventoryBox.RemoveSticker();
                 inventoryBox = null;
@@ -124,7 +124,9 @@ public class ItemSticker : Sticker
     }
 
     public void GenerateObject(){
-        copy.localPosition = FunctionLibrary.BookToWorld(transform.localPosition);
+        Vector3 worldPosition = FunctionLibrary.BookToWorld(transform.localPosition);
+        worldPosition.y = prefab.transform.localPosition.y;
+        copy.localPosition = worldPosition;
         copy.localEulerAngles = new Vector3(0, rototation, 0);
         copy.GetComponent<ColorChange>().Reset();
     }

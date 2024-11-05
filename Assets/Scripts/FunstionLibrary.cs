@@ -6,7 +6,7 @@ public class FunctionLibrary
     static float sketchbookHeight = 1080;
     static float worldWidth = 40;
     static float worldHeight = 30;
-    static float initialHeight = 10;
+    static float initialHeight = 0;
 
     static public Vector2 WorldToBook (Vector3 position) {
         float x = position.x * sketchbookWidth / worldWidth;
