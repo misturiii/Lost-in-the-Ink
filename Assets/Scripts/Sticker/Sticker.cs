@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -18,6 +20,7 @@ public abstract class Sticker : Selectable, IDragHandler
     protected float lineWidth = 6f;
     public AudioClip removeAudioClip; // The audio clip to play when inventory box is removed
     public AudioSource audioSource; 
+    [SerializeField] string guide = string.Empty;
 
     static protected readonly int 
         lineWidthId = Shader.PropertyToID("_LineWidth"),
@@ -30,7 +33,7 @@ public abstract class Sticker : Selectable, IDragHandler
         canvas = gameObject.AddComponent<Canvas>();
         canvas.overrideSorting = true;
         canvas.sortingOrder = 1;
-        stickerPanel = GameObject.FindGameObjectWithTag("Sketchbook").transform.GetChild(0);
+        stickerPanel = GameObject.FindGameObjectWithTag("Sketchbook").transform.GetChild(3);
         gameObject.AddComponent<GraphicRaycaster>();
         SetUp();
         audioSource = GetComponent<AudioSource>();
@@ -98,10 +101,13 @@ public abstract class Sticker : Selectable, IDragHandler
     override public void OnSelect(BaseEventData data) {
         isSelected = true;
         base.OnSelect(null);
+        if (!material) {
+            Initialize(item);
+        }
         material.SetColor(lineColorId, lineColor);
         inputActions.UI.Click.canceled += Drop;
         inputActions.UI.Click.performed += OnBeginDrag;
-        Debug.Log($"sticker {name} selected");
+        sketchbookGuide.toolGuide.text = guide;
     }
     
     override public void OnDeselect(BaseEventData data) {
@@ -110,10 +116,14 @@ public abstract class Sticker : Selectable, IDragHandler
             canvas.sortingOrder = 1;
         }
         base.OnDeselect(null);
+        if (!material) {
+            Initialize(item);
+        }
         material.SetColor(lineColorId, Color.white);
         inputActions.UI.Click.canceled -= Drop;
         inputActions.UI.Click.performed -= OnBeginDrag;
         Debug.Log($"sticker {name} deselected");
+        sketchbookGuide.toolGuide.text = string.Empty;
     }
 
     public override void Select()

@@ -60,17 +60,16 @@ public class ItemSticker : Sticker
             {
                 audioSource.PlayOneShot(dropStickerAudioClip);
             }
-
         }
- 
     }
 
     public override void OnSelect(BaseEventData data)
     {
-        base.OnSelect(null);
+        base.OnSelect(data);
         if (inventoryDisplay) {
             inventoryDisplay.SelectSketchbook(this);
         }
+        inventoryBox?.Select();
     }
 
     public override void Delete()

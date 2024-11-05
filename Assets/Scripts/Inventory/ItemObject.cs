@@ -5,6 +5,7 @@ public class ItemObject : MonoBehaviour
     public Item item; // Reference to the ScriptableObject that holds item data
     Material mat;
     Color color = FunctionLibrary.LineColor2;
+    public int appearCount = 1;
 
     protected static readonly int lineColorId = Shader.PropertyToID("_LineColor");
 

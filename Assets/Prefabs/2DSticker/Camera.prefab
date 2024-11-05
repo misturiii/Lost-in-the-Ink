@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4730558639341261927}
   item: {fileID: 0}
+  removeAudioClip: {fileID: 0}
+  audioSource: {fileID: 0}
+  guide: 'Camera: Drag onto the sticker to duplicate'
 --- !u!114 &1474733665058224191
 MonoBehaviour:
   m_ObjectHideFlags: 0

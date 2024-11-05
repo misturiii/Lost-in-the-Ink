@@ -123,6 +123,7 @@ MonoBehaviour:
   item: {fileID: 0}
   removeAudioClip: {fileID: 0}
   audioSource: {fileID: 0}
+  guide: 'Trash Can: Drag onto the sticker to delete'
 --- !u!114 &7594728064083054527
 MonoBehaviour:
   m_ObjectHideFlags: 0

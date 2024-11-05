@@ -18,6 +18,7 @@ public class InventoryDisplay : MonoBehaviour
     int numTools = 0;
 
 
+
     void Awake () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.MovePointer.Enable();
@@ -35,7 +36,7 @@ public class InventoryDisplay : MonoBehaviour
         graphicRaycaster = gameObject.AddComponent<GraphicRaycaster>();
         stickers = new List<Selectable>();
 
-        Sticker[] stickerPanel = transform.parent.GetChild(0).GetComponentsInChildren<Sticker>(true);
+        Sticker[] stickerPanel = transform.parent.GetChild(transform.parent.childCount - 1).GetComponentsInChildren<Sticker>(true);
         foreach (var sticker in stickerPanel) {
             stickers.Add(sticker);
             sticker.SetUp();
@@ -63,7 +64,7 @@ public class InventoryDisplay : MonoBehaviour
     }
 
     public void RemoveFromInventory (int i) {
-        inventory.Remove(i - numTools);
+        inventory.Remove(i - 3);
         OnEnable();
     }
 
@@ -110,12 +111,17 @@ public class InventoryDisplay : MonoBehaviour
             inventoryBoxes[i].SetSticker(inventory.tools[i++]);
         }
         numTools = i;
+        i = 3;
         // Create icons for each item in the inventory
         foreach (Item item in inventory.items)
         {
-            inventoryBoxes[i++].SetSticker(item);
+            if (i < inventoryBoxes.Length) {
+                inventoryBoxes[i++].SetSticker(item);
+            }
         }
-        inventoryBoxes[i].UpdateCount(0);
+        if (i < inventoryBoxes.Length) {
+            inventoryBoxes[i].UpdateCount(0);
+        }
     }
 
     public void InventoryAdd(Item item){

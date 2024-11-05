@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SketchbookGuide : MonoBehaviour
 {
@@ -11,6 +9,7 @@ public class SketchbookGuide : MonoBehaviour
     [SerializeField] TextMeshProUGUI inventoryGuide, resultGuide;
     GameObject current = null;
     Inventory inventory;
+    public TextMeshProUGUI toolGuide;
 
     void Start()
     {

@@ -132,3 +132,6 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2105236533119333292}
   item: {fileID: 0}
+  removeAudioClip: {fileID: 0}
+  audioSource: {fileID: 0}
+  guide: 'Rubrik Cube: Drag onto the sticker to rotate'

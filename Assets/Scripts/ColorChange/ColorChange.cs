@@ -15,6 +15,7 @@ public class ColorChange : MonoBehaviour
     bool IsSleeping = false, IsCorrect = false;
     public string itemName;
     ItemObject[] objects;
+    Item item;
 
     protected static readonly int 
         durationId = Shader.PropertyToID("_Duration"), 
@@ -66,6 +67,11 @@ public class ColorChange : MonoBehaviour
         if (rb) { 
             rb.velocity = Vector3.zero; 
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+        foreach (var obj in objects) {
+            if ((item.total - item.count) == obj.appearCount && !obj.item.IsPicked) {
+                obj.enabled = true;
+            }
         }
     }
 

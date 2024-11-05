@@ -15,6 +15,7 @@ public class PickupObject : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip ToolStickerClip;
     public AudioClip ItemStickerClip;
+    private StickerTaskbar stickerTaskbar;
     void Start()
     {
         inventory = Resources.Load<Inventory>("PlayerInventory");
@@ -25,6 +26,7 @@ public class PickupObject : MonoBehaviour
         // Initially hide the pickup text and background
         pickUpGuide.SetActive(false);
         audioSource = GetComponent<AudioSource>();
+        stickerTaskbar = FindObjectOfType<StickerTaskbar>();
     }
 
      void Update()
@@ -74,11 +76,13 @@ public class PickupObject : MonoBehaviour
         {
             if (CheckPosition()) {
                 inventory.Add(currentItem.item); // Add the item to the inventory
+                currentItem.item.Picked();
                 Debug.Log("Picked up item: " + currentItem.item.itemName);
                 if(currentItem.item.isTool){
                     audioSource.PlayOneShot(ToolStickerClip);
                 }else{
                     audioSource.PlayOneShot(ItemStickerClip);
+                    stickerTaskbar.AddSticker();
                 }
 
                 // Destroy the item from the scene

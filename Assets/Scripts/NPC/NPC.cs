@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class NPC : MonoBehaviour
@@ -8,6 +9,7 @@ public class NPC : MonoBehaviour
     [SerializeField] GameObject[] sticker;
     [SerializeField] GameObject[] objects;
     [SerializeField] NPC next;
+    [SerializeField] TextMeshPro mark;
 
     void Start () {
         dialogueObject = Resources.Load<DialogueObject>("Dialogue/" + dialogueName);
@@ -27,6 +29,14 @@ public class NPC : MonoBehaviour
                 Destroy(npc);
                 return;
             }
+        }
+        if (mark) {mark.enabled = false;}
+    }
+
+    void Update() {
+        if (tag == "Npc" && !dialogueObject.notFirstTime && mark) {
+            mark.enabled = true;
+            mark.transform.LookAt(Camera.main.transform.position);
         }
     }
 
@@ -52,5 +62,6 @@ public class NPC : MonoBehaviour
         if (next) {
             next.enabled = true;
         }
+        if (mark) {mark.enabled = false;}
     }
 }

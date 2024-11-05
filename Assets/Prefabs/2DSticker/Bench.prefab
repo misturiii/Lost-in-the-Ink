@@ -122,7 +122,8 @@ MonoBehaviour:
   item: {fileID: 0}
   removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   audioSource: {fileID: 0}
-  prefab: {fileID: 919132149155446097, guid: 49c1917c6c77d405788a7f80f7b67d21, type: 3}
+  guide: 
+  prefab: {fileID: 3917029116673346400, guid: ae452d88a4b1f7c468b41d5e4f214a07, type: 3}
   scale: 2
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
