@@ -17,3 +17,5 @@ MonoBehaviour:
   total: 1
   prefab: {fileID: 9042687586338586798, guid: 568315047ae7242e89d1bea8354028c7, type: 3}
   isTool: 0
+  checks:
+  - {x: -16.11, y: 0, z: -0.2}

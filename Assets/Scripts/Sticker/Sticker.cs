@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +22,7 @@ public abstract class Sticker : Selectable, IDragHandler
     public AudioClip removeAudioClip; // The audio clip to play when inventory box is removed
     public AudioSource audioSource; 
     [SerializeField] string guide = string.Empty;
+    GraphicRaycaster raycaster;
 
     static protected readonly int 
         lineWidthId = Shader.PropertyToID("_LineWidth"),
@@ -37,6 +39,7 @@ public abstract class Sticker : Selectable, IDragHandler
         gameObject.AddComponent<GraphicRaycaster>();
         SetUp();
         audioSource = GetComponent<AudioSource>();
+        raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
 
     }
     void Update () {
@@ -157,5 +160,13 @@ public abstract class Sticker : Selectable, IDragHandler
                 inventoryBox.Select();
             }
         }
+    }
+
+    public List<RaycastResult> DetectOverlap() {
+        PointerEventData data = new PointerEventData(EventSystem.current) { position = transform.position};
+        List<RaycastResult> results = new List<RaycastResult>();
+        raycaster.Raycast(data, results);
+        Debug.Log("Drop position" + data.position);
+        return results;
     }
 }

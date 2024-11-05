@@ -7,23 +7,19 @@ using UnityEngine.UI;
 public class ToolSticker : Sticker
 {
     ToolBehaviour behaviour;
-    GraphicRaycaster raycaster;
 
     public override void Initialize(Item item)
     {
         base.Initialize(item);
         behaviour = GetComponent<ToolBehaviour>();
-        raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
         lineColor = FunctionLibrary.LineColor1;
     }
     public override void Drop(InputAction.CallbackContext context)
     {
         sketchbookGuide.DisplayDragGuide();
         inventoryBox.Select();
-        PointerEventData data = new PointerEventData(EventSystem.current) { position = transform.position};
-        List<RaycastResult> results = new List<RaycastResult>();
-        raycaster.Raycast(data, results);
-        Debug.Log("Drop position" + data.position);
+        
+        List<RaycastResult> results = DetectOverlap();
 
         foreach (RaycastResult result in results)
         {

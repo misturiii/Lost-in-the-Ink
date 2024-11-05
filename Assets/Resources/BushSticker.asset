@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: BushSticker
   m_EditorClassIdentifier: 
   itemName: Bush
+  count: 0
+  total: 0
   prefab: {fileID: 1263774752063172929, guid: ec7d497fa7a056241b0ab05d5cd14852, type: 3}
+  isTool: 0
+  checks:
+  - {x: 5.7, y: 0, z: 3}
+  - {x: -5.17, y: 0, z: 7.8}
+  - {x: 2.31, y: 0, z: 7.8}

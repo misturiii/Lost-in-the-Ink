@@ -9,23 +9,19 @@ public class Item : ScriptableObject
     public int total = 1;
     public GameObject prefab;
     public bool isTool = false;
-    bool stickerPicked = false;
+    public bool stickerPlaced = false;
 
     [SerializeField] Vector3[] checks;
     bool[] results;
 
     public void Clear () {
         total = count = isTool ? -1 : 0;
-        stickerPicked = false;
-        results = new bool[checks.Length];
+        stickerPlaced = false;
+        if (checks != null) {
+            results = new bool[checks.Length];
+        }
         Array.Fill(results, false);
     }
-
-    public void Picked () {
-        stickerPicked = true;
-    }
-
-    public bool IsPicked => stickerPicked;
 
     void OnEnable () {
         Clear();

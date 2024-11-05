@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,6 +16,7 @@ public class ItemSticker : Sticker
     public AudioClip dropStickerAudioClip;
     public AudioClip duplicateStickerClip; 
     public AudioClip rotateStickerClip; 
+    public float overlapCheck = 100;
     
     public override void Initialize(Item item) {
         base.Initialize(item);
@@ -38,6 +40,17 @@ public class ItemSticker : Sticker
                 Delete();
             }
         } else {
+            List<RaycastResult> results = DetectOverlap();
+            foreach (RaycastResult result in results)
+            {
+                Debug.Log("Hit UI element: " + result.gameObject.name);
+                ItemSticker sticker = result.gameObject.GetComponent<ItemSticker>();
+                if (sticker && (transform.position - sticker.transform.position).magnitude < sticker.overlapCheck) {
+                    sketchbookGuide.DisplayResult(FunctionLibrary.HighlightString("Cannot overlap"));
+                    transform.localPosition = Vector3.zero;
+                    return;
+                }
+            }
             if (!copy) {
                 inventoryDisplay = inventoryBox.inventoryDisplay;
                 transform.SetParent(stickerPanel);
@@ -69,7 +82,6 @@ public class ItemSticker : Sticker
         if (inventoryDisplay) {
             inventoryDisplay.SelectSketchbook(this);
         }
-        inventoryBox?.Select();
     }
 
     public override void Delete()
@@ -128,6 +140,10 @@ public class ItemSticker : Sticker
         worldPosition.y = prefab.transform.localPosition.y;
         copy.localPosition = worldPosition;
         copy.localEulerAngles = new Vector3(0, rototation, 0);
+        copy.GetComponent<ColorChange>().Reset();
+    }
+
+    public void ResetObject() {
         copy.GetComponent<ColorChange>().Reset();
     }
 }

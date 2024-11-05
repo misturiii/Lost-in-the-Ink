@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: FountainSticker
   m_EditorClassIdentifier: 
   itemName: Fountain
-  count: 1
-  total: 1
+  count: 0
+  total: 0
   prefab: {fileID: 1263774752063172929, guid: 1f8cfcad4fc404af78c30d9315da74d2, type: 3}
   isTool: 0
+  checks:
+  - {x: -0.7, y: 0, z: 0}

@@ -21,7 +21,7 @@ public class InventoryBox : Selectable
         base.OnSelect(null);
         inventoryDisplay.SelectInventory(index);
         if (sticker) {
-            sticker.OnSelect(null);
+            sticker.OnSelect(data);
         }
     }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,8 +10,7 @@ public class ColorChange : MonoBehaviour
     InputActions inputActions;
     Camera cam;
     bool isVisible = true;
-    MeshCollider meshCollider;
-    bool IsSleeping = false, IsCorrect = false;
+    bool IsCorrect = false;
     public string itemName;
     ItemObject[] objects;
     public Item item;
@@ -22,15 +19,14 @@ public class ColorChange : MonoBehaviour
         durationId = Shader.PropertyToID("_Duration"), 
         startTimeId = Shader.PropertyToID("_StartTime");
 
-    void Start () {
-        meshCollider = gameObject.AddComponent<MeshCollider>();
+    void Awake () {
+        objects = GetComponentsInChildren<ItemObject>(true);
+        gameObject.AddComponent<MeshCollider>();
         mats = GetComponent<Renderer>().materials;
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.Trigger.performed += CloseSketchBook;
         inputActions.Player.Trigger.performed += OpenSketchBook;
         cam = Camera.main;
-        StartCoroutine(SleepCheck());
-        objects = GetComponentsInChildren<ItemObject>(true);
     }
 
     void Update () {
@@ -45,21 +41,16 @@ public class ColorChange : MonoBehaviour
         }
     }
 
-    IEnumerator SleepCheck () {
-        while (true) {
-            Vector3 p = transform.position;
-            yield return new WaitForSeconds(2f);
-            IsSleeping = (p - transform.position).magnitude < 0.1f;
-        }
-    }
-
     public void Reset () {
         if (item.Check(transform.position)) {
             Trigger();
         }
-        foreach (var obj in objects) {
-            if ((item.total - item.count) == obj.appearCount && !obj.item.IsPicked) {
-                obj.enabled = true;
+        if (objects != null) {
+            foreach (var obj in objects) {
+                if ((item.total - item.count) >= obj.appearCount && !obj.item.stickerPlaced) {
+                    obj.gameObject.SetActive(true);
+                    obj.item.stickerPlaced = true;
+                }
             }
         }
     }
@@ -73,8 +64,10 @@ public class ColorChange : MonoBehaviour
     }
     void Trigger () {
         IsCorrect = true;
-        foreach (var obj in objects) {
-            obj?.gameObject.SetActive(true);
+        if (objects != null) {
+            foreach (var obj in objects) {
+                obj?.gameObject.SetActive(true);
+            }
         }
         GetComponentInParent<LayoutCheck>().Check(); 
     }
@@ -83,6 +76,16 @@ public class ColorChange : MonoBehaviour
         float a = other.transform.eulerAngles.y;
         float b = transform.eulerAngles.y;
         return Mathf.Abs(a - b) % 360 < maxAngle;
+    }
+
+    void OnDestroy() {
+        if (objects != null) {
+            foreach (var obj in objects) {
+                if (obj) {
+                    obj.item.stickerPlaced = false;
+                }
+            }
+        }
     }
 
 }

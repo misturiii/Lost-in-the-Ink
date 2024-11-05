@@ -76,7 +76,6 @@ public class PickupObject : MonoBehaviour
         {
             if (CheckPosition()) {
                 inventory.Add(currentItem.item); // Add the item to the inventory
-                currentItem.item.Picked();
                 Debug.Log("Picked up item: " + currentItem.item.itemName);
                 if(currentItem.item.isTool){
                     audioSource.PlayOneShot(ToolStickerClip);

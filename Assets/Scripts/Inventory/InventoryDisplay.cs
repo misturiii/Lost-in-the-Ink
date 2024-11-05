@@ -36,11 +36,13 @@ public class InventoryDisplay : MonoBehaviour
         graphicRaycaster = gameObject.AddComponent<GraphicRaycaster>();
         stickers = new List<Selectable>();
 
-        Sticker[] stickerPanel = transform.parent.GetChild(transform.parent.childCount - 1).GetComponentsInChildren<Sticker>(true);
+        ItemSticker[] stickerPanel = transform.parent.GetChild(transform.parent.childCount - 1).GetComponentsInChildren<ItemSticker>(true);
         foreach (var sticker in stickerPanel) {
             stickers.Add(sticker);
             sticker.SetUp();
+            sticker.item.total++;
             sketchbookSelect = sticker;
+            sticker.ResetObject();
         }
     }
 
