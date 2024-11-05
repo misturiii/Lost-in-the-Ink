@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
@@ -14,32 +13,52 @@ public class Item : ScriptableObject
     [SerializeField] Vector3[] checks;
     bool[] results;
 
-    public void Clear () {
+    public void Clear()
+    {
         total = count = isTool ? -1 : 0;
         results = new bool[checks.Length];
         Array.Fill(results, false);
     }
 
-    void OnEnable () {
+    void OnEnable()
+    {
         Clear();
+        CheckManager.Instance.RegisterItem(this);  // 注册到 CheckManager
     }
 
-    public bool Check (Vector3 position) {
+    public bool Check(Vector3 position)
+    {
         position.y = 0;
         float min_distance = Mathf.Infinity;
         int index = -1;
-        for (int i = 0; i < checks.Length; i++) {
+        for (int i = 0; i < checks.Length; i++)
+        {
             float distance = (position - checks[i]).magnitude;
-            if (distance < 4 && !results[i]) {
+            if (distance < 4 && !results[i])
+            {
                 min_distance = distance;
                 index = i;
             }
         }
-        if (index != -1) {
+        if (index != -1)
+        {
             results[index] = true;
+            Debug.Log($"{itemName} check {index} set to true.");
+            CheckManager.Instance.CheckWinCondition();  
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
+    }
+
+    public bool AreAllChecksTrue()
+    {
+        foreach (bool result in results)
+        {
+            if (!result) return false;
+        }
+        return true;
     }
 }
