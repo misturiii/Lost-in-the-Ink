@@ -9,14 +9,14 @@ public class ItemSticker : Sticker
 {
     [SerializeField] protected GameObject prefab;
     [SerializeField] float scale = 1;
-    [SerializeField] InventoryDisplay inventoryDisplay = null;
-    [SerializeField] Transform copy = null;
+    [SerializeField] public InventoryDisplay inventoryDisplay = null;
+    [SerializeField] public Transform copy = null;
     public float rototation = 0;
     public int index;
     public AudioClip dropStickerAudioClip;
     public AudioClip duplicateStickerClip; 
     public AudioClip rotateStickerClip; 
-    public float overlapCheck = 100;
+    float overlapCheck = 100;
     
     public override void Initialize(Item item) {
         base.Initialize(item);
@@ -31,43 +31,39 @@ public class ItemSticker : Sticker
     }
 
     public override void Drop(InputAction.CallbackContext context) {
+        sketchbookGuide.DisplayDragGuide();
+        // in inventory and drag failed
         if (inventoryBox && transform.localPosition.x >= -100) {
             inventoryBox.UpdateCount(++item.count);
             inventoryBox.Select();
             if (item.count == 1) {
-                transform.localPosition = Vector3.zero;    
+                transform.localPosition = InitialPositon;    
             } else {
                 Delete();
             }
         } else {
+            // in sketchbook
             List<RaycastResult> results = DetectOverlap();
             foreach (RaycastResult result in results)
             {
                 Debug.Log("Hit UI element: " + result.gameObject.name);
                 ItemSticker sticker = result.gameObject.GetComponent<ItemSticker>();
-                if (sticker && (transform.position - sticker.transform.position).magnitude < sticker.overlapCheck) {
+                if (sticker && sticker != this && (transform.position - sticker.transform.position).magnitude < sticker.overlapCheck) {
                     sketchbookGuide.DisplayResult(FunctionLibrary.HighlightString("Cannot overlap"));
-                    transform.localPosition = Vector3.zero;
+                    transform.localPosition = InitialPositon;
+                    if (inventoryBox) {
+                        inventoryBox.UpdateCount(++item.count);
+                        inventoryBox.Select();
+                        if (item.count == 1) {
+                            transform.localPosition = InitialPositon;    
+                        } else {
+                            Delete();
+                        }
+                    }
                     return;
                 }
             }
-            if (!copy) {
-                inventoryDisplay = inventoryBox.inventoryDisplay;
-                transform.SetParent(stickerPanel);
-                copy = Instantiate(prefab, GameObject.FindWithTag("World").transform).transform;
-                copy.AddComponent<ColorChange>().item = item;
-                SetNavigationMode(Navigation.Mode.Automatic);
-                inventoryBox.RemoveSticker();
-                inventoryBox = null;
-                transform.localScale *= scale;
-                material.SetFloat(lineWidthId, lineWidth / scale);
-            }
-            if (canvas) {
-                Destroy(GetComponent<GraphicRaycaster>());
-                Destroy(GetComponent<Canvas>());
-                canvas = null;
-            }
-            GenerateObject();
+            GenerateObject(false);
             Select();
              if (audioSource != null && !audioSource.isPlaying)
             {
@@ -128,14 +124,34 @@ public class ItemSticker : Sticker
             }
             transform.Rotate(0, 0, 45);
             rototation -= 45;
-            GenerateObject();
+            GenerateObject(false);
             return true;
         }else{
             return false;
         }
     }
 
-    public void GenerateObject(){
+    public void GenerateObject(bool isComplete){
+        if(!copy){
+            if (inventoryBox) {
+                inventoryDisplay = inventoryBox.inventoryDisplay;
+                inventoryBox.RemoveSticker();
+                inventoryBox = null;
+            }
+            transform.SetParent(stickerPanel);
+            copy = Instantiate(prefab, GameObject.FindWithTag("World").transform).transform;
+            SetNavigationMode(Navigation.Mode.Automatic);
+            material.SetFloat(lineWidthId, lineWidth / scale);
+            transform.localScale *= scale;
+            ColorChange cc = copy.AddComponent<ColorChange>(); 
+            cc.item = item;
+            cc.isComplete = isComplete;
+        }
+        if (canvas) {
+            Destroy(GetComponent<GraphicRaycaster>());
+            Destroy(GetComponent<Canvas>());
+            canvas = null;
+        }
         Vector3 worldPosition = FunctionLibrary.BookToWorld(transform.localPosition);
         worldPosition.y = prefab.transform.localPosition.y;
         copy.localPosition = worldPosition;

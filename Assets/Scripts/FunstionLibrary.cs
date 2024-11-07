@@ -20,7 +20,7 @@ public class FunctionLibrary
         return new Vector3(x, initialHeight, z);
     }
 
-    static public string styleStart = "<b><color=#a10103>";
+    static public string styleStart = "<b><color=#6C0102>";
     static public string styleEnd = "</color></b>";
 
     static public string HighlightString (string s) {

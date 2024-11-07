@@ -1,4 +1,6 @@
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class Player : MonoBehaviour
     Transform mainCamera;
     float xRotation;
     InputActions inputActions;
+    float initialHeight;
 
     void Start () {
         rb = GetComponent<Rigidbody>();
@@ -14,11 +17,16 @@ public class Player : MonoBehaviour
 
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.Player.Enable();
+        initialHeight = transform.localPosition.y;
     }
 
     void Update () {
         Move(inputActions.Player.Move.ReadValue<Vector2>());
         Rotate(inputActions.Player.Look.ReadValue<Vector2>());
+
+        if (transform.localPosition.y < -5) {
+            Respawn();
+        }
     }
 
     void Move (Vector2 input) {
@@ -34,6 +42,14 @@ public class Player : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -maxField, maxField);
         mainCamera.localEulerAngles = Vector3.right * xRotation;
         transform.Rotate(Vector3.up * input.x * scale);
+    }
+
+    void Respawn () {
+        rb.isKinematic = true;
+        Vector3 p = transform.localPosition;
+        p.y = initialHeight;
+        transform.localPosition = p;
+        rb.isKinematic = false;
     }
 
 }

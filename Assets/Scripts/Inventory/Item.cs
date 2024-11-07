@@ -12,33 +12,42 @@ public class Item : ScriptableObject
     public bool stickerPlaced = false;
 
     [SerializeField] Vector3[] checks;
+    [SerializeField] int[] rotations;
     bool[] results;
+    int numChecked;
+
+    public string compatibleItems;
 
     public void Clear()
     {
         total = count = isTool ? -1 : 0;
+        numChecked = 0;
         stickerPlaced = false;
         if (checks != null) {
-            results = new bool[checks.Length];
+            results = new bool[Mathf.Min(checks.Length, rotations.Length)];
+            Array.Fill(results, false);
         }
-        Array.Fill(results, false);
     }
 
     void OnEnable()
     {
         Clear();
-        CheckManager.Instance.RegisterItem(this);  // 注册到 CheckManager
+        if (CheckManager.Instance != null) {
+            CheckManager.Instance.RegisterItem(this);  // 注册到 CheckManager
+        }
+        
     }
 
-    public bool Check(Vector3 position)
+    public bool Check(Vector3 position, Vector3 eulerAngle)
     {
         position.y = 0;
-        float min_distance = Mathf.Infinity;
-        int index = -1;
-        for (int i = 0; i < checks.Length; i++)
+        float min_distance = 4;
+        int index = -1, numRotated = (360 -(int)eulerAngle.y) % 360 / 45;
+        Debug.Log("There were " + numRotated + " rotation when checked");
+        for (int i = 0; i < results.Length; i++)
         {
             float distance = (position - checks[i]).magnitude;
-            if (distance < 4 && !results[i])
+            if (distance < min_distance && !results[i] && numRotated == rotations[i])
             {
                 min_distance = distance;
                 index = i;
@@ -49,6 +58,7 @@ public class Item : ScriptableObject
             results[index] = true;
             Debug.Log($"{itemName} check {index} set to true.");
             CheckManager.Instance.CheckWinCondition();  
+            numChecked++;
             return true;
         }
         else
@@ -57,12 +67,15 @@ public class Item : ScriptableObject
         }
     }
 
+    public void Check() {
+        if (numChecked < results.Length) {
+            results[numChecked++] = true;
+        }
+        CheckManager.Instance.CheckWinCondition();  
+    }
+
     public bool AreAllChecksTrue()
     {
-        foreach (bool result in results)
-        {
-            if (!result) return false;
-        }
-        return true;
+        return numChecked == results.Length;
     }
 }

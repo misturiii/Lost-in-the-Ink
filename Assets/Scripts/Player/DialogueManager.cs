@@ -148,7 +148,4 @@ public class DialogueManager : MonoBehaviour
         }
         interactionGuide.SetActive(false);
     }
-
-
-
 }

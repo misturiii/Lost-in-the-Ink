@@ -122,8 +122,8 @@ MonoBehaviour:
   item: {fileID: 0}
   removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   audioSource: {fileID: 0}
-  guide: 
-  prefab: {fileID: 919132149155446097, guid: 54a2cc55e8fd3d04d9d508f7fa6639f0, type: 3}
+  guide: 'Bush : A splash of green in a world of grey. '
+  prefab: {fileID: 1258084156722253112, guid: db74e4421044b2246893fd38f119992c, type: 3}
   scale: 1.5
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
@@ -134,7 +134,6 @@ MonoBehaviour:
   duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
     type: 3}
   rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
-  overlapCheck: 100
 --- !u!82 &8001502791918373165
 AudioSource:
   m_ObjectHideFlags: 0

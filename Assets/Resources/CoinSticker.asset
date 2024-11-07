@@ -17,5 +17,7 @@ MonoBehaviour:
   total: 0
   prefab: {fileID: 1263774752063172929, guid: 6ff77370ce68e6641b0b9dbbebc901a5, type: 3}
   isTool: 0
-  checks:
-  - {x: -2, y: 0, z: -1}
+  stickerPlaced: 0
+  checks: []
+  rotations: 
+  compatibleItems: Fountain

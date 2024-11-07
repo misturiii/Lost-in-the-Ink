@@ -41,6 +41,7 @@ public class SketchbookGuide : MonoBehaviour
     void DisplayGuide (GameObject guide) {
         current?.SetActive(false);
         current = guide;
+        resultGuide.text = string.Empty;
         current.SetActive(true);
     }
 

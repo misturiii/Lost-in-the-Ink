@@ -14,7 +14,27 @@ public class InputActionManager : MonoBehaviour
         inputActions.UI.Disable();
     }
 
-    void Quit (InputAction.CallbackContext context) {
-        Application.Quit();
+    public void SetPlayerActive(bool active) {
+        if (active) {
+            inputActions.Player.Enable();
+            inputActions.UI.Disable();
+        } else {
+            inputActions.UI.Enable();
+            inputActions.Player.Disable();
+        }
+    }
+
+    public void SetAllActive (bool active) {
+        if (active) {
+            inputActions.Player.Enable();
+            inputActions.UI.Enable();
+        } else {
+            inputActions.UI.Disable();
+            inputActions.Player.Disable();
+        }
+    }
+
+    void OnDestroy () {
+        inputActions.Disable();
     }
 }

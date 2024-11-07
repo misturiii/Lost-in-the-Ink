@@ -22,7 +22,8 @@ public abstract class Sticker : Selectable, IDragHandler
     public AudioClip removeAudioClip; // The audio clip to play when inventory box is removed
     public AudioSource audioSource; 
     [SerializeField] string guide = string.Empty;
-    GraphicRaycaster raycaster;
+    protected GraphicRaycaster raycaster;
+    protected Vector3 InitialPositon;
 
     static protected readonly int 
         lineWidthId = Shader.PropertyToID("_LineWidth"),
@@ -35,12 +36,10 @@ public abstract class Sticker : Selectable, IDragHandler
         canvas = gameObject.AddComponent<Canvas>();
         canvas.overrideSorting = true;
         canvas.sortingOrder = 1;
-        stickerPanel = GameObject.FindGameObjectWithTag("Sketchbook").transform.GetChild(3);
+        
         gameObject.AddComponent<GraphicRaycaster>();
         SetUp();
-        audioSource = GetComponent<AudioSource>();
-        raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
-
+        
     }
     void Update () {
         if (isSelected && inputActions.UI.Click.inProgress) {
@@ -52,6 +51,9 @@ public abstract class Sticker : Selectable, IDragHandler
         isSelected = false;
         material = Instantiate(image.material);
         image.material = material;
+        stickerPanel = GameObject.FindWithTag("Sketchbook").transform.GetChild(4);
+        raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
+        audioSource = GetComponent<AudioSource>();
     
         material.SetFloat(lineWidthId, lineWidth);
         material.SetColor(lineColorId, Color.white);
@@ -76,7 +78,8 @@ public abstract class Sticker : Selectable, IDragHandler
         Select();
         sketchbookGuide.DisplayDropGuide();
         if (inventoryBox) {
-            if (item.count-- > 1) {
+            item.count--;
+            if (item.count > 0) {
                 inventoryBox.SetSticker(item);
             } else {
                 inventoryBox.UpdateCount(0);
@@ -111,6 +114,7 @@ public abstract class Sticker : Selectable, IDragHandler
         inputActions.UI.Click.canceled += Drop;
         inputActions.UI.Click.performed += OnBeginDrag;
         sketchbookGuide.toolGuide.text = guide;
+        InitialPositon = transform.localPosition;
     }
     
     override public void OnDeselect(BaseEventData data) {

@@ -24,7 +24,7 @@ public class OilPaintingEffect : ScriptableRendererFeature
     public override void Create()
     {
         // var structureTensorMaterial = CoreUtils.CreateEngineMaterial("Hidden/Oil Painting/Structure Tensor");
-        var kuwaharaFilterMaterial = CoreUtils.CreateEngineMaterial("Custom/KuwaharaFilter");
+        var kuwaharaFilterMaterial = settings.material;
 
         renderPass = new OilPaintingEffectPass(kuwaharaFilterMaterial);
         renderPass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
@@ -151,6 +151,7 @@ public class Settings
 {
     // public AnisotropicKuwaharaFilterSettings anisotropicKuwaharaFilterSettings;
     [Range(0, 10)] public int radius;
+    [SerializeField] public Material material;
 }
 
 // [Serializable]

@@ -5,15 +5,16 @@ using UnityEngine.InputSystem;
 public class ColorChange : MonoBehaviour
 {
     float duration = 0.12f;
-    float maxAngle = 10f;
     Material[] mats;
     InputActions inputActions;
     Camera cam;
-    bool isVisible = true;
+    bool isVisible = false;
     bool IsCorrect = false;
     public string itemName;
     ItemObject[] objects;
     public Item item;
+    bool changed = false;
+    public bool isComplete;
 
     protected static readonly int 
         durationId = Shader.PropertyToID("_Duration"), 
@@ -30,26 +31,30 @@ public class ColorChange : MonoBehaviour
     }
 
     void Update () {
-        if (IsCorrect && isVisible && mats[0].GetFloat(durationId) == 0) {
+        Vector2 viewPos = cam.WorldToViewportPoint(transform.position);
+        bool temp = isVisible && 0 < viewPos.x && viewPos.x < 1 && 0 < viewPos.y && viewPos.y < 1;
+        if (!changed && temp && (isComplete || IsCorrect)) {
+            changed = true;
             foreach (Material mat in mats) {
-                Vector2 viewPos = cam.WorldToViewportPoint(transform.position);
-                if (0 < viewPos.x && viewPos.x < 1 && 0 < viewPos.y && viewPos.y < 1) {
-                    mat.SetFloat(durationId, duration);
-                    mat.SetFloat(startTimeId, Time.time);
-                }
+                mat.SetFloat(durationId, duration);
+                mat.SetFloat(startTimeId, Time.time);
             }
         }
     }
 
     public void Reset () {
-        if (item.Check(transform.position)) {
-            Trigger();
+        if (!changed) {
+            if (isComplete) {
+                item.Check();
+            } else if (item.Check(transform.position, transform.eulerAngles)) {
+                Trigger();
+            }
         }
         if (objects != null) {
             foreach (var obj in objects) {
                 if ((item.total - item.count) >= obj.appearCount && !obj.item.stickerPlaced) {
-                    obj.gameObject.SetActive(true);
                     obj.item.stickerPlaced = true;
+                    obj.gameObject.SetActive(true);
                 }
             }
         }
@@ -64,24 +69,13 @@ public class ColorChange : MonoBehaviour
     }
     void Trigger () {
         IsCorrect = true;
-        if (objects != null) {
-            foreach (var obj in objects) {
-                obj?.gameObject.SetActive(true);
-            }
-        }
         GetComponentInParent<LayoutCheck>().Check(); 
-    }
-
-    bool AngleCheck (Transform other) {
-        float a = other.transform.eulerAngles.y;
-        float b = transform.eulerAngles.y;
-        return Mathf.Abs(a - b) % 360 < maxAngle;
     }
 
     void OnDestroy() {
         if (objects != null) {
             foreach (var obj in objects) {
-                if (obj) {
+                if (obj && obj.gameObject.activeSelf) {
                     obj.item.stickerPlaced = false;
                 }
             }

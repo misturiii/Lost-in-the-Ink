@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbeb1f451691341da8760d52a7bd6101, type: 3}
+  m_Name: FerrisWheel-Cabin
+  m_EditorClassIdentifier: 
+  itemName: Ferris wheel-cabin
+  count: 0
+  total: 1
+  prefab: {fileID: 1263774752063172929, guid: e1a97937a7e3a40cd8ee66728a6d7d86, type: 3}
+  isTool: 0
+  stickerPlaced: 1
+  checks: []
+  rotations: 
+  compatibleItems: Incomplete ferris wheel

@@ -39,13 +39,22 @@ public class InventoryBox : Selectable
     }
 
     public void RemoveSticker () {
-        ItemSticker temp = (ItemSticker)sticker;
-        if (sticker.item.count == 0) {
+        ItemSticker temp = null;
+        bool canRemove = false;
+        if (sticker is ItemSticker && ((ItemSticker)sticker).item.count <= 0) {
+
+            canRemove = true;
+            temp = (ItemSticker)sticker;
+        } else if (sticker is PieceSticker) {
+            canRemove = true;
+            temp = ((PieceSticker)sticker).newItemSticker;
+        }
+        if (canRemove) {
             sticker = null;
             inventoryDisplay.RemoveFromInventory(index);
+            OnDeselect(null);
+            inventoryDisplay.AddToSketchbook(temp);
         }
-        OnDeselect(null);
-        inventoryDisplay.AddToSketchbook(temp);
     }
 
     public void SetSticker(Item item) {

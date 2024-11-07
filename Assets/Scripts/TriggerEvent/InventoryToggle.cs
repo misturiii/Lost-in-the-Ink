@@ -10,16 +10,16 @@ public class InventoryToggle : MonoBehaviour
     public AudioClip closeSound;       // Sound to play when the inventory is closed
 
     private bool isInventoryOpen = false;  // Track whether the inventory is open
-    InputActions inputActions;
+    InputActionManager inputActionManager;
     [SerializeField] GameObject current;
-    
+
 
     void Start()
     {
         // Get InputActionManager and UI's InputActions
-        inputActions = FindObjectOfType<InputActionManager>().inputActions;
-        inputActions.UI.Trigger.performed += ToggleInventory;
-        inputActions.Player.Trigger.performed += ToggleInventory;
+        inputActionManager = FindObjectOfType<InputActionManager>();
+        inputActionManager.inputActions.UI.Trigger.performed += ToggleInventory;
+        inputActionManager.inputActions.Player.Trigger.performed += ToggleInventory;
     }
 
     // Method to toggle the inventory visibility
@@ -36,15 +36,13 @@ public class InventoryToggle : MonoBehaviour
             {
                 audioSource.PlayOneShot(openSound);  // Play the open sound
             }
-            inputActions.Player.Disable();
-            inputActions.UI.Enable();
         } else {
             if (audioSource != null && closeSound != null)
             {
                 audioSource.PlayOneShot(closeSound);  // Play the close sound
             }
-            inputActions.Player.Enable();
-            inputActions.UI.Disable();
+            CheckManager.Instance.OnSketchbookClosed();
         }
+        inputActionManager.SetPlayerActive(!isInventoryOpen);
     }
 }
