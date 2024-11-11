@@ -8,20 +8,22 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] Dialogue dialogue;
     InputActions inputActions;
-    private PickupObject pickupObject;
-    private GameObject player;  // 追踪 Player 位置
 
     // 新增的UI元素：提示“Press T or left click to start talking”
     public GameObject interactionGuide;
-    float rayDistance = 10f;
+    float rayDistance = 3f;
     private GameObject currentNpc; 
     private bool isDialogueActive = false;
     public Transform skipBar;
     public GameObject skipText;
     public GameObject skip;
     float skipProgress;
-    float skipDuration = 2.0f;
+    float skipDuration = 1.0f;
     bool cooling;
+
+    public delegate void DialoggueBehaviour();
+    public DialoggueBehaviour startDialogue;
+    public DialoggueBehaviour endDialogue;
 
     NPC npc = null;
 
@@ -32,9 +34,6 @@ public class DialogueManager : MonoBehaviour
         inputActions.Player.Click.canceled += PauseSkip;
 
         interactionGuide.SetActive(false);
-
-        pickupObject = FindObjectOfType<PickupObject>();
-        player = GameObject.FindWithTag("Player");
         
         cooling = false;
     }
@@ -49,7 +48,7 @@ public class DialogueManager : MonoBehaviour
     
         if(!isDialogueActive){
             // Debug.Log("Enter the RaycastForNPC");
-            RaycastForNpc();
+            RaycastFromCamera();
         }
         if (skip.activeSelf && inputActions.Player.Click.inProgress) {
             if (skipProgress > 0.1) {
@@ -73,6 +72,7 @@ public class DialogueManager : MonoBehaviour
             inputActions.Player.Move.Disable();
             inputActions.Player.Look.Disable(); 
             inputActions.Player.Trigger.Disable();
+            inputActions.Player.Jump.Disable();
            
             if (!dialogue.DisplayDialogue()) {
                 StartCoroutine(CoolDown());
@@ -99,10 +99,12 @@ public class DialogueManager : MonoBehaviour
         inputActions.Player.Move.Enable();
         inputActions.Player.Look.Enable(); 
         inputActions.Player.Trigger.Enable();
+        inputActions.Player.Jump.Enable();
         isDialogueActive = false;
+        endDialogue?.Invoke();
     }
 
-    private void RaycastForNpc() {
+    private void RaycastFromCamera() {
         // Cast a ray from the camera's position forward
         Camera mainCamera = Camera.main;
         Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
@@ -135,10 +137,11 @@ public class DialogueManager : MonoBehaviour
 
 
         interactionGuide.SetActive(true);
+        startDialogue?.Invoke();
     }
 
     // Hide NPC interaction UI prompt
-    private void HideNpcInteractionGuide() {
+    public void HideNpcInteractionGuide() {
         npc = null;
         dialogue.gameObject.SetActive(false);
         dialogue.dialogueObject = null;

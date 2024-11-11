@@ -17,3 +17,8 @@ MonoBehaviour:
   total: -1
   prefab: {fileID: 2193502727762684105, guid: 0ba6d189e15ff45fa806e07ceb2cc8bb, type: 3}
   isTool: 1
+  toolType: 1
+  stickerPlaced: 0
+  checks: []
+  rotations: 
+  compatibleItems: 

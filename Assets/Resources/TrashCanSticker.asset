@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: TrashCanSticker
   m_EditorClassIdentifier: 
   itemName: Trash can
-  count: -15
-  total: 1
+  count: -1
+  total: -1
   prefab: {fileID: 9042687586338586798, guid: 836a21c9fbd97284db2e95d963b99e2d, type: 3}
   isTool: 1
+  toolType: 2
+  stickerPlaced: 0
+  checks: []
+  rotations: 
+  compatibleItems: 

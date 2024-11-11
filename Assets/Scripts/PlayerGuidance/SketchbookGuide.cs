@@ -54,7 +54,7 @@ public class SketchbookGuide : MonoBehaviour
         resultGuide.text = result;
         yield return new WaitForSeconds(duration);
         resultGuide.text = string.Empty; 
-        current.SetActive(true);
+        current?.SetActive(true);
     }
 
     void OnDestroy () {

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -19,11 +18,11 @@ public abstract class Sticker : Selectable, IDragHandler
     protected bool isSelected;
     protected Color lineColor;
     protected float lineWidth = 6f;
-    public AudioClip removeAudioClip; // The audio clip to play when inventory box is removed
-    public AudioSource audioSource; 
+    protected StickerAudioManager audioManager; 
     [SerializeField] string guide = string.Empty;
     protected GraphicRaycaster raycaster;
     protected Vector3 InitialPositon;
+    protected Vector3 pivotOffset;
 
     static protected readonly int 
         lineWidthId = Shader.PropertyToID("_LineWidth"),
@@ -51,15 +50,26 @@ public abstract class Sticker : Selectable, IDragHandler
         isSelected = false;
         material = Instantiate(image.material);
         image.material = material;
-        stickerPanel = GameObject.FindWithTag("Sketchbook").transform.GetChild(4);
+        GameObject sketchbook = GameObject.FindWithTag("Sketchbook");
+        stickerPanel = sketchbook.transform.GetChild(4);
+        audioManager = sketchbook.GetComponent<StickerAudioManager>();
         raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
-        audioSource = GetComponent<AudioSource>();
     
         material.SetFloat(lineWidthId, lineWidth);
         material.SetColor(lineColorId, Color.white);
         sketchbookGuide = GameObject.Find("PlayerGuide").GetComponentInChildren<SketchbookGuide>();
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         lineColor = FunctionLibrary.LineColor2;
+        Navigation n = new Navigation();
+        n.mode = Navigation.Mode.None;
+        navigation = n;
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        Vector2 size = rectTransform.rect.size;
+
+        // Get the pivot offset (relative to the RectTransform's size)
+        pivotOffset = new Vector2((0.5f - rectTransform.pivot.x) * size.x, 
+                                  (0.5f - rectTransform.pivot.y) * size.y);
     }
 
     void OnBeginDrag(InputAction.CallbackContext context) {
@@ -78,8 +88,7 @@ public abstract class Sticker : Selectable, IDragHandler
         Select();
         sketchbookGuide.DisplayDropGuide();
         if (inventoryBox) {
-            item.count--;
-            if (item.count > 0) {
+            if (--item.count > 0) {
                 inventoryBox.SetSticker(item);
             } else {
                 inventoryBox.UpdateCount(0);
@@ -90,10 +99,7 @@ public abstract class Sticker : Selectable, IDragHandler
         }
         if(!inventoryBox){
             // Play remove audio if not already playing
-            if (audioSource != null && !audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(removeAudioClip);
-            }
+            audioManager.Play(StickerAudio.remove);
         }
     }
 
@@ -146,10 +152,11 @@ public abstract class Sticker : Selectable, IDragHandler
         // Debug.Log($"Sticker On Drag: Name = {name}, Position = {transform.position}");
     }
 
-    public void Drag(Vector3 move)
-    {
-        transform.position += move;
-        sketchbookGuide.DisplayDropGuide();
+    public void Drag(Vector3 move){
+        Vector3 p = transform.position + move + pivotOffset;
+        p.x = Mathf.Clamp(p.x, 0, Screen.width);
+        p.y = Mathf.Clamp(p.y, 0, Screen.height);
+        transform.position = p - pivotOffset;
     }
 
     public virtual void Delete() {
@@ -172,5 +179,9 @@ public abstract class Sticker : Selectable, IDragHandler
         raycaster.Raycast(data, results);
         Debug.Log("Drop position" + data.position);
         return results;
+    }
+
+    public Vector3 GetCenterPosition () {
+        return transform.position + pivotOffset;
     }
 }

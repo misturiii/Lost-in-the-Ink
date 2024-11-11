@@ -1,5 +1,5 @@
-using System.Diagnostics;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,7 +7,7 @@ public class InventoryBox : Selectable
 {
     public InventoryDisplay inventoryDisplay;
     public int index;
-    public Sticker sticker;
+    public Sticker sticker = null, next = null;
     public int count = 0;
     public TextMeshProUGUI countText;
 
@@ -18,11 +18,9 @@ public class InventoryBox : Selectable
     }
 
     public override void OnSelect (BaseEventData data) {
-        base.OnSelect(null);
-        inventoryDisplay.SelectInventory(index);
-        if (sticker) {
-            sticker.OnSelect(data);
-        }
+        base.OnSelect(data);
+        inventoryDisplay.Select(this);
+        sticker?.OnSelect(null);
     }
 
     public override void Select()
@@ -33,37 +31,43 @@ public class InventoryBox : Selectable
 
     public override void OnDeselect (BaseEventData data) {
         base.OnDeselect(null);
-        if (sticker) {
-            sticker.OnDeselect(null);
-        }
+        sticker?.OnDeselect(null);
     }
 
     public void RemoveSticker () {
         ItemSticker temp = null;
         bool canRemove = false;
-        if (sticker is ItemSticker && ((ItemSticker)sticker).item.count <= 0) {
-
-            canRemove = true;
+        if (sticker is ItemSticker) {
+            canRemove = ((ItemSticker)sticker).item.count <= 0;
             temp = (ItemSticker)sticker;
         } else if (sticker is PieceSticker) {
             canRemove = true;
             temp = ((PieceSticker)sticker).newItemSticker;
         }
+        inventoryDisplay.AddToSketchbook(temp);
+        Debug.Log("Add sticker to Sketchbook");
+        sticker = next;
+        next = null;
         if (canRemove) {
-            sticker = null;
             inventoryDisplay.RemoveFromInventory(index);
-            OnDeselect(null);
-            inventoryDisplay.AddToSketchbook(temp);
         }
     }
 
     public void SetSticker(Item item) {
-        sticker = Instantiate(item.prefab, transform).GetComponent<Sticker>();
-        sticker.Initialize(item);
+        next = Instantiate(item.prefab, transform).GetComponent<Sticker>();
+        next.Initialize(item);
+        if (!sticker) {
+            sticker = next;
+            next = null;
+        }
         UpdateCount(item.count);
     }
 
     public void UpdateCount (int count) {
         countText.text = count > 0 ? count.ToString() : string.Empty;
+    }
+
+    public override void OnPointerEnter (PointerEventData eventData) {
+        Select();
     }
 }

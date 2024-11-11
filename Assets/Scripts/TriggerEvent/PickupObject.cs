@@ -10,12 +10,17 @@ public class PickupObject : MonoBehaviour
     private ItemObject currentItem;      // Track the currently detected item
     InputActions inputActions;
     public GameObject pickUpGuide;
-    float rayDistance = 5f;  // Distance the ray can detect
-    float minDistance = 5f;
+    float rayDistance = 3f;  // Distance the ray can detect
+    float minDistance = 3f;
     public AudioSource audioSource;
     public AudioClip ToolStickerClip;
     public AudioClip ItemStickerClip;
     private StickerTaskbar stickerTaskbar;
+    ToolManager toolManager;
+
+    public delegate void PickBehaviour();
+    public PickBehaviour startPick;
+    public PickBehaviour endPick;
     void Start()
     {
         inventory = Resources.Load<Inventory>("PlayerInventory");
@@ -27,6 +32,7 @@ public class PickupObject : MonoBehaviour
         pickUpGuide.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         stickerTaskbar = FindObjectOfType<StickerTaskbar>();
+        toolManager = GetComponent<ToolManager>();
     }
 
      void Update()
@@ -58,7 +64,6 @@ public class PickupObject : MonoBehaviour
             }
         }
         else{
-            UpdateCurrentItem(null);
             HidePickupGuide();
         }
     }
@@ -75,12 +80,13 @@ public class PickupObject : MonoBehaviour
         if (context.performed && currentItem != null)
         {
             if (CheckPosition()) {
-                inventory.Add(currentItem.item); // Add the item to the inventory
                 Debug.Log("Picked up item: " + currentItem.item.itemName);
                 if(currentItem.item.isTool){
                     audioSource.PlayOneShot(ToolStickerClip);
+                    toolManager.AddTool(currentItem.item.toolType);
                 }else{
                     audioSource.PlayOneShot(ItemStickerClip);
+                    inventory.Add(currentItem.item); // Add the item to the inventory
                     stickerTaskbar.AddSticker();
                 }
 
@@ -108,11 +114,14 @@ public class PickupObject : MonoBehaviour
     private void ShowPickupGuide()
     {
         pickUpGuide.SetActive(true);
+        startPick?.Invoke();
     }
 
     // Hide the pickup guide (text and background)
-    private void HidePickupGuide()
+    public void HidePickupGuide()
     {
+        UpdateCurrentItem(null);
         pickUpGuide.SetActive(false);
+        endPick?.Invoke();
     }
 }

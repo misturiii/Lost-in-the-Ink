@@ -23,7 +23,6 @@ public class PieceSticker : Sticker
     {
         sketchbookGuide.DisplayDragGuide();
         inventoryBox.Select();
-
         
         List<RaycastResult> results = DetectOverlap();
 

@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory/Inventory")]
 public class Inventory : ScriptableObject
 {
-    public List<Item> tools = new List<Item>();
     public List<Item> items = new List<Item>();
     public event Action OnEmptyInventory;
     public event Action OnContainSticker;
@@ -14,9 +13,7 @@ public class Inventory : ScriptableObject
     // Method to add an item to the inventory
     public void Add(Item item)
     {
-        if (item.isTool) {
-            tools.Add(item);
-        } else if (!items.Contains(item)) {
+        if (!items.Contains(item)) {
             items.Add(item);
         } 
         item.count++;
@@ -43,7 +40,6 @@ public class Inventory : ScriptableObject
     public void Clear()
     {
         items.Clear();
-        tools.Clear();
         Debug.Log("Inventory cleared");
     }
 

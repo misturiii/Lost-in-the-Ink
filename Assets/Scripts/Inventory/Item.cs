@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public int total = 1;
     public GameObject prefab;
     public bool isTool = false;
+    public Tool toolType;
     public bool stickerPlaced = false;
 
     [SerializeField] Vector3[] checks;
@@ -21,6 +22,8 @@ public class Item : ScriptableObject
     public void Clear()
     {
         total = count = isTool ? -1 : 0;
+        numChecked = 0;
+        stickerPlaced = false;
         numChecked = 0;
         stickerPlaced = false;
         if (checks != null) {
@@ -38,7 +41,7 @@ public class Item : ScriptableObject
         
     }
 
-    public bool Check(Vector3 position, Vector3 eulerAngle)
+    public int Check(Vector3 position, Vector3 eulerAngle)
     {
         position.y = 0;
         float min_distance = 4;
@@ -59,23 +62,27 @@ public class Item : ScriptableObject
             Debug.Log($"{itemName} check {index} set to true.");
             CheckManager.Instance.CheckWinCondition();  
             numChecked++;
-            return true;
         }
-        else
-        {
-            return false;
-        }
+        return index;
     }
 
-    public void Check() {
+    public int Check() {
         if (numChecked < results.Length) {
             results[numChecked++] = true;
+            return numChecked -1;
         }
         CheckManager.Instance.CheckWinCondition();  
+        return -1;
     }
 
     public bool AreAllChecksTrue()
     {
         return numChecked == results.Length;
+    }
+
+    public void Uncheck (int index) {
+        if (index >= 0) {
+            results[index] = false;
+        }
     }
 }

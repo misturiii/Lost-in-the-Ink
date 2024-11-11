@@ -10,7 +10,7 @@ public class TrashCanBehaviour : ToolBehaviour
     public AudioSource audioSourceTrashCan;
     public override string StartBehaviour(ItemSticker sticker)
     {   
-        if (sticker.TrashCan()) {
+        if (sticker.TrashCan(0)) {
             audioSourceTrashCan = GetComponent<AudioSource>();
             if (audioSourceTrashCan != null && !audioSourceTrashCan.isPlaying)
             {

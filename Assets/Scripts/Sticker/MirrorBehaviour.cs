@@ -8,7 +8,7 @@ public class MirrorBehaviour : ToolBehaviour
 
     public override string StartBehaviour(ItemSticker sticker)
     {
-        sticker.Mirror();
+        sticker.Mirror(1);
         return "";
     }
 }

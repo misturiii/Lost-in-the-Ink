@@ -57,7 +57,7 @@ public class FootstepManager : MonoBehaviour
         int randomIndex = Random.Range(0, footstepClips.Length);
 
         // Debug log to ensure the sound is being played
-        Debug.Log("Playing footstep sound: " + randomIndex);
+        // Debug.Log("Playing footstep sound: " + randomIndex);
 
         AudioClip randomClip = footstepClips[randomIndex];
 

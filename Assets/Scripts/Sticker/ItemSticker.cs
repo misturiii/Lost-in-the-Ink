@@ -12,22 +12,15 @@ public class ItemSticker : Sticker
     [SerializeField] public InventoryDisplay inventoryDisplay = null;
     [SerializeField] public Transform copy = null;
     public float rototation = 0;
-    public int index;
-    public AudioClip dropStickerAudioClip;
-    public AudioClip duplicateStickerClip; 
-    public AudioClip rotateStickerClip; 
-    float overlapCheck = 100;
+    float overlapCheck = 50;
     
     public override void Initialize(Item item) {
         base.Initialize(item);
         enabled = true;
         lineColor = FunctionLibrary.LineColor2;
-    }
-
-    private void SetNavigationMode (Navigation.Mode mode) {
-        Navigation nav = navigation;
-        nav.mode = mode;
-        navigation = nav;
+        if (copy) {
+            copy.GetComponent<ColorChange>().Reset();
+        }
     }
 
     public override void Drop(InputAction.CallbackContext context) {
@@ -48,7 +41,7 @@ public class ItemSticker : Sticker
             {
                 Debug.Log("Hit UI element: " + result.gameObject.name);
                 ItemSticker sticker = result.gameObject.GetComponent<ItemSticker>();
-                if (sticker && sticker != this && (transform.position - sticker.transform.position).magnitude < sticker.overlapCheck) {
+                if (sticker && sticker != this && Vector3.Distance(transform.position, sticker.transform.position) < sticker.overlapCheck + overlapCheck) {
                     sketchbookGuide.DisplayResult(FunctionLibrary.HighlightString("Cannot overlap"));
                     transform.localPosition = InitialPositon;
                     if (inventoryBox) {
@@ -65,10 +58,8 @@ public class ItemSticker : Sticker
             }
             GenerateObject(false);
             Select();
-             if (audioSource != null && !audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(dropStickerAudioClip);
-            }
+            audioManager.Play(StickerAudio.drop);
+            Debug.Log("Finish Drop");
         }
     }
 
@@ -76,7 +67,7 @@ public class ItemSticker : Sticker
     {
         base.OnSelect(data);
         if (inventoryDisplay) {
-            inventoryDisplay.SelectSketchbook(this);
+            inventoryDisplay.Select(this);
         }
     }
 
@@ -87,44 +78,44 @@ public class ItemSticker : Sticker
             Destroy(copy.gameObject);
             inventoryDisplay.RemoveFromSketchbook(this);  
         }
+        Debug.Log("Sticker destroyed");
         Destroy(gameObject); 
-
     }
 
-    public bool TrashCan() {
+    public bool TrashCan(float input) {
         if (item.total <= 1) {
+            sketchbookGuide.DisplayResult($"{item.itemName} sticker is unique, cannot delete it");
             return false;
         } else {
             item.total -= 1;
-           
+            audioManager.Play(StickerAudio.trash);
             Delete();
+            sketchbookGuide.DisplayResult($"Successfully deleted {item.itemName} sticker");
             return true;
         }
     }
 
-    public bool Camera() {
+    public bool Camera(float input) {
         if (item.total == 9) {
+            sketchbookGuide.DisplayResult($"Reach the maximum, cannot duplicate anymore");
             return false;
         } else {
-            if (audioSource != null && !audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(duplicateStickerClip);
-            }
-            inventoryDisplay.InventoryAdd(item);
+            audioManager.Play(StickerAudio.cam);
+            inventoryDisplay.AddToInventory(item);
+            sketchbookGuide.DisplayResult($"Successfully duplicated {item.itemName} sticker");
             return true;
         }
     }
 
-    public bool Mirror(){
+    public bool Mirror(float sign){
          if (item != null)
         {
-            if (audioSource != null && !audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(rotateStickerClip);
-            }
-            transform.Rotate(0, 0, 45);
-            rototation -= 45;
+            audioManager.Play(StickerAudio.rubik);
+            float r = sign * 45;
+            transform.Rotate(0, 0, r);
+            rototation -= r;
             GenerateObject(false);
+            sketchbookGuide.DisplayResult($"Successfully rotated {item.itemName} sticker");
             return true;
         }else{
             return false;
@@ -140,26 +131,23 @@ public class ItemSticker : Sticker
             }
             transform.SetParent(stickerPanel);
             copy = Instantiate(prefab, GameObject.FindWithTag("World").transform).transform;
-            SetNavigationMode(Navigation.Mode.Automatic);
             material.SetFloat(lineWidthId, lineWidth / scale);
             transform.localScale *= scale;
             ColorChange cc = copy.AddComponent<ColorChange>(); 
             cc.item = item;
             cc.isComplete = isComplete;
-        }
-        if (canvas) {
-            Destroy(GetComponent<GraphicRaycaster>());
-            Destroy(GetComponent<Canvas>());
-            canvas = null;
+            pivotOffset *= scale;
+            if (canvas) {
+                Destroy(GetComponent<GraphicRaycaster>());
+                Destroy(canvas);
+                canvas = null;
+            }
         }
         Vector3 worldPosition = FunctionLibrary.BookToWorld(transform.localPosition);
         worldPosition.y = prefab.transform.localPosition.y;
         copy.localPosition = worldPosition;
         copy.localEulerAngles = new Vector3(0, rototation, 0);
         copy.GetComponent<ColorChange>().Reset();
-    }
-
-    public void ResetObject() {
-        copy.GetComponent<ColorChange>().Reset();
+        Debug.Log("Update copy");
     }
 }
