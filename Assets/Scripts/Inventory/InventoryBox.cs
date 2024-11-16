@@ -20,13 +20,6 @@ public class InventoryBox : Selectable
     public override void OnSelect (BaseEventData data) {
         base.OnSelect(data);
         inventoryDisplay.Select(this);
-        if (next) {
-            next.OnSelect(data);
-            sticker = next;
-            next = null;
-        } else if (sticker) {
-            sticker.OnSelect(data);
-        }
     }
 
     public override void Select()
