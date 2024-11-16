@@ -35,9 +35,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -33, y: -38.5}
+  m_AnchoredPosition: {x: 0, y: -27.5}
   m_SizeDelta: {x: 110, y: 110}
-  m_Pivot: {x: 0.2, y: 0.15}
+  m_Pivot: {x: 0.5, y: 0.25}
 --- !u!222 &6410707626794223097
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -119,16 +119,12 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 7474888625593500139}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: 'Broken Ferris Wheel: Romantic, but where is the cabin?'
-  prefab: {fileID: 1040840378507997277, guid: e4ae5172772f84bdcbe3145f732bd75d, type: 3}
-  scale: 6
+  prefab: {fileID: 1401319315755057855, guid: 04d1c6429b459e049891ad73806e0bda, type: 3}
+  scale: 7
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  rototation: 0
-  index: 0
-  dropStickerAudioClip: {fileID: 8300000, guid: 628c9922b1cf8984f818cf32e802fa54,
-    type: 3}
-  duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
-    type: 3}
-  rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
+  numRotate: 0
+  rotatedImages:
+  - {fileID: 21300000, guid: 607a5370e0483bf4c9fb2f09a8d0c539, type: 3}
+  notStraight: 0

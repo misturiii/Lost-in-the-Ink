@@ -1,11 +1,12 @@
-using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public abstract class Sticker : Selectable, IDragHandler
+public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
 {
     protected float moveSpeed = 1000f;
     protected InventoryBox inventoryBox;
@@ -23,6 +24,7 @@ public abstract class Sticker : Selectable, IDragHandler
     protected GraphicRaycaster raycaster;
     protected Vector3 InitialPositon;
     protected Vector3 pivotOffset;
+    protected Texture2D alpha;
 
     static protected readonly int 
         lineWidthId = Shader.PropertyToID("_LineWidth"),
@@ -34,7 +36,7 @@ public abstract class Sticker : Selectable, IDragHandler
         inventoryBox = GetComponentInParent<InventoryBox>();
         canvas = gameObject.AddComponent<Canvas>();
         canvas.overrideSorting = true;
-        canvas.sortingOrder = 1;
+        canvas.sortingOrder = 25;
         
         gameObject.AddComponent<GraphicRaycaster>();
         SetUp();
@@ -70,6 +72,7 @@ public abstract class Sticker : Selectable, IDragHandler
         // Get the pivot offset (relative to the RectTransform's size)
         pivotOffset = new Vector2((0.5f - rectTransform.pivot.x) * size.x, 
                                   (0.5f - rectTransform.pivot.y) * size.y);
+        InitialPositon = -pivotOffset;
     }
 
     void OnBeginDrag(InputAction.CallbackContext context) {
@@ -88,12 +91,13 @@ public abstract class Sticker : Selectable, IDragHandler
         Select();
         sketchbookGuide.DisplayDropGuide();
         if (inventoryBox) {
-            if (--item.count > 0) {
-                inventoryBox.SetSticker(item);
+            if (item.count > 1) {
+                inventoryBox.MakeCopy(item);
             } else {
                 inventoryBox.UpdateCount(0);
             }
-            canvas.sortingOrder = 20;
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 110;
         } else {
             transform.SetAsLastSibling();
         }
@@ -124,11 +128,11 @@ public abstract class Sticker : Selectable, IDragHandler
     }
     
     override public void OnDeselect(BaseEventData data) {
+        base.OnDeselect(null);
         isSelected = false;
         if (canvas) {
-            canvas.sortingOrder = 1;
+            canvas.sortingOrder = 25;
         }
-        base.OnDeselect(null);
         if (!material) {
             Initialize(item);
         }
@@ -162,13 +166,17 @@ public abstract class Sticker : Selectable, IDragHandler
     public virtual void Delete() {
         inputActions.UI.Click.canceled -= Drop;
         inputActions.UI.Click.performed -= OnBeginDrag;
+        if (inventoryBox && inventoryBox.sticker == this) {
+            inventoryBox.sticker = null;
+        }
     }
 
-    public override void OnPointerEnter(PointerEventData eventData)
-    {
-        if (!isSelected) {
+    public override void OnPointerEnter (PointerEventData eventData) {
+        if (!isSelected && !Input.GetMouseButtonDown(0)) {
             if (inventoryBox) {
                 inventoryBox.Select();
+            } else {
+                Select();
             }
         }
     }
@@ -183,5 +191,51 @@ public abstract class Sticker : Selectable, IDragHandler
 
     public Vector3 GetCenterPosition () {
         return transform.position + pivotOffset;
+    }
+
+    // Pixel shader for Gaussian blur
+    float Sample(int uvx, int uvy, int lineWidth) {
+        // Accumulate the color from multiple samples
+        float color = 0;
+        Texture2D texture = image.sprite.texture;
+
+        // Sample horizontally and vertically
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j <= 2; j++) {
+                int diff = Mathf.Abs(i) - Mathf.Abs(j);
+                color += texture.GetPixel(uvx + i * lineWidth, uvy + j * lineWidth).a;
+            }
+        }
+        return color / 25.0f; // Average the horizontal and vertical blur results
+    }
+
+    public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
+    {
+        return HasContent(sp, eventCamera);
+    }
+
+    bool HasContent (Vector2 screenPoint, Camera eventCamera) {
+        Texture2D texture = image.sprite.texture;
+
+        // Convert screen point to local point within the image rect
+        RectTransform rectTransform = image.rectTransform;
+        Vector2 localPoint;
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, eventCamera, out localPoint))
+            return false;
+
+        // Convert the local point to texture UV coordinates
+        Rect rect = rectTransform.rect;
+        float x = (localPoint.x - rect.x) / rect.width;
+        float y = (localPoint.y - rect.y) / rect.height;
+
+        // Convert UV coordinates to pixel coordinates
+        int pixelX = Mathf.RoundToInt(x * texture.width);
+        int pixelY = Mathf.RoundToInt(y * texture.height);
+
+        if (pixelX < 0 || pixelX >= texture.width || pixelY < 0 || pixelY >= texture.height)
+            return false;
+
+        // Get the pixel color and check the alpha value
+        return Sample(pixelX, pixelY, (int)Mathf.Ceil(lineWidth * 5)) > 0;
     }
 }

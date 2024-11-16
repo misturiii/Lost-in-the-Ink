@@ -119,16 +119,12 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4845516983182478973}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: Broken Balloon Cart:Oh no, balloons fly away
-  prefab: {fileID: 8587941757809269927, guid: c9c7f8604d3954641b0e0cbd229cf38e, type: 3}
+  prefab: {fileID: 1180748307935234705, guid: 0962aef1f8b4bcb4da5925c10f9863f8, type: 3}
   scale: 2
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  rototation: 0
-  index: 0
-  dropStickerAudioClip: {fileID: 8300000, guid: 628c9922b1cf8984f818cf32e802fa54,
-    type: 3}
-  duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
-    type: 3}
-  rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
+  numRotate: 0
+  rotatedImages:
+  - {fileID: 21300000, guid: 598824285c591407ea3e708526c73d16, type: 3}
+  notStraight: 0

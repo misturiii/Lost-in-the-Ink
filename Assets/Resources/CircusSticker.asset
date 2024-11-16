@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: CircusSticker
   m_EditorClassIdentifier: 
   itemName: Circus
-  count: 0
-  total: 0
+  count: 1
+  total: 1
   prefab: {fileID: 1263774752063172929, guid: e76316c215405ec47919a68c9664c23d, type: 3}
   isTool: 0
+  toolType: 0
   stickerPlaced: 0
   checks:
-  - {x: -10.8, y: 0, z: 10.62}
-  rotations: 05000000
+  - {x: -12.516947, y: 0.04, z: 10.602646}
+  rotations: 03000000
   compatibleItems: 

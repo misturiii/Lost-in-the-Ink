@@ -15,17 +15,18 @@ MonoBehaviour:
   dialogues:
   - speaker: THE JESTER
     lines:
-    - Oh, yea! Let me tell you the funtionality of those stickers
-    - The camera sticker will let you <make copies> of certain objects.
-    - "The trashcan sticker helps you <clear away> anything that doesn\u2019t belong."
-    - The rubik's cube sticker allows you to <rotate stickers> to fit the scene perfectly.
+    - "Good! You\u2019re getting the hang of it. I\u2019ll grant you three gifts!"
+    - ' First, the <camera sticker>. You can use it to <make copies> of certain objects. '
+    - "Next, the <trash can sticker>\u2014handy for <clearing away> anything out
+      of place."
+    - "And last, a <magic rubik\u2019s cube sticker>. Rotate it to fit things perfectly
+      into place. "
   - speaker: WILLIAM
     lines:
-    - Where should I use it?
+    - "Fit things perfectly\u2026 But how do I know where they go? "
   - speaker: THE JESTER
     lines:
-    - You can test out the tools on your <skecthbook>.
-    - All item stickers can be draged to the sketchbook, and tool stickers can be
-      draged onto the other sticker to apply change.
-    - Let's start with the bench and bring the world back to what it was.
+    - "Great question! That\u2019s where the map comes in."
+    - "The more you find, the more you see. Listen closely\u2026 Alright, go on and
+      keep exploring! "
   notFirstTime: 0

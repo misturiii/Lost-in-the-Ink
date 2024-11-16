@@ -18,8 +18,6 @@ public class InventoryDisplay : MonoBehaviour
 
     void Awake () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
-        inputActions.UI.Move.Enable();
-        inputActions.UI.Click.Enable();
         inputActions.UI.Move.performed += MovePointer;
         inputActions.UI.Move.canceled += CancelMove;
         
@@ -40,13 +38,16 @@ public class InventoryDisplay : MonoBehaviour
         foreach (var sticker in stickerPanel) {
             selectables.Add(sticker);
             sticker.SetUp();
+            sticker.SetOutline();
             sticker.item.total++;
+            sticker.GenerateObject(false);
         }
     }
 
     void OnEnable () {
         UpdateInventoryDisplay();
         currentSelected?.Select();
+        readNextInput = true;
     }
 
     public void RemoveFromInventory (int i) {
@@ -78,7 +79,7 @@ public class InventoryDisplay : MonoBehaviour
                 input[i] = 0;
             }
         }
-        if (readNextInput && !inputActions.UI.Click.inProgress) {
+        if (readNextInput && !inputActions.UI.Click.inProgress && gameObject.activeInHierarchy) {
             StartCoroutine(Wait());
         }
     }

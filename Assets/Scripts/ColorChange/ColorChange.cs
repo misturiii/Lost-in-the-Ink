@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,13 +24,35 @@ public class ColorChange : MonoBehaviour
         startTimeId = Shader.PropertyToID("_StartTime");
 
     void Initialize () {
+        mats = new Material[0];
         objects = GetComponentsInChildren<ItemObject>(true);
-        gameObject.AddComponent<MeshCollider>();
-        mats = GetComponent<Renderer>().materials;
+        TraverseChildComponents(transform);
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.Trigger.performed += CloseSketchBook;
         inputActions.Player.Trigger.performed += OpenSketchBook;
         cam = Camera.main;
+    }
+
+    void TraverseChildComponents (Transform t) {
+        GetFromCurrent(t);
+        Debug.Log($"childe {t.name} traversed");
+        for (int i = 0; i < t.childCount; i++) {
+            TraverseChildComponents(t.GetChild(i));
+        }
+    }
+
+    void GetFromCurrent (Transform t) {
+        MeshRenderer mr;
+        t.TryGetComponent<MeshRenderer>(out mr);
+        SkinnedMeshRenderer smr;
+        t.TryGetComponent<SkinnedMeshRenderer>(out smr);
+        if (mr) {
+            mats = mats.Concat(mr.materials).ToArray();
+            t.gameObject.AddComponent<MeshCollider>();
+        } else if (smr) {
+            mats = mats.Concat(smr.materials).ToArray();
+            t.gameObject.AddComponent<MeshCollider>();
+        }
     }
 
     void Update () {
@@ -50,7 +75,8 @@ public class ColorChange : MonoBehaviour
     }
 
     public void Reset () {
-        int index;
+        int index = -1;
+        item.Uncheck(checkedIndex);
         if (mats == null || mats.Length == 0) {
             Initialize();
         }
@@ -60,7 +86,6 @@ public class ColorChange : MonoBehaviour
             IsCorrect = true;
         } else {
             IsCorrect = false;
-            item.Uncheck(checkedIndex);
             ChangeColor(false);
         }
         checkedIndex = index;

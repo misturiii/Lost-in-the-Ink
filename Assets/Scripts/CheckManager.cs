@@ -35,6 +35,11 @@ public class CheckManager : MonoBehaviour
         }
     }
 
+    public void RemovePieceCheck (Item item) {
+        if (items.Contains(item)) {
+            items.Remove(item);
+        }
+    }
 
     public void CheckWinCondition()
     {

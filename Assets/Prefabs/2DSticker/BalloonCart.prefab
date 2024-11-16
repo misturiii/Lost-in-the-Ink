@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c0c415bc39cd71f42b917077ae7fa617, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8859b952a23456844bebca63de0c402a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -119,16 +119,15 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4845516983182478973}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: 'Ballon Cart:A colorful cart filled with beautiful balloons. '
-  prefab: {fileID: 7881958677947467051, guid: b394de72de43b4348972a741dd56b069, type: 3}
+  prefab: {fileID: 9191561813194103372, guid: a408e1fa54fcbf3429425ad6feec802a, type: 3}
   scale: 2
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  rototation: 0
-  index: 0
-  dropStickerAudioClip: {fileID: 8300000, guid: 628c9922b1cf8984f818cf32e802fa54,
-    type: 3}
-  duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
-    type: 3}
-  rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
+  numRotate: 0
+  rotatedImages:
+  - {fileID: 21300000, guid: 8859b952a23456844bebca63de0c402a, type: 3}
+  - {fileID: 21300000, guid: 8e5dc91ab0fe4aa45bd92cfa72c7a6aa, type: 3}
+  - {fileID: 21300000, guid: 889bedfd7acc7b84c81274d424482b43, type: 3}
+  - {fileID: 21300000, guid: 8e5dc91ab0fe4aa45bd92cfa72c7a6aa, type: 3}
+  notStraight: 0

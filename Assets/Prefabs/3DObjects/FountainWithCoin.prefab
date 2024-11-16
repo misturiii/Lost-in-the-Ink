@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5456884655776270221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4679643542822542647}
+  m_Layer: 0
+  m_Name: FountainWithCoin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4679643542822542647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456884655776270221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1775140667342904803}
+  - {fileID: 328750159923162352}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2245088898729359880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,81 +127,97 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2245088898729359880}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5150946441318775516
+--- !u!1001 &7200763052236392239
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 4679643542822542647}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 1996444748046243010, guid: 0559e4031540ce14e93f34e461d43a96,
+        type: 3}
+      propertyPath: m_Name
+      value: Water_FX 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.62827945
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.225004
+      value: 0.01
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00001859665
+      value: 2.03
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.7348907
+      value: -0.08
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 84374998e4b1d4e949a8916953f5f07a,
+    - target: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
         type: 3}
-      propertyPath: m_Name
-      value: FountainWithCoin
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1775140667342904803}
+    m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 84374998e4b1d4e949a8916953f5f07a, type: 3}
---- !u!4 &4679643542822542647 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 0559e4031540ce14e93f34e461d43a96, type: 3}
+--- !u!4 &328750159923162352 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 84374998e4b1d4e949a8916953f5f07a,
+  m_CorrespondingSourceObject: {fileID: 7449458867904998367, guid: 0559e4031540ce14e93f34e461d43a96,
     type: 3}
-  m_PrefabInstance: {fileID: 5150946441318775516}
+  m_PrefabInstance: {fileID: 7200763052236392239}
   m_PrefabAsset: {fileID: 0}

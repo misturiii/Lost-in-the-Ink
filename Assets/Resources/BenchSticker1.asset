@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: BenchSticker1
   m_EditorClassIdentifier: 
   itemName: Bench
-  count: 0
-  total: 0
+  count: 1
+  total: 4
   prefab: {fileID: 1263774752063172929, guid: e152866a9dc4af84fb7a85fe8635b84e, type: 3}
   isTool: 0
+  toolType: 0
   stickerPlaced: 0
   checks:
-  - {x: 10.26, y: 0, z: 2.88}
-  - {x: 5.94, y: 0, z: 4.42}
-  - {x: 2.13, y: 0, z: 2.82}
-  - {x: 2.62, y: 0, z: -2.56}
-  - {x: 8.67, y: 0, z: -2.97}
-  rotations: 0300000004000000050000000700000001000000
+  - {x: 6.331568, y: 0, z: 5.978776}
+  - {x: 7.0513525, y: 0, z: 0.11862706}
+  - {x: -0.099672444, y: 0, z: -0.36102998}
+  - {x: 0.28837568, y: 0, z: 6.14865}
+  rotations: 01000000000000000300000002000000
   compatibleItems: 

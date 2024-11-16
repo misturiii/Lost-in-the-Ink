@@ -119,16 +119,15 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1532475992837809066}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: 
   prefab: {fileID: 1866409804233583096, guid: 8986c72cc5a320243b3ff880d36e9636, type: 3}
   scale: 2
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  rototation: 0
-  index: 0
-  dropStickerAudioClip: {fileID: 8300000, guid: 628c9922b1cf8984f818cf32e802fa54,
-    type: 3}
-  duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
-    type: 3}
-  rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
+  numRotate: 0
+  rotatedImages:
+  - {fileID: 21300000, guid: 4f6741e80a9f25f48b059f8e72ab1427, type: 3}
+  - {fileID: 21300000, guid: 5fac6b81be2de0c46aaa6feb07cfba96, type: 3}
+  - {fileID: 21300000, guid: a6353ea7cf19bd44a9728ce3c936ea74, type: 3}
+  - {fileID: 21300000, guid: f81888af1f04f1343857c16d958c157b, type: 3}
+  notStraight: 0

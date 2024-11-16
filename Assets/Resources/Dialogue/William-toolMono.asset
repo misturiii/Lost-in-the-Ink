@@ -15,6 +15,6 @@ MonoBehaviour:
   dialogues:
   - speaker: WILLIAM
     lines:
-    - Hmm... I don't know how to use those sticker
-    - I will ask the Jester for help.
+    - 'Looks like there used to be a map here... Is that a sticker? Maybe Jester
+      knows something about it. '
   notFirstTime: 0

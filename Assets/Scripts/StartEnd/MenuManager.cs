@@ -31,6 +31,7 @@ public class MenuManager : MonoBehaviour
         else
         {
             // If no sound is set, restart the scene immediately
+             Resources.Load<Inventory>("PlayerInventory").Clear();
             Scene currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
         }
@@ -42,6 +43,7 @@ public class MenuManager : MonoBehaviour
     {
         // Wait for the duration of the sound before restarting the scene
         yield return new WaitForSeconds(1f);
+        Resources.Load<Inventory>("PlayerInventory").Clear();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);  // Restart the scene after the sound finishes
     }

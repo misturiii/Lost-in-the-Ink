@@ -79,35 +79,24 @@ public class PickupObject : MonoBehaviour
         // Check for the E key press and if there's a current item
         if (context.performed && currentItem != null)
         {
-            if (CheckPosition()) {
-                Debug.Log("Picked up item: " + currentItem.item.itemName);
-                if(currentItem.item.isTool){
-                    audioSource.PlayOneShot(ToolStickerClip);
-                    toolManager.AddTool(currentItem.item.toolType);
-                }else{
-                    audioSource.PlayOneShot(ItemStickerClip);
-                    inventory.Add(currentItem.item); // Add the item to the inventory
-                    stickerTaskbar.AddSticker();
-                }
-
-                // Destroy the item from the scene
-                Destroy(currentItem.gameObject);
-                currentItem = null; // Reset current item
-
-                // Hide the pickup text and background after pickup
-                HidePickupGuide();
-                
-            } else {
-                Debug.Log("Too far away, need to find a tool");
+            Debug.Log("Picked up item: " + currentItem.item.itemName);
+            if(currentItem.item.isTool){
+                audioSource.PlayOneShot(ToolStickerClip);
+                toolManager.AddTool(currentItem.item.toolType);
+            }else{
+                audioSource.PlayOneShot(ItemStickerClip);
+                inventory.Add(currentItem.item); // Add the item to the inventory
+                stickerTaskbar.AddSticker();
             }
+
+            // Destroy the item from the scene
+            Destroy(currentItem.gameObject);
+            currentItem = null; // Reset current item
+
+            // Hide the pickup text and background after pickup
+            HidePickupGuide();
             
         }
-    }
-
-    bool CheckPosition () {
-        Vector3 p = currentItem.transform.position;
-        Vector3 q = transform.position;
-        return (p - q).magnitude < minDistance;
     }
 
     // Show the pickup guide (text and background)

@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory/Inventory")]
 public class Inventory : ScriptableObject
 {
     public List<Item> items = new List<Item>();
+    private List<Item> itemInsketchbook = new List<Item>();
     public event Action OnEmptyInventory;
     public event Action OnContainSticker;
     public string newItem;
@@ -30,6 +32,7 @@ public class Inventory : ScriptableObject
 
     public void Remove (int index) {
         Debug.Log($"remove item at index {index}");
+        itemInsketchbook.Add(items[index]);
         items.Remove(items[index]);
         if (items.Count == 0) {
             OnEmptyInventory?.Invoke();
@@ -39,13 +42,21 @@ public class Inventory : ScriptableObject
     // New method to clear the inventory
     public void Clear()
     {
+        foreach (var item in items) {
+            item.Clear();
+        } 
+        foreach (var item in itemInsketchbook) {
+            item.Clear();
+        }
         items.Clear();
+        itemInsketchbook.Clear();
         Debug.Log("Inventory cleared");
     }
 
     // This method will be called when the game starts or when the ScriptableObject is loaded
-    private void OnEnable()
+    void OnEnable()
     {
         Clear();
+        Debug.Log("Inventory OnEnable");
     }
 }

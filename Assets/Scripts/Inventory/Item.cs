@@ -5,8 +5,8 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName;    // Name of the item
-    public int count = 1;
-    public int total = 1;
+    public int count;
+    public int total;
     public GameObject prefab;
     public bool isTool = false;
     public Tool toolType;
@@ -24,8 +24,6 @@ public class Item : ScriptableObject
         total = count = isTool ? -1 : 0;
         numChecked = 0;
         stickerPlaced = false;
-        numChecked = 0;
-        stickerPlaced = false;
         if (checks != null) {
             results = new bool[Mathf.Min(checks.Length, rotations.Length)];
             Array.Fill(results, false);
@@ -35,17 +33,21 @@ public class Item : ScriptableObject
     void OnEnable()
     {
         Clear();
+        Debug.Log("Item awake");
         if (CheckManager.Instance != null) {
             CheckManager.Instance.RegisterItem(this);  // 注册到 CheckManager
         }
-        
+    }
+
+    public void RemovePieceCheck () {
+        CheckManager.Instance.RemovePieceCheck(this);
     }
 
     public int Check(Vector3 position, Vector3 eulerAngle)
     {
         position.y = 0;
-        float min_distance = 4;
-        int index = -1, numRotated = (360 -(int)eulerAngle.y) % 360 / 45;
+        float min_distance = 10;
+        int index = -1, numRotated = (360 -(int)eulerAngle.y) % 360 / 90;
         Debug.Log("There were " + numRotated + " rotation when checked");
         for (int i = 0; i < results.Length; i++)
         {
@@ -60,8 +62,8 @@ public class Item : ScriptableObject
         {
             results[index] = true;
             Debug.Log($"{itemName} check {index} set to true.");
-            CheckManager.Instance.CheckWinCondition();  
             numChecked++;
+            CheckManager.Instance.CheckWinCondition();  
         }
         return index;
     }
@@ -83,6 +85,7 @@ public class Item : ScriptableObject
     public void Uncheck (int index) {
         if (index >= 0) {
             results[index] = false;
+            numChecked--;
         }
     }
 }

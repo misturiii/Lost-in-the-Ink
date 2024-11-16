@@ -13,10 +13,11 @@ public class ToolManager : MonoBehaviour
     [SerializeField] Image iconDisplay;
     Action<InputAction.CallbackContext>[] actions;
     InputAction[] keys;
-    float duration = 0.5f, progress = 0;
+    float duration = 0.75f, progress = 0;
     float outlineWWidth = 6;
     Tool currentTool;
     SketchbookGuide sketchbookGuide;
+    [SerializeField]Transform toolControl;
 
     void Start () {
         InputActions inputActions = FindObjectOfType<InputActionManager>().inputActions;
@@ -29,6 +30,8 @@ public class ToolManager : MonoBehaviour
     public void AddTool (Tool tool) {
         keys[(int)tool].performed += actions[(int)tool];
         keys[(int)tool].canceled += EndTool;
+        toolControl.gameObject.SetActive(true);
+        toolControl.GetChild((int)tool).gameObject.SetActive(true);
     }
 
     IEnumerator Press (Tool tool, ItemSticker sticker, Behaviour behaviour, float input) {
@@ -39,6 +42,7 @@ public class ToolManager : MonoBehaviour
         if (progress == 0) {
             iconDisplay.enabled = true;
             iconDisplay.sprite = icons[(int)tool];
+            iconDisplay.transform.localScale = new Vector3(-input, 1, 1);
         } 
         while (keys[(int)tool].inProgress) {
             if (currentTool != tool) {
@@ -51,7 +55,10 @@ public class ToolManager : MonoBehaviour
                 iconDisplay.transform.position = sticker.GetCenterPosition();
             }
             if (progress >= duration) {
-                behaviour(input);
+                if (!behaviour(input)) {
+                    progress = 0;
+                    break;
+                }
                 progress -= duration;
             }
             yield return null;
@@ -63,9 +70,9 @@ public class ToolManager : MonoBehaviour
         if (inventoryDisplay.currentSelected is ItemSticker) {
             sketchbookGuide.toolGuide.text = "Hold to duplicate the sticker";
             ItemSticker sticker = (ItemSticker) inventoryDisplay.currentSelected;
-            StartCoroutine(Press(Tool.Camera, sticker, sticker.Camera, 0));
+            StartCoroutine(Press(Tool.Camera, sticker, sticker.Camera, -1));
         } else {
-            sketchbookGuide.DisplayResult("Cannot apply to inventory");
+            DisplayError(inventoryDisplay.currentSelected);
         }
     }
 
@@ -73,9 +80,9 @@ public class ToolManager : MonoBehaviour
         if (inventoryDisplay.currentSelected is ItemSticker) {
             sketchbookGuide.toolGuide.text = "Hold to delete the sticker";
             ItemSticker sticker = (ItemSticker) inventoryDisplay.currentSelected;
-            StartCoroutine(Press(Tool.TrashCan, sticker, sticker.TrashCan, 0));
+            StartCoroutine(Press(Tool.TrashCan, sticker, sticker.TrashCan, -1));
         } else {
-            sketchbookGuide.DisplayResult("Cannot apply to inventory");
+            DisplayError(inventoryDisplay.currentSelected);
         }
     }
 
@@ -85,7 +92,7 @@ public class ToolManager : MonoBehaviour
             ItemSticker sticker = (ItemSticker) inventoryDisplay.currentSelected;
             StartCoroutine(Press(Tool.RubikCube, sticker, sticker.Mirror, context.ReadValue<float>()));
         } else {
-            sketchbookGuide.DisplayResult("Cannot apply to inventory");
+            DisplayError(inventoryDisplay.currentSelected);
         }
     }
 
@@ -94,5 +101,13 @@ public class ToolManager : MonoBehaviour
         progress = 0;
         iconDisplay.enabled = false;
         sketchbookGuide.toolGuide.text = "";
+    }
+
+    void DisplayError (Selectable selectable) {
+        if (selectable is InventoryBox) {
+            sketchbookGuide.DisplayResult("Cannot apply to inventory");
+        } else if (selectable is PieceSticker) {
+            sketchbookGuide.DisplayResult("Cannot apply to incomplete sticker");
+        }
     }
 }

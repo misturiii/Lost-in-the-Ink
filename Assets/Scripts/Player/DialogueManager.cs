@@ -68,6 +68,7 @@ public class DialogueManager : MonoBehaviour
         // Debug.Log("enter AccessDialogue");
         if (dialogue && currentNpc && !cooling) {
             isDialogueActive = true;
+            JesterAnimation.talk?.Invoke();
             // inputActions.Player.Disable();
             inputActions.Player.Move.Disable();
             inputActions.Player.Look.Disable(); 
@@ -94,7 +95,7 @@ public class DialogueManager : MonoBehaviour
     public void OnDialogueEnd() {
         // 当对话结束时，启用 Fountain Sticker 的 PickableItem tag
         skip.SetActive(true);
-        npc.DialogueEnds();
+        npc?.DialogueEnds();
 
         inputActions.Player.Move.Enable();
         inputActions.Player.Look.Enable(); 

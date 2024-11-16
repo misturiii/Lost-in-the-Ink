@@ -36,7 +36,8 @@ public class PieceSticker : Sticker
             }  
         }
         // Reset position if no match is found
-        transform.localPosition = InitialPositon;
+        inventoryBox.UpdateCount(item.count);
+        transform.localPosition = Vector3.zero - pivotOffset;
     }
 
     private bool IsMatch(ItemSticker targetSticker)
@@ -57,13 +58,12 @@ public class PieceSticker : Sticker
             Destroy(targetSticker.copy.gameObject);
             targetSticker.copy = null; // Optionally nullify the reference
         }
+        item.count--;
+        targetSticker.item.RemovePieceCheck();
 
         // Call the Delete method on the target sticker to handle its destruction
         targetSticker.Delete();
         
-        inventoryBox.RemoveSticker();
-        Delete(); // This could be adjusted based on your game logic
-
         // Create a new sticker at the original position of the target sticker
         GameObject newSticker = Instantiate(newStickerPrefab, targetSticker.transform.position, Quaternion.identity, stickerPanel);
         newSticker.transform.localPosition = targetSticker.transform.localPosition;
@@ -84,8 +84,9 @@ public class PieceSticker : Sticker
             newStickerItem.total++;
             newItemSticker.GenerateObject(true); // Generate the associated 3D object
             newItemSticker.Drop(new InputAction.CallbackContext());
-
         }
+        inventoryBox.RemoveSticker();
+        Delete(); // This could be adjusted based on your game logic
 
         Debug.Log("Match found! Replaced with a new sticker and 3D object.");
     }

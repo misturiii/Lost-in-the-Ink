@@ -15,30 +15,12 @@ MonoBehaviour:
   dialogues:
   - speaker: THE JESTER
     lines:
-    - 'Oh look who we have here! William, the painter! '
-    - "Never I imagined that we\u2019d see each other again."
+    - 'Oh look who we have here! William, the painter!  '
   - speaker: WILLIAM
     lines:
-    - "I\u2019m sorry I think I am lost... Who are you and where is this place?"
+    - "Um\u2026 I think I might be lost? "
   - speaker: THE JESTER
     lines:
-    - "Oh haha. You might find this place a bit\u2026 barren.."
-    - But worry not! I am here to help you fill it with life, colors, and memories.
-    - "Together, we\u2019ll rebuild it piece by piece, using some rather\u2026 magic
-      tools."
-  - speaker: THE JESTER
-    lines:
-    - '<Stickers> are key to rebuilding this place. In this world, stickers come
-      in two types:'
-    - 'Ordinary ones will help you <build and shape the scene> when you place them
-      down, '
-    - and others will act as <tools> to guide you along the way.
-  - speaker: WILLIAM
-    lines:
-    - Sticker? But I don't have any...
-  - speaker: THE JESTER
-    lines:
-    - Oh! I lost the ordinary stickers all around this place, you may need to find
-      them to rebuild the scene,
-    - "Here, William, take these. They\u2019re tools to help you along the way."
-  notFirstTime: 1
+    - "Oh, haha! Lost in such a barren place? Don\u2019t worry! Go on, explore a
+      bit\u2026 you might find a few surprises."
+  notFirstTime: 0

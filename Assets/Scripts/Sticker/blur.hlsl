@@ -12,6 +12,6 @@ void blur_float(float2 uv, float lineWidth, out float OUT) {
             int diff = abs(i) - abs(j);
             color += _MainTex.Sample(sampler_MainTex, uv + float2(i * factors[diff + 2], j * factors[2 - diff]) * lineWidth).w;
         }
-    OUT = color / 25.0; // Average the horizontal and vertical blur results
     }
+    OUT = color / 25.0; // Average the horizontal and vertical blur results
 }

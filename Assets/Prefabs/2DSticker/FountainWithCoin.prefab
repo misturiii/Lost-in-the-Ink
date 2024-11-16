@@ -119,16 +119,15 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 7474888625593500139}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: 'Fountain With Coin : Beautiful fountain with a secret revealed.'
   prefab: {fileID: 5456884655776270221, guid: c4b2a151e53b644c0a49e47eeca55999, type: 3}
-  scale: 3
+  scale: 2.5
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  rototation: 0
-  index: 0
-  dropStickerAudioClip: {fileID: 8300000, guid: 628c9922b1cf8984f818cf32e802fa54,
-    type: 3}
-  duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
-    type: 3}
-  rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
+  numRotate: 0
+  rotatedImages:
+  - {fileID: 21300000, guid: b1dc4edfc211a0d48b2f1efccfec3959, type: 3}
+  - {fileID: 21300000, guid: abfbaf53e54bb3d41aaaec4bbe5361d1, type: 3}
+  - {fileID: 21300000, guid: 442aa6b2683774846a99b0405226580e, type: 3}
+  - {fileID: 21300000, guid: 641d4792b412c3142a362cdb2ecb8aa8, type: 3}
+  notStraight: 0

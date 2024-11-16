@@ -1,24 +1,25 @@
+using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
     public DialogueObject dialogueObject {get; set;}
     [SerializeField] string dialogueName;
     QuickOutline outline;
-    [SerializeField] GameObject[] sticker;
-    [SerializeField] GameObject[] objects;
-    [SerializeField] NPC next;
+    [SerializeField] GameObject[] EnableAfterInteract;
+    [SerializeField] GameObject[] ToggleNPCAfterInteract;
     [SerializeField] TextMeshPro mark;
+    bool Finsihed = false;
 
     void Start () {
-        dialogueObject = Resources.Load<DialogueObject>("Dialogue/" + dialogueName);
-        outline = gameObject.AddComponent<QuickOutline>();
-        outline.OutlineColor = FunctionLibrary.LineColor1;
-        outline.OutlineMode = QuickOutline.Mode.OutlineVisible;
-        outline.OutlineWidth = 10;
+        if (!outline) {
+            SetOutline();
+        }
         outline.enabled = false;
-        foreach (var s in sticker) {
+        foreach (var s in EnableAfterInteract) {
             // Set each sticker to active
             s?.SetActive(false);
         }
@@ -33,35 +34,59 @@ public class NPC : MonoBehaviour
         if (mark) {mark.enabled = false;}
     }
 
+    void SetOutline () {
+        outline = gameObject.AddComponent<QuickOutline>();
+        outline.OutlineColor = FunctionLibrary.LineColor1;
+        outline.OutlineMode = QuickOutline.Mode.OutlineVisible;
+        outline.OutlineWidth = 10;
+        dialogueObject = Resources.Load<DialogueObject>("Dialogue/" + dialogueName);
+    }
+
     void Update() {
-        if (tag == "Npc" && !dialogueObject.notFirstTime && mark) {
+        if (tag == "Npc" && dialogueObject && !dialogueObject.notFirstTime && mark) {
             mark.enabled = true;
             mark.transform.LookAt(Camera.main.transform.position);
         }
     }
 
     public DialogueObject Enter () {
-        outline.enabled = true;
+        if (!outline) {
+            SetOutline();
+        }
+        if (outline.enabled == false) {
+            if (name.Contains("Jester")) {
+                JesterAnimation.enter?.Invoke();
+            }
+            outline.enabled = true;
+        }
         return dialogueObject;
     }
 
     public void Exit () {
         outline.enabled = false;
+        if (name.Contains("Jester")) {
+            JesterAnimation.exit?.Invoke();
+        }
     }
 
     public void DialogueEnds () {
-        foreach (var s in sticker) {
+        if (!Finsihed) {
+            foreach (var s in EnableAfterInteract) {
             // Set each sticker to active
-            if (s != null) {
-                s.SetActive(true);
+                if (s != null) {
+                    s.SetActive(true);
+                }
             }
+            foreach (var obj in ToggleNPCAfterInteract) {
+                if (obj.tag == "Npc") {
+                    obj.tag = "Untagged";
+                } else {
+                    obj.tag = "Npc";
+                }   
+            }
+            if (mark) {mark.enabled = false;}
+            Finsihed = true;
         }
-        foreach (var obj in objects) {
-            obj.tag = "Npc";
-        }
-        if (next) {
-            next.enabled = true;
-        }
-        if (mark) {mark.enabled = false;}
+        JesterAnimation.clap?.Invoke();
     }
 }

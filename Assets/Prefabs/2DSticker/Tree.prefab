@@ -119,16 +119,14 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1179115358642974235}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: 'Tree : A greater burst of green, bringing life to the grey.'
   prefab: {fileID: 477337634148274155, guid: 4f42624a26f1b6e44bcc311761e62797, type: 3}
   scale: 3
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  rototation: 0
-  index: 0
-  dropStickerAudioClip: {fileID: 8300000, guid: 628c9922b1cf8984f818cf32e802fa54,
-    type: 3}
-  duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
-    type: 3}
-  rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
+  numRotate: 0
+  rotatedImages:
+  - {fileID: 21300000, guid: 578426903e4f82541a4593078cf49a4a, type: 3}
+  - {fileID: 21300000, guid: 96ddd338bb9a93c4e95b0f6e28f32944, type: 3}
+  - {fileID: 21300000, guid: 5aab693bf0811a64587eba6fa64e194f, type: 3}
+  - {fileID: 21300000, guid: 35345f07ad20f4f4b92837a3dc355dfe, type: 3}

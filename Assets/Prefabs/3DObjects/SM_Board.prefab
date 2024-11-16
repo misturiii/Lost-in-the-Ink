@@ -515,17 +515,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c70868ebb0c18644780631641af6e6d5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.961764
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c70868ebb0c18644780631641af6e6d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000022172928
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c70868ebb0c18644780631641af6e6d5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.712585
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c70868ebb0c18644780631641af6e6d5,
         type: 3}
@@ -540,12 +540,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c70868ebb0c18644780631641af6e6d5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c70868ebb0c18644780631641af6e6d5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c70868ebb0c18644780631641af6e6d5,
         type: 3}
@@ -654,6 +654,7 @@ MonoBehaviour:
   - {fileID: 0}
   objects: []
   next: {fileID: 0}
+  mark: {fileID: 0}
 --- !u!114 &4983201427426625201
 MonoBehaviour:
   m_ObjectHideFlags: 0

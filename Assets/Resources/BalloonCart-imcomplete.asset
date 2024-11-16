@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Balloon cart-incomplete
   count: 0
-  total: 1
+  total: 0
   prefab: {fileID: 9042687586338586798, guid: 922e093911f49464988a9a1353438e9e, type: 3}
   isTool: 0
+  toolType: 0
   stickerPlaced: 0
   checks:
-  - {x: 14.23, y: 0, z: -1.3}
+  - {x: 9.379598, y: 0, z: 0.2729507}
   rotations: 00000000
   compatibleItems: 

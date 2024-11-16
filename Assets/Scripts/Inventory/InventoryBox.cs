@@ -20,7 +20,13 @@ public class InventoryBox : Selectable
     public override void OnSelect (BaseEventData data) {
         base.OnSelect(data);
         inventoryDisplay.Select(this);
-        sticker?.OnSelect(null);
+        if (next) {
+            next.OnSelect(data);
+            sticker = next;
+            next = null;
+        } else if (sticker) {
+            sticker.OnSelect(data);
+        }
     }
 
     public override void Select()
@@ -38,7 +44,7 @@ public class InventoryBox : Selectable
         ItemSticker temp = null;
         bool canRemove = false;
         if (sticker is ItemSticker) {
-            canRemove = ((ItemSticker)sticker).item.count <= 0;
+            canRemove = ((ItemSticker)sticker).item.count <= 1;
             temp = (ItemSticker)sticker;
         } else if (sticker is PieceSticker) {
             canRemove = true;
@@ -54,13 +60,15 @@ public class InventoryBox : Selectable
     }
 
     public void SetSticker(Item item) {
+        sticker = Instantiate(item.prefab, transform).GetComponent<Sticker>();
+        sticker.Initialize(item);
+        UpdateCount(item.count);
+    }
+
+    public void MakeCopy(Item item) {
         next = Instantiate(item.prefab, transform).GetComponent<Sticker>();
         next.Initialize(item);
-        if (!sticker) {
-            sticker = next;
-            next = null;
-        }
-        UpdateCount(item.count);
+        UpdateCount(item.count - 1);
     }
 
     public void UpdateCount (int count) {

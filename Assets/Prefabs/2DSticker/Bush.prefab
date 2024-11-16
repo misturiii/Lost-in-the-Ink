@@ -119,16 +119,14 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 7474888625593500139}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: 'Bush : A splash of green in a world of grey. '
-  prefab: {fileID: 1258084156722253112, guid: db74e4421044b2246893fd38f119992c, type: 3}
+  prefab: {fileID: 5843600415583136479, guid: b29cb22961dc8294eb7cb9c3571cc33e, type: 3}
   scale: 2
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  rototation: 0
-  index: 0
-  dropStickerAudioClip: {fileID: 8300000, guid: 628c9922b1cf8984f818cf32e802fa54,
-    type: 3}
-  duplicateStickerClip: {fileID: 8300000, guid: a8a3bd77e20babe41af474515133e4a3,
-    type: 3}
-  rotateStickerClip: {fileID: 8300000, guid: 4b369a78d0a3a744b911aa5a5a410ad8, type: 3}
+  numRotate: 0
+  rotatedImages:
+  - {fileID: 21300000, guid: 714ae5462f345974e8fb5fcb116a2a81, type: 3}
+  - {fileID: 21300000, guid: bcfa3b6349cdea64eadb89a40f368ce4, type: 3}
+  - {fileID: 21300000, guid: 923f31845efaaa94c9af5d254a1c8986, type: 3}
+  - {fileID: 21300000, guid: e64e244d3d065934f80d945488e6f4f5, type: 3}

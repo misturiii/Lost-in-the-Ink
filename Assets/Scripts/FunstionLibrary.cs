@@ -24,7 +24,7 @@ public class FunctionLibrary
     static public string styleEnd = "</color></b>";
 
     static public string HighlightString (string s) {
-        return styleStart + s + styleEnd;
+        return "<b><color=#FF0102>" + s + styleEnd;
     }
 
     public static Color LineColor1 = new Color(0.7f, 0.9f, 1f);
