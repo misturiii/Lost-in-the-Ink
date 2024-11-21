@@ -42,7 +42,7 @@ public class ToolManager : MonoBehaviour
         if (progress == 0) {
             iconDisplay.enabled = true;
             iconDisplay.sprite = icons[(int)tool];
-            iconDisplay.transform.localScale = new Vector3(-input, 1, 1);
+            iconDisplay.transform.localScale = new Vector3(input, 1, 1);
         } 
         while (keys[(int)tool].inProgress) {
             if (currentTool != tool) {
@@ -70,7 +70,7 @@ public class ToolManager : MonoBehaviour
         if (inventoryDisplay.currentSelected is ItemSticker) {
             sketchbookGuide.toolGuide.text = "Hold to duplicate the sticker";
             ItemSticker sticker = (ItemSticker) inventoryDisplay.currentSelected;
-            StartCoroutine(Press(Tool.Camera, sticker, sticker.Camera, -1));
+            StartCoroutine(Press(Tool.Camera, sticker, sticker.Camera, 1));
         } else {
             DisplayError(inventoryDisplay.currentSelected);
         }
@@ -80,7 +80,7 @@ public class ToolManager : MonoBehaviour
         if (inventoryDisplay.currentSelected is ItemSticker) {
             sketchbookGuide.toolGuide.text = "Hold to delete the sticker";
             ItemSticker sticker = (ItemSticker) inventoryDisplay.currentSelected;
-            StartCoroutine(Press(Tool.TrashCan, sticker, sticker.TrashCan, -1));
+            StartCoroutine(Press(Tool.TrashCan, sticker, sticker.TrashCan, 1));
         } else {
             DisplayError(inventoryDisplay.currentSelected);
         }

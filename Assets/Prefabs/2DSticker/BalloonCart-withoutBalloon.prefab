@@ -121,10 +121,13 @@ MonoBehaviour:
   item: {fileID: 0}
   guide: Broken Balloon Cart:Oh no, balloons fly away
   prefab: {fileID: 1180748307935234705, guid: 0962aef1f8b4bcb4da5925c10f9863f8, type: 3}
-  scale: 2
+  scale: 1.5
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
   numRotate: 0
   rotatedImages:
-  - {fileID: 21300000, guid: 598824285c591407ea3e708526c73d16, type: 3}
+  - {fileID: 21300000, guid: aaef025d5fc18d949990ff3caafb50d8, type: 3}
+  - {fileID: 21300000, guid: 006ae0078e65d91438cf8ef6bb97b624, type: 3}
+  - {fileID: 21300000, guid: 267a8030814941c42b3cb751cf5ebc91, type: 3}
+  - {fileID: 21300000, guid: 62266cdb36699c64384b81198458f0f6, type: 3}
   notStraight: 0

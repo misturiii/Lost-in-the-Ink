@@ -19,6 +19,11 @@ public class InventoryBox : Selectable
 
     public override void OnSelect (BaseEventData data) {
         base.OnSelect(data);
+        if (next) {
+            sticker = next;
+            next = null;
+        }
+        sticker?.OnSelect(data);
         inventoryDisplay.Select(this);
     }
 
@@ -69,6 +74,8 @@ public class InventoryBox : Selectable
     }
 
     public override void OnPointerEnter (PointerEventData eventData) {
-        Select();
+        if (!eventData.dragging) {
+            Select();
+        }
     }
 }

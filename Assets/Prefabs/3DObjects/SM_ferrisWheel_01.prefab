@@ -195,10 +195,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: FerrisWheelModel_Animated
       objectReference: {fileID: 0}
+    - target: {fileID: 2540167618616524385, guid: 9f20dee79eeec2447b9f271c7b64bd7b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 9f20dee79eeec2447b9f271c7b64bd7b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 52.25808
+      value: -38.72298
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019066066664228185, guid: 9f20dee79eeec2447b9f271c7b64bd7b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787825458694501338, guid: 9f20dee79eeec2447b9f271c7b64bd7b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

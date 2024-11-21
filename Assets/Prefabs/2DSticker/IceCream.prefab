@@ -126,8 +126,8 @@ MonoBehaviour:
   copy: {fileID: 0}
   numRotate: 0
   rotatedImages:
-  - {fileID: 21300000, guid: 4f6741e80a9f25f48b059f8e72ab1427, type: 3}
   - {fileID: 21300000, guid: 5fac6b81be2de0c46aaa6feb07cfba96, type: 3}
-  - {fileID: 21300000, guid: a6353ea7cf19bd44a9728ce3c936ea74, type: 3}
   - {fileID: 21300000, guid: f81888af1f04f1343857c16d958c157b, type: 3}
-  notStraight: 0
+  - {fileID: 21300000, guid: cc4394faa8f2ca24888e4fb4eaca466b, type: 3}
+  - {fileID: 21300000, guid: 7113637fbc33c2c43a1ebc2383bbe313, type: 3}
+  notStraight: 1

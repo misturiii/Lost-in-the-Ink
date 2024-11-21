@@ -172,7 +172,7 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
     }
 
     public override void OnPointerEnter (PointerEventData eventData) {
-        if (!isSelected && !Input.GetMouseButtonDown(0)) {
+        if (!isSelected && !eventData.dragging) {
             if (inventoryBox) {
                 inventoryBox.Select();
             } else {

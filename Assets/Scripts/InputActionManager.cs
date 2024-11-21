@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-
 public class InputActionManager : MonoBehaviour
 {
     public InputActions inputActions;
@@ -12,6 +10,7 @@ public class InputActionManager : MonoBehaviour
         inputActions.Player.Enable();
         // inputActions.Global.Quit.performed += Quit;
         inputActions.UI.Disable();
+        SetCursorMode(false);
     }
 
     public void SetPlayerActive(bool active) {
@@ -22,6 +21,7 @@ public class InputActionManager : MonoBehaviour
             inputActions.UI.Enable();
             inputActions.Player.Disable();
         }
+        SetCursorMode(!active);
     }
 
     public void SetAllActive (bool active) {
@@ -32,9 +32,18 @@ public class InputActionManager : MonoBehaviour
             inputActions.UI.Disable();
             inputActions.Player.Disable();
         }
+        SetCursorMode(!active);
     }
 
     void OnDestroy () {
         inputActions.Disable();
+    }
+
+    void SetCursorMode(bool active) {
+        if (active) {
+            Cursor.lockState = CursorLockMode.Confined;
+        } else {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }
