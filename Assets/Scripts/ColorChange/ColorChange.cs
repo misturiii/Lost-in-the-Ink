@@ -18,6 +18,7 @@ public class ColorChange : MonoBehaviour
     bool changed = false;
     public bool isComplete;
     int checkedIndex = -1;
+    GameObject particle;
 
     protected static readonly int 
         durationId = Shader.PropertyToID("_Duration"), 
@@ -31,6 +32,7 @@ public class ColorChange : MonoBehaviour
         inputActions.UI.Trigger.performed += CloseSketchBook;
         inputActions.Player.Trigger.performed += OpenSketchBook;
         cam = Camera.main;
+        particle = GetComponentInChildren<ParticleSystem>(true)?.gameObject;
     }
 
     void TraverseChildComponents (Transform t) {
@@ -72,6 +74,7 @@ public class ColorChange : MonoBehaviour
             mat.SetFloat(durationId, result ? duration : 0);
             mat.SetFloat(startTimeId, Time.time);
         }
+        particle?.SetActive(result);
     }
 
     public void Reset () {

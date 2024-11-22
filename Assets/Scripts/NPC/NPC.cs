@@ -43,7 +43,7 @@ public class NPC : MonoBehaviour
     }
 
     void Update() {
-        if (tag == "Npc" && dialogueObject && !dialogueObject.notFirstTime && mark) {
+        if (tag == "Npc" && dialogueObject && !Finsihed && mark) {
             mark.enabled = true;
             mark.transform.LookAt(Camera.main.transform.position);
         }

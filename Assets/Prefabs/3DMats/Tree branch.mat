@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tree
-  m_Shader: {fileID: -6465566751694194690, guid: e2517c893b940674b8bcface6daeac09,
+  m_Name: Tree branch
+  m_Shader: {fileID: -6465566751694194690, guid: b27b9e9b65ff0d642900fa4e275790cb,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -134,11 +134,11 @@ Material:
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.5
+    - _Speed: 0.3
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _StartTime: 0
-    - _Strength: 0.256
+    - _Strength: 0.3
     - _Surface: 0
     - _Tile: 10
     - _UseColor: 0
@@ -148,7 +148,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 0.9314485, b: 0.3679244, a: 1}
     - _Color: {r: 0.35664955, g: 0.5849056, b: 0.2902456, a: 1}
-    - _Direction: {r: 2, g: -0.5, b: 1, a: 0}
+    - _Direction: {r: -1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

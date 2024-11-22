@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Compilation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,11 +17,13 @@ public class InventoryDisplay : MonoBehaviour
     public Selectable currentSelected;
     Vector3 input = Vector3.zero;
     bool readNextInput = true;
+    ItemSticker prev;
 
     void Awake () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
         inputActions.UI.Move.performed += MovePointer;
         inputActions.UI.Move.canceled += CancelMove;
+        inputActions.UI.Switch.performed += Switch;
         
         inventoryBoxes = GetComponentsInChildren<InventoryBox>(true);
         selectables = new List<Selectable>();
@@ -101,6 +105,8 @@ public class InventoryDisplay : MonoBehaviour
         }
         if (!currentSelected) {
             currentSelected = inventoryBoxes[0];
+        } else if (currentSelected is ItemSticker) {
+            prev = (ItemSticker)currentSelected;
         }
     }
 
@@ -112,6 +118,22 @@ public class InventoryDisplay : MonoBehaviour
                 minDistance = distance;
                 currentSelected = selectable;
             }
+        }
+        if (currentSelected is ItemSticker) {
+            prev = (ItemSticker)currentSelected;
+        } else if (!((InventoryBox)currentSelected).sticker) {
+            currentSelected = inventoryBoxes[Mathf.Max(0, inventory.items.Count - 1)];
+        }
+    }
+
+    void Switch (InputAction.CallbackContext context) {
+        if (currentSelected is InventoryBox && prev) {
+            currentSelected = prev;
+            prev.Select();
+        } else if (currentSelected is ItemSticker) {
+            prev = (ItemSticker)currentSelected;
+            currentSelected = inventoryBoxes[Mathf.Max(0, inventory.items.Count - 1)];
+            currentSelected.Select();
         }
     }
 

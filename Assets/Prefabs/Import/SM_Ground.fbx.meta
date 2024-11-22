@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9efcbae98ec9a274aa1577683a97c4c3
+guid: fdf4a55305f32c949a67247bf8f11549
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Leaves
-    second: {fileID: 2100000, guid: 6e8f2d14e966b734eabb7bf9a803c0f7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Tree_Branch1
-    second: {fileID: 2100000, guid: a06f64c45abbe9144a5c8f64fcb3536a, type: 2}
+      name: lambert15
+    second: {fileID: 2100000, guid: d189ae8f53a24f34187a3178ca19cca2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -42,7 +37,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
