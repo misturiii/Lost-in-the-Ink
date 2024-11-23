@@ -21,6 +21,7 @@ public class PieceSticker : Sticker
 
     public override void Drop(InputAction.CallbackContext context)
     {
+        base.Drop(context);
         sketchbookGuide.DisplayDragGuide();
         inventoryBox.Select();
         

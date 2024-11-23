@@ -32,6 +32,7 @@ public class ItemSticker : Sticker
     }
 
     public override void Drop(InputAction.CallbackContext context) {
+        base.Drop(context);
         sketchbookGuide.DisplayDragGuide();
         // in inventory and drag failed
         if (inventoryBox && inventoryBox.transform.position.x - transform.position.x < 100) {

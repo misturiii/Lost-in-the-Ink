@@ -2,6 +2,8 @@ using UnityEngine;
 public class InputActionManager : MonoBehaviour
 {
     public InputActions inputActions;
+    [SerializeField] Texture2D hand1, hand2;
+    Vector2 hotspot = new Vector2(32, 32);
   
     void Awake()
     {
@@ -45,5 +47,9 @@ public class InputActionManager : MonoBehaviour
         } else {
             Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+
+    public void SetDragCursor (bool isDragging) {
+        Cursor.SetCursor(isDragging ? hand2 : hand1, hotspot, CursorMode.Auto);
     }
 }

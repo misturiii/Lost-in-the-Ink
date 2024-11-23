@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,7 +9,8 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
 {
     protected float moveSpeed = 1000f;
     protected InventoryBox inventoryBox;
-    protected InputActions inputActions;
+    protected InputActionManager inputActionManager;
+    protected InputAction clickAction, moveAction;
     protected Material material;
     protected SketchbookGuide sketchbookGuide;
     protected Canvas canvas;
@@ -43,8 +43,8 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
         
     }
     void Update () {
-        if (isSelected && inputActions.UI.Click.inProgress) {
-            Drag(moveSpeed * inputActions.UI.Move.ReadValue<Vector2>() * Time.deltaTime);
+        if (isSelected && clickAction.inProgress) {
+            Drag(moveSpeed * moveAction.ReadValue<Vector2>() * Time.deltaTime);
         }
     }
 
@@ -60,7 +60,9 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
         material.SetFloat(lineWidthId, lineWidth);
         material.SetColor(lineColorId, Color.white);
         sketchbookGuide = GameObject.Find("PlayerGuide").GetComponentInChildren<SketchbookGuide>();
-        inputActions = FindObjectOfType<InputActionManager>().inputActions;
+        inputActionManager = FindObjectOfType<InputActionManager>();
+        clickAction = inputActionManager.inputActions.UI.Click;
+        moveAction = inputActionManager.inputActions.UI.Move;
         lineColor = FunctionLibrary.LineColor2;
         Navigation n = new Navigation();
         n.mode = Navigation.Mode.None;
@@ -88,6 +90,7 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
 
     void OnBeginDrag () {
         Debug.Log($"Sticker Begin Drag: Name = {name}, Position = {transform.position}");
+        inputActionManager.SetDragCursor(true);
         Select();
         sketchbookGuide.DisplayDropGuide();
         if (inventoryBox) {
@@ -112,7 +115,9 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
         Drop(new InputAction.CallbackContext());
     }
 
-    public abstract void Drop(InputAction.CallbackContext context);
+    public virtual void Drop(InputAction.CallbackContext context) {
+        inputActionManager.SetDragCursor(false);
+    }
 
     override public void OnSelect(BaseEventData data) {
         isSelected = true;
@@ -121,8 +126,8 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
             Initialize(item);
         }
         material.SetColor(lineColorId, lineColor);
-        inputActions.UI.Click.canceled += Drop;
-        inputActions.UI.Click.performed += OnBeginDrag;
+        clickAction.canceled += Drop;
+        clickAction.performed += OnBeginDrag;
         sketchbookGuide.toolGuide.text = guide;
         InitialPositon = transform.localPosition;
     }
@@ -137,8 +142,8 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
             Initialize(item);
         }
         material.SetColor(lineColorId, Color.white);
-        inputActions.UI.Click.canceled -= Drop;
-        inputActions.UI.Click.performed -= OnBeginDrag;
+        clickAction.canceled -= Drop;
+        clickAction.performed -= OnBeginDrag;
         Debug.Log($"sticker {name} deselected");
         sketchbookGuide.toolGuide.text = string.Empty;
     }
@@ -164,8 +169,8 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
     }
 
     public virtual void Delete() {
-        inputActions.UI.Click.canceled -= Drop;
-        inputActions.UI.Click.performed -= OnBeginDrag;
+        clickAction.canceled -= Drop;
+        clickAction.performed -= OnBeginDrag;
         if (inventoryBox && inventoryBox.sticker == this) {
             inventoryBox.sticker = null;
         }

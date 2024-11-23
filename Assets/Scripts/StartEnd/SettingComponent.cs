@@ -2,16 +2,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SettingButton : MonoBehaviour, IPointerEnterHandler, ICanvasRaycastFilter
+public class SettingComponent : MonoBehaviour, IPointerEnterHandler, ICanvasRaycastFilter
 {
-    Button button;
+    Selectable selectable;
 
     public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
     {
-        Texture2D texture = button.image.sprite.texture;
+        Texture2D texture = selectable.image.sprite.texture;
 
         // Convert screen point to local point within the image rect
-        RectTransform rectTransform = button.image.rectTransform;
+        RectTransform rectTransform = selectable.image.rectTransform;
         Vector2 localPoint;
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, sp, eventCamera, out localPoint))
             return false;
@@ -34,11 +34,11 @@ public class SettingButton : MonoBehaviour, IPointerEnterHandler, ICanvasRaycast
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        button.Select();
+        selectable.Select();
     }
 
     void Start()
     {
-        button = GetComponent<Button>();
+        selectable = GetComponent<Selectable>();
     }
 }

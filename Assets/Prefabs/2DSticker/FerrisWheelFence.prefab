@@ -121,7 +121,7 @@ MonoBehaviour:
   item: {fileID: 0}
   guide: 
   prefab: {fileID: 7248639782831643762, guid: 98ec5a0e5d6de794bb4c21f2fad83345, type: 3}
-  scale: 2.5
+  scale: 2
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
   numRotate: 0
