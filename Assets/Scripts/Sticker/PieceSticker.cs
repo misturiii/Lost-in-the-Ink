@@ -16,7 +16,13 @@ public class PieceSticker : Sticker
     public override void Initialize(Item item)
     {
         base.Initialize(item);
-        
+        SetUp();
+    }
+
+    protected override void SetLineColor()
+    {
+        lineColor = FunctionLibrary.LineColor3;
+        lineColor2 = new Color(0.75f, 0.75f, 0.75f);
     }
 
     public override void Drop(InputAction.CallbackContext context)

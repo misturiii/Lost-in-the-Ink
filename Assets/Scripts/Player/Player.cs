@@ -1,10 +1,8 @@
-using System.Xml.Serialization;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 4f, rotateSpeed = 100, maxField = 50;
+    float moveSpeed = 0.2f, rotateSpeed = 2f, maxField = 50, numIteration = 20;
     Rigidbody rb;
     Transform mainCamera;
     float xRotation;
@@ -20,7 +18,7 @@ public class Player : MonoBehaviour
         initialHeight = transform.localPosition.y;
     }
 
-    void Update () {
+    void FixedUpdate () {
         Move(inputActions.Player.Move.ReadValue<Vector2>());
         Rotate(inputActions.Player.Look.ReadValue<Vector2>());
 
@@ -30,18 +28,18 @@ public class Player : MonoBehaviour
     }
 
     void Move (Vector2 input) {
-        float scale = moveSpeed * Time.deltaTime;
-        rb.MovePosition(transform.localPosition + 
-            transform.forward * scale * input.y +  
-            transform.right * scale * input.x);
+        for (int i = 0; i < numIteration; i++) {
+            rb.MovePosition(transform.localPosition + 
+                transform.forward * moveSpeed * input.y +  
+                transform.right * moveSpeed * input.x);
+        }
     }
 
     void Rotate (Vector2 input) {
-        float scale = Time.deltaTime * rotateSpeed;
-        xRotation -= input.y * scale;
+        xRotation -= input.y * rotateSpeed;
         xRotation = Mathf.Clamp(xRotation, -maxField, maxField);
         mainCamera.localEulerAngles = Vector3.right * xRotation;
-        transform.Rotate(Vector3.up * input.x * scale);
+        transform.Rotate(Vector3.up * input.x * rotateSpeed);
     }
 
     void Respawn () {

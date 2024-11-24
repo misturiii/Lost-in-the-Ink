@@ -17,7 +17,7 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
     public Item item;
     protected Transform stickerPanel;
     protected bool isSelected;
-    protected Color lineColor;
+    protected Color lineColor, lineColor2;
     protected float lineWidth = 6f;
     protected StickerAudioManager audioManager; 
     [SerializeField] string guide = string.Empty;
@@ -40,7 +40,6 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
         
         gameObject.AddComponent<GraphicRaycaster>();
         SetUp();
-        
     }
     void Update () {
         if (isSelected && clickAction.inProgress) {
@@ -57,13 +56,14 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
         audioManager = sketchbook.GetComponent<StickerAudioManager>();
         raycaster = stickerPanel.GetComponent<GraphicRaycaster>();
     
-        material.SetFloat(lineWidthId, lineWidth);
-        material.SetColor(lineColorId, Color.white);
         sketchbookGuide = GameObject.Find("PlayerGuide").GetComponentInChildren<SketchbookGuide>();
         inputActionManager = FindObjectOfType<InputActionManager>();
         clickAction = inputActionManager.inputActions.UI.Click;
         moveAction = inputActionManager.inputActions.UI.Move;
-        lineColor = FunctionLibrary.LineColor2;
+
+        SetLineColor();
+        material.SetFloat(lineWidthId, lineWidth);
+        material.SetColor(lineColorId, lineColor2);
         Navigation n = new Navigation();
         n.mode = Navigation.Mode.None;
         navigation = n;
@@ -76,6 +76,8 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
                                   (0.5f - rectTransform.pivot.y) * size.y);
         InitialPositon = -pivotOffset;
     }
+
+    protected abstract void SetLineColor ();
 
     void OnBeginDrag(InputAction.CallbackContext context) {
         if (isSelected) {
@@ -141,7 +143,7 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
         if (!material) {
             Initialize(item);
         }
-        material.SetColor(lineColorId, Color.white);
+        material.SetColor(lineColorId, lineColor2);
         clickAction.canceled -= Drop;
         clickAction.performed -= OnBeginDrag;
         Debug.Log($"sticker {name} deselected");

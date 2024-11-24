@@ -10,10 +10,10 @@ public class Move : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update () {
-        float scale = moveSpeed * Time.deltaTime;
+    void FixedUpdate () {
+        
         rb.MovePosition(transform.localPosition + 
-            transform.forward * scale * Input.GetAxis("Vertical") +  
-            transform.right * scale * Input.GetAxis("Horizontal"));
+            transform.forward * moveSpeed * Input.GetAxis("Vertical") +  
+            transform.right * moveSpeed * Input.GetAxis("Horizontal"));
     }
 }

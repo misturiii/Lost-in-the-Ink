@@ -23,12 +23,17 @@ public class ItemSticker : Sticker
     public override void Initialize(Item item) {
         base.Initialize(item);
         enabled = true;
-        lineColor = FunctionLibrary.LineColor2;
         moveEffectPrefab = Resources.Load<GameObject>("MoveEffect");
         if (copy) {
             copy.GetComponent<ColorChange>().Reset();
         }
         image.sprite = rotatedImages[numRotate];
+    }
+
+    protected override void SetLineColor()
+    {
+        lineColor = FunctionLibrary.LineColor2;
+        lineColor2 = Color.white;
     }
 
     public override void Drop(InputAction.CallbackContext context) {

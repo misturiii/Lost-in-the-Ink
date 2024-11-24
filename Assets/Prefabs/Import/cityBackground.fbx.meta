@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 8313a831ca9904f42bc11a9d984bad2e
+guid: cd40a7c1b13606c4989627f72b7b9395
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_city01
+    second: {fileID: 2100000, guid: 2ff9eee89ab054849b959eeabb9e0ea5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_city02
+    second: {fileID: 2100000, guid: a0aa3381333a29046b2964982315a4ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_city03
+    second: {fileID: 2100000, guid: 040a19855c11d434784e7c3b8b123113, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -32,7 +47,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

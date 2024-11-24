@@ -29,4 +29,5 @@ public class FunctionLibrary
 
     public static Color LineColor1 = new Color(0.7f, 0.9f, 1f);
     public static Color LineColor2 = new Color(1, 0.86f, 0.26f);
+    public static Color LineColor3 = new Color(1f, 0.65f, 0.26f);
 }

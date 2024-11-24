@@ -127,16 +127,17 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Roughness: 0
+    - _Roughness: 0.15
     - _Scale: 3
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
+    - _Specular: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.5
+    - _Speed: 0.87
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _StartTime: 0
-    - _Strength: 0.15
+    - _Strength: 0.202
     - _Surface: 1
     - _Tile: 50
     - _UseColor: 0

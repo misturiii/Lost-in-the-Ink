@@ -13,6 +13,7 @@ public class NPC : MonoBehaviour
     [SerializeField] GameObject[] ToggleNPCAfterInteract;
     [SerializeField] TextMeshPro mark;
     bool Finsihed = false;
+    Vector3 initialRotation = new Vector3(0, -90, 0);
 
     void Start () {
         if (!outline) {
@@ -46,6 +47,15 @@ public class NPC : MonoBehaviour
         if (tag == "Npc" && dialogueObject && !Finsihed && mark) {
             mark.enabled = true;
             mark.transform.LookAt(Camera.main.transform.position);
+        }
+        if (name.Contains("Jester")) {
+            if (outline.enabled) {
+                Vector3 p = Camera.main.transform.position;
+                p.y = transform.position.y;
+                transform.LookAt(p);
+            } else {
+                transform.localEulerAngles = initialRotation;
+            }
         }
     }
 
