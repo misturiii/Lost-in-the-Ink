@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     float skipProgress;
     float skipDuration = 1.0f;
     bool cooling;
+    public GameObject popGuide;
 
     public delegate void DialoggueBehaviour();
     public DialoggueBehaviour startDialogue;
@@ -36,6 +37,9 @@ public class DialogueManager : MonoBehaviour
         interactionGuide.SetActive(false);
         
         cooling = false;
+        if (!popGuide){
+            popGuide = GameObject.Find("GuideImage");
+        }
     }
 
     IEnumerator CoolDown () {
@@ -69,6 +73,9 @@ public class DialogueManager : MonoBehaviour
         if (dialogue && currentNpc && !cooling) {
             isDialogueActive = true;
             JesterAnimation.talk?.Invoke();
+            if (popGuide){
+                popGuide.SetActive(false);
+            }
             // inputActions.Player.Disable();
             inputActions.Player.Move.Disable();
             inputActions.Player.Look.Disable(); 
@@ -102,6 +109,9 @@ public class DialogueManager : MonoBehaviour
         inputActions.Player.Trigger.Enable();
         inputActions.Player.Jump.Enable();
         isDialogueActive = false;
+        if (popGuide){
+            popGuide.SetActive(true);
+        }
         endDialogue?.Invoke();
     }
 

@@ -12,6 +12,7 @@ public class NPC : MonoBehaviour
     [SerializeField] GameObject[] EnableAfterInteract;
     [SerializeField] GameObject[] ToggleNPCAfterInteract;
     [SerializeField] TextMeshPro mark;
+    
     bool Finsihed = false;
     Vector3 initialRotation = new Vector3(0, -90, 0);
 
@@ -33,6 +34,7 @@ public class NPC : MonoBehaviour
             }
         }
         if (mark) {mark.enabled = false;}
+        
     }
 
     void SetOutline () {
