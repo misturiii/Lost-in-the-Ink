@@ -18,6 +18,7 @@ public class InventoryDisplay : MonoBehaviour
     Vector3 input = Vector3.zero;
     bool readNextInput = true;
     ItemSticker prev;
+    [SerializeField] GameObject outline8, outline9;
 
     void Awake () {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
@@ -34,6 +35,8 @@ public class InventoryDisplay : MonoBehaviour
             inventoryBoxes[i].index = i;
             if (inventoryBoxes[i].transform.position.y > 0) {
                 selectables.Add(inventoryBoxes[i]);
+            } else {
+                EnableInventoryOutline(true);
             }
         }
         currentSelected = inventoryBoxes[0];
@@ -46,6 +49,11 @@ public class InventoryDisplay : MonoBehaviour
             sticker.item.total++;
             sticker.GenerateObject(false);
         }
+    }
+    
+    void EnableInventoryOutline (bool isEight) {
+        outline8.SetActive(isEight);
+        outline9.SetActive(!isEight);
     }
 
     void OnEnable () {

@@ -21,7 +21,7 @@ public class PieceSticker : Sticker
 
     protected override void SetLineColor()
     {
-        lineColor = FunctionLibrary.LineColor3;
+        lineColor = FunctionLibrary.LineColor1;
         lineColor2 = new Color(0.75f, 0.75f, 0.75f);
     }
 
@@ -67,9 +67,6 @@ public class PieceSticker : Sticker
         }
         item.count--;
         targetSticker.item.RemovePieceCheck();
-
-        // Call the Delete method on the target sticker to handle its destruction
-        targetSticker.Delete();
         
         // Create a new sticker at the original position of the target sticker
         GameObject newSticker = Instantiate(newStickerPrefab, targetSticker.transform.position, Quaternion.identity, stickerPanel);
@@ -79,7 +76,9 @@ public class PieceSticker : Sticker
         if (newItemSticker != null)
         {   
             Debug.Log("the current targetSticker item is "+ newStickerItem);
-            newItemSticker.Initialize(newStickerItem);
+            newItemSticker.numRotate = targetSticker.numRotate;
+            // Call the Delete method on the target sticker to handle its destruction
+            targetSticker.Delete();
           
             inventoryDisplay1 = GameObject.FindWithTag("Sketchbook").transform.GetChild(3).GetComponent<InventoryDisplay>();
 
@@ -89,6 +88,7 @@ public class PieceSticker : Sticker
             newItemSticker.inventoryDisplay = inventoryDisplay1;
             // newStickerItem.count++;
             newStickerItem.total++;
+            newItemSticker.Initialize(newStickerItem);
             newItemSticker.GenerateObject(true); // Generate the associated 3D object
             newItemSticker.Drop(new InputAction.CallbackContext());
         }

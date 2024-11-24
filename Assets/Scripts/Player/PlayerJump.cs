@@ -7,7 +7,6 @@ public class PlayerJump : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded = true;
     private InputActions inputActions;
-    public bool canJump = true;
 
     void Start()
     {
@@ -22,7 +21,7 @@ public class PlayerJump : MonoBehaviour
     // 跳跃事件
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (isGrounded && canJump)
+        if (isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false; 

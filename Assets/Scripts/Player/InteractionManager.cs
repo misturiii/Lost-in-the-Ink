@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour {
         
-    PlayerJump jumpManager;
     DialogueManager dialogueManager;
     PickupObject pickUpManager;
     float waitSec = 0.25f;
@@ -15,12 +14,9 @@ public class InteractionManager : MonoBehaviour {
         pickUpManager = GetComponent<PickupObject>();
         pickUpManager.startPick += StartPick;
         pickUpManager.endPick += EndInteraction;
-
-        jumpManager = GetComponent<PlayerJump>();
     }
 
     void StartDialogue () {
-        jumpManager.canJump = false;
         pickUpManager.HidePickupGuide();
         StopAllCoroutines();
     }
@@ -31,11 +27,9 @@ public class InteractionManager : MonoBehaviour {
 
     IEnumerator CoolDown() {
         yield return new WaitForSeconds(waitSec);
-        jumpManager.canJump = true;
     }
 
     void StartPick () {
-        jumpManager.canJump = false;
         dialogueManager.HideNpcInteractionGuide();
         StopAllCoroutines();
     }
