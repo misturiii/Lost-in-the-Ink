@@ -98,19 +98,19 @@ public class FootstepManager : MonoBehaviour
                 currentFootstepArray = surface.footstepClips;
 
                 // Debug log to show the new surface and footstep sounds
-                Debug.Log("Player is now on surface: " + hit.collider.name);
-                Debug.Log("Footstep sounds for this surface:");
-                foreach (var clip in currentFootstepArray)
-                {
-                    if (clip != null)
-                    {
-                        Debug.Log(clip.name);  // Print the name of each footstep sound clip
-                    }
-                    else
-                    {
-                        Debug.Log("Null clip found in the footstep array.");
-                    }
-                }
+                // Debug.Log("Player is now on surface: " + hit.collider.name);
+                // Debug.Log("Footstep sounds for this surface:");
+                // foreach (var clip in currentFootstepArray)
+                // {
+                //     if (clip != null)
+                //     {
+                //         Debug.Log(clip.name);  // Print the name of each footstep sound clip
+                //     }
+                //     else
+                //     {
+                //         Debug.Log("Null clip found in the footstep array.");
+                //     }
+                // }
             }
         }
         else
