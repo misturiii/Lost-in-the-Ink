@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Compilation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
