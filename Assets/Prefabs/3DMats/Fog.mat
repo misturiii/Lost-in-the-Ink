@@ -125,7 +125,7 @@ Material:
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _Scale: 10
-    - _Scale2: 20
+    - _Scale2: 16
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
