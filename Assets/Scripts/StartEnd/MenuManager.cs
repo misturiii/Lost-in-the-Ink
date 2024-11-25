@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         inputActions = FindObjectOfType<InputActionManager>().inputActions;
+        settingPage.SetActive(false);
+        guidePage.SetActive(false);
     }
 
     // Restart button logic (Restart the current scene)

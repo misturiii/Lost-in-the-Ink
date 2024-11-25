@@ -6,29 +6,52 @@ public class SettingComponent : MonoBehaviour, IPointerEnterHandler, ICanvasRayc
 {
     Selectable selectable;
 
+    public Player player;
+
+
+    public enum SettingType { MoveSpeed, Sensitivity, Volume}
+    public SettingType settingType; 
+
+    
+    private Slider slider;
+
+    private float minValue = 0.1f;
+    private float maxValue = 10f;
+
+    
+    void OnSliderValueChanged(float value)
+    {
+        switch (settingType)
+        {
+            case SettingType.MoveSpeed:
+                player.moveSpeed = value;
+                break;
+            case SettingType.Sensitivity:
+                player.rotateSpeed = value;
+                break;
+            case SettingType.Volume:
+                break;
+        }
+    }
+
     public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
     {
         Texture2D texture = selectable.image.sprite.texture;
-
-        // Convert screen point to local point within the image rect
         RectTransform rectTransform = selectable.image.rectTransform;
         Vector2 localPoint;
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, sp, eventCamera, out localPoint))
             return false;
 
-        // Convert the local point to texture UV coordinates
         Rect rect = rectTransform.rect;
         float x = (localPoint.x - rect.x) / rect.width;
         float y = (localPoint.y - rect.y) / rect.height;
 
-        // Convert UV coordinates to pixel coordinates
         int pixelX = Mathf.RoundToInt(x * texture.width);
         int pixelY = Mathf.RoundToInt(y * texture.height);
 
         if (pixelX < 0 || pixelX >= texture.width || pixelY < 0 || pixelY >= texture.height)
             return false;
 
-        // Get the pixel color and check the alpha value
         return texture.GetPixel(pixelX, pixelY).a > 0;
     }
 
@@ -40,5 +63,26 @@ public class SettingComponent : MonoBehaviour, IPointerEnterHandler, ICanvasRayc
     void Start()
     {
         selectable = GetComponent<Selectable>();
+
+        
+        slider = GetComponent<Slider>();
+
+        if (! slider) return;
+
+        switch (settingType)
+        {
+            case SettingType.MoveSpeed:
+                slider.value = player.moveSpeed; 
+                break;
+            case SettingType.Sensitivity:
+                slider.value = player.rotateSpeed; 
+                break;
+            case SettingType.Volume:
+                break;
+            default:
+                break;
+        }
+
+        slider.onValueChanged.AddListener(OnSliderValueChanged);
     }
 }
