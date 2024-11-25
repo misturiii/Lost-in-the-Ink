@@ -15,18 +15,16 @@ MonoBehaviour:
   dialogues:
   - speaker: THE JESTER
     lines:
-    - "Good! You\u2019re getting the hang of it. I\u2019ll grant you three gifts!"
-    - ' First, the <camera sticker>. You can use it to <make copies> of certain objects. '
-    - "Next, the <trash can sticker>\u2014handy for <clearing away> anything out
-      of place."
-    - "And last, a <magic rubik\u2019s cube sticker>. Rotate it to fit things perfectly
+    - "Good! You\u2019re getting the hang of it. I\u2019ll grant you three gifts!  "
+    - 'First, the <camera>. You can use it to <make copies> of certain objects. '
+    - "Next, the <trash can>\u2014handy for <clearing away> anything out of place. "
+    - "And last, a <magic rubik\u2019s cube>. <Rotate> it to fit things perfectly
       into place. "
   - speaker: WILLIAM
     lines:
-    - "Fit things perfectly\u2026 But how do I know where they go? "
+    - 'How do I use them? '
   - speaker: THE JESTER
     lines:
-    - "Great question! That\u2019s where the map comes in."
-    - "The more you find, the more you see. Listen closely\u2026 Alright, go on and
-      keep exploring! "
-  notFirstTime: 0
+    - Pick those and check your <sketchbook>. Go on and keep exploring!
+    - ' If you get stuck, you know where to find me.'
+  notFirstTime: 1

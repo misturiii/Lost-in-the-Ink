@@ -18,9 +18,9 @@ MonoBehaviour:
     - 'Oh look who we have here! William, the painter!  '
   - speaker: WILLIAM
     lines:
-    - "Um\u2026 I think I might be lost? "
+    - 'Um... I think I might be lost? '
   - speaker: THE JESTER
     lines:
     - "Oh, haha! Lost in such a barren place? Don\u2019t worry! Go on, explore a
-      bit\u2026 you might find a few surprises."
-  notFirstTime: 0
+      bit...you might find a few surprises."
+  notFirstTime: 1

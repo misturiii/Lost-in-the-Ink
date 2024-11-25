@@ -761,6 +761,7 @@ MonoBehaviour:
   openSound: {fileID: 8300000, guid: 6da0177cd29bf224682e134fc04469a2, type: 3}
   closeSound: {fileID: 8300000, guid: 3187b739cb2191a4caba900061f0e758, type: 3}
   current: {fileID: 1994234214}
+  guideImage: {fileID: 1045629592}
 --- !u!114 &134521154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1621,6 +1622,7 @@ SpriteRenderer:
   m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
@@ -9428,10 +9430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueName: Jester-Sticker
   EnableAfterInteract:
-  - {fileID: 1628096572}
-  - {fileID: 669314357}
-  - {fileID: 594045146}
-  - {fileID: 1923857535}
+  - {fileID: 1070767666}
   ToggleNPCAfterInteract:
   - {fileID: 1661623766}
   mark: {fileID: 5905475153080118410}
@@ -11977,6 +11976,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a6a45ab2f7c6742429fa8722841f11a5, type: 3}
   - {fileID: 21300000, guid: 9cc1d165f207c405080b0d463e43d343, type: 3}
   - {fileID: 21300000, guid: 617a8ec84d72d46178f4d2e9f910a085, type: 3}
+  - {fileID: 21300000, guid: fb47982002f1c4524afbe87957d1c2b6, type: 3}
+  - {fileID: 21300000, guid: d328d22499e58406a9bcc43b770c60d1, type: 3}
+  - {fileID: 21300000, guid: 7959a07886259413eba3729f85ddc98c, type: 3}
   shrinkDuration: 1.5
   timeBeforeMove: 1
   moveDuration: 1.5
@@ -12819,8 +12821,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueName: William-toolMono
   EnableAfterInteract:
-  - {fileID: 563996624}
   - {fileID: 1100267392}
+  - {fileID: 563996624}
   ToggleNPCAfterInteract: []
   mark: {fileID: 8124709501985405487}
 --- !u!64 &1661623770
@@ -15226,6 +15228,9 @@ MonoBehaviour:
   - {fileID: 1082096593}
   - {fileID: 721514395}
   - {fileID: 7524976784425453605}
+  - {fileID: 1628096572}
+  - {fileID: 669314357}
+  - {fileID: 594045146}
   ToggleNPCAfterInteract:
   - {fileID: 1494348276}
   mark: {fileID: 5905475153080118410}
@@ -30487,6 +30492,7 @@ Transform:
   - {fileID: 3328013095281599978}
   - {fileID: 456379535}
   - {fileID: 1100267391}
+  - {fileID: 1070767667}
   - {fileID: 1923857536}
   - {fileID: 504231941}
   m_Father: {fileID: 9123601206725314840}
