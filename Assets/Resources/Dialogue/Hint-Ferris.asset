@@ -10,19 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980cc5f0077809c4787ceb1df42a493c, type: 3}
-  m_Name: Jester-Sticker
+  m_Name: Hint-Ferris
   m_EditorClassIdentifier: 
   dialogues:
-  - speaker: WILLIAM
-    lines:
-    - 'Hey Jester, I saw a board over there and found a... sticker? '
   - speaker: THE JESTER
     lines:
-    - "Ah, look at that! It\u2019s a sticker! <Stickers> are the key to rebuilding
-      this place.  "
-    - 'Place stickers in your <sketchbook>, and watch as they bring objects to life
-      in the real world! '
-  - speaker: WILLIAM
-    lines:
-    - Sketchbook..? I will try it!
+    - Guess buying a ticket is the first step if you want to ride the Ferris wheel.
   notFirstTime: 0

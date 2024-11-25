@@ -96,6 +96,15 @@ public class ColorChange : MonoBehaviour
             foreach (var obj in objects) {
                 if ((item.total - item.count) >= obj.appearCount && !obj.item.stickerPlaced) {
                     obj.item.stickerPlaced = true;
+                    GameObject npc = GameObject.Find("Jester_Animations"); // Add an 'associatedNPCName' property to the item
+                    if (npc != null)
+                    {
+                        NPC npcManager = npc.GetComponent<NPC>();
+                        if (npcManager != null)
+                        {
+                            npcManager.AddHint(obj.item.itemName);
+                        }
+                    }
                     obj.gameObject.SetActive(true);
                 }
             }
