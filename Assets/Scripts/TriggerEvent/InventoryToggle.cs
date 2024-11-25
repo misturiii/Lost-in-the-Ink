@@ -11,7 +11,6 @@ public class InventoryToggle : MonoBehaviour
 
     private bool isInventoryOpen = false;  // Track whether the inventory is open
     InputActionManager inputActionManager;
-    [SerializeField] GameObject current;
     [SerializeField] GameObject guideImage;
 
 
@@ -32,6 +31,7 @@ public class InventoryToggle : MonoBehaviour
     public void ToggleInventory() {
         isInventoryOpen = !isInventoryOpen;  // Toggle the inventory state
         inventoryPanel.SetActive(isInventoryOpen);  // Show or hide the panel based on the state
+        inputActionManager.SetPlayerActive(!isInventoryOpen);
         if (isInventoryOpen) {
             if (audioSource != null && openSound != null)
             {
@@ -52,6 +52,5 @@ public class InventoryToggle : MonoBehaviour
             
             CheckManager.Instance.OnSketchbookClosed();
         }
-        inputActionManager.SetPlayerActive(!isInventoryOpen);
     }
 }

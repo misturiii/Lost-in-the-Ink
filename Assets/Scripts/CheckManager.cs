@@ -92,7 +92,6 @@ public class CheckManager : MonoBehaviour
         {
             Destroy(winText);
             winText = null;
-            inputActionManager.SetPlayerActive(true);
         }
     }
 }
