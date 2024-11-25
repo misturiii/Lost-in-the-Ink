@@ -20,6 +20,7 @@ MonoBehaviour:
   toolType: 0
   stickerPlaced: 0
   checks:
-  - {x: -12.55, y: 0.010500014, z: 4.19}
-  rotations: 00000000
+  - {x: -9.52, y: 0, z: 3.74}
+  - {x: -12.51, y: 0, z: 3.76}
+  rotations: 0000000000000000
   compatibleItems: 
