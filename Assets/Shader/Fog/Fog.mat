@@ -113,7 +113,7 @@ Material:
     - _DeformScale: 75
     - _DeformSpeed: 0.015
     - _DeformStrength: 1.5
-    - _Depth: 18
+    - _Depth: 20
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
@@ -129,11 +129,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: -1
     - _ReceiveShadows: 1
-    - _RefractionStrength: 0.02
+    - _RefractionStrength: 0.015
     - _SampleGI: 0
     - _Scale: 10
-    - _Scale1: 20
-    - _Scale2: 25
+    - _Scale1: 10
+    - _Scale2: 24
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -149,7 +149,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.90188676, g: 0.7201481, b: 0.44754, a: 1}
-    - _DeepColor: {r: 1, g: 0.8108273, b: 0.35283017, a: 1}
+    - _DeepColor: {r: 1, g: 0.8102871, b: 0.40566033, a: 1}
     - _DeformDirection: {r: -2, g: 1, b: 0, a: 0}
     - _Direction: {r: 1, g: 0, b: 1, a: 0}
     - _Direction1: {r: 1, g: 1, b: 0, a: 0}

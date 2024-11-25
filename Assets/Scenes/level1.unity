@@ -1504,7 +1504,7 @@ SpriteRenderer:
   m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &295687407
@@ -4433,14 +4433,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.79607844}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e1c07b60540be8b4dbec442d280c4364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fcaae98b7d4ac47a6aab7a446ac6d635, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6359,7 +6359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 088d842fddc2e4cd69fd1a809feb9d78, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f6f41542fdfd4779b72277bb25cde58, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6434,7 +6434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 491e7dfb64ea9fb4ebe17eabfbef99d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35ae37c6b5a024017808a95295819d8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8186,7 +8186,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6adb09648e517874da2ed5d96839eed9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3f7ac1c9ab5844b59d0b1acd1d7efa9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12765,7 +12765,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ba455be632e19bc46bd616dbc7d70302, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13885c6bfb400cf43873ce11065cbd89, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12840,7 +12840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d5904b4ed474aed4abf851c7cdb74b19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f52d41ed11f943fa975f870a09ee6e6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15231,7 +15231,6 @@ GameObject:
   - component: {fileID: 2022184226}
   - component: {fileID: 2022184229}
   - component: {fileID: 2022184228}
-  - component: {fileID: 2022184227}
   m_Layer: 0
   m_Name: Quad (6)
   m_TagString: Untagged
@@ -15254,28 +15253,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1661623767}
   m_LocalEulerAnglesHint: {x: 0, y: -179.799, z: 0}
---- !u!64 &2022184227
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2022184225}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2022184228
 MeshRenderer:
   m_ObjectHideFlags: 0
