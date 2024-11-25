@@ -110,7 +110,7 @@ Material:
     - _Cull: 0
     - _Cutoff: 0.5
     - _DeformBound: 0.1
-    - _DeformScale: 75
+    - _DeformScale: 78
     - _DeformSpeed: 0.015
     - _DeformStrength: 1.5
     - _Depth: 20
@@ -122,14 +122,14 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientContrast: 1.2
+    - _GradientContrast: 1.5
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: -1
     - _ReceiveShadows: 1
-    - _RefractionStrength: 0.015
+    - _RefractionStrength: 0.02
     - _SampleGI: 0
     - _Scale: 10
     - _Scale1: 10

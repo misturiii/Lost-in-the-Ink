@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Fountain
   count: 0
-  total: 1
+  total: 0
   prefab: {fileID: 1263774752063172929, guid: 1f8cfcad4fc404af78c30d9315da74d2, type: 3}
   isTool: 0
   toolType: 0
   stickerPlaced: 0
   checks:
-  - {x: 3.3926964, y: 0, z: 2.8215709}
+  - {x: -0.06, y: 0.61, z: -0.03}
   rotations: 00000000
   compatibleItems: 

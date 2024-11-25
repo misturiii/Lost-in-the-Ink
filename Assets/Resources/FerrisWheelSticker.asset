@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Ferris wheel
   count: 0
-  total: 1
+  total: 0
   prefab: {fileID: 1263774752063172929, guid: 2177e1a38b554e44398cafcfd1489346, type: 3}
   isTool: 0
   toolType: 0
   stickerPlaced: 0
   checks:
-  - {x: -13.317157, y: 0, z: -1.9552397}
-  rotations: 00000000
+  - {x: -13, y: 0, z: -2.19}
+  rotations: 03000000
   compatibleItems: 

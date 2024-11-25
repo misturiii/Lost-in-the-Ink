@@ -66,11 +66,10 @@ public class CheckManager : MonoBehaviour
     }
     private void ShowWinText()
     {
-
+        inputActionManager.SetPlayerActive(false);
         if (winText != null)
         {
             winText.SetActive(true);
-            inputActionManager.SetAllActive(false);
             Debug.Log("YOU WIN!");
         }
         else
@@ -88,11 +87,11 @@ public class CheckManager : MonoBehaviour
 
     public void ContinueExplore()
     {
+        inputActionManager.SetPlayerActive(true);
         if (winText != null)
         {
             Destroy(winText);
             winText = null;
-            inputActionManager.SetPlayerActive(true);
         }
     }
 }

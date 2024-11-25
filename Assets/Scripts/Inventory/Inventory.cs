@@ -21,7 +21,18 @@ public class Inventory : ScriptableObject
         item.count++;
         item.total++;
         Debug.Log(item.itemName + " added to inventory");
+        // call the method to remove
+        GameObject npc = GameObject.Find("Jester_Animations"); // Add an 'associatedNPCName' property to the item
+        if (npc != null)
+        {
+            NPC npcManager = npc.GetComponent<NPC>();
+            if (npcManager != null)
+            {
+                npcManager.RemoveHint(item.itemName);
+            }
+        }
         Debug.Log("Inventory contains the following stickers:");
+
         for (int i = 0; i < items.Count; i++)
         {
             Debug.Log("Sticker: " + items[i].name); // Assuming 'name' is a property in your Item class

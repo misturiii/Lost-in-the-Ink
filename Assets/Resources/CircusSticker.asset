@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CircusSticker
   m_EditorClassIdentifier: 
   itemName: Circus
-  count: 1
-  total: 1
+  count: 0
+  total: 0
   prefab: {fileID: 1263774752063172929, guid: e76316c215405ec47919a68c9664c23d, type: 3}
   isTool: 0
   toolType: 0

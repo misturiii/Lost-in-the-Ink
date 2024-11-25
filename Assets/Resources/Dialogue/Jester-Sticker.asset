@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogues:
   - speaker: WILLIAM
     lines:
-    - "Hey Jester, I saw a board over there and found a\u2026 sticker? "
+    - 'Hey Jester, I saw a board over there and found a... sticker? '
   - speaker: THE JESTER
     lines:
     - "Ah, look at that! It\u2019s a sticker! <Stickers> are the key to rebuilding

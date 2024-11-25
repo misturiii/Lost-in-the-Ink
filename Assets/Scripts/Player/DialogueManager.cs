@@ -142,8 +142,12 @@ public class DialogueManager : MonoBehaviour
     // Show NPC interaction UI prompt
     private void ShowNpcInteractionGuide() {
         npc = currentNpc.GetComponent<NPC>();
-        dialogue.dialogueObject = npc.Enter();
-        dialogue.dialogueObject.Reset();
+        if (dialogue != null) {
+            dialogue.dialogueObject = npc.Enter();
+            dialogue.dialogueObject.Reset();
+        } else {
+            Debug.LogError("Dialogue is not assigned.");
+        }
         skip.SetActive(dialogue.notFirstTime);
 
 

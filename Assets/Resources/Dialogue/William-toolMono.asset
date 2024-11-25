@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogues:
   - speaker: WILLIAM
     lines:
-    - 'Looks like there used to be a map here.. What is this, a fountain? '
+    - 'Looks like there used to be a map here... What is this, a fountain? '
     - 'Maybe Jester knows something about it. I will <pick it up> and bring it to
       him. '
   notFirstTime: 0
