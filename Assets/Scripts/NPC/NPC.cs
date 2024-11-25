@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
     public DialogueObject dialogueObject {get; set;}
-    [SerializeField] string dialogueName;
+    [SerializeField] public string dialogueName;
     QuickOutline outline;
     [SerializeField] GameObject[] EnableAfterInteract;
     [SerializeField] GameObject[] ToggleNPCAfterInteract;

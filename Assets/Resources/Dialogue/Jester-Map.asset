@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Jester-Map
   m_EditorClassIdentifier: 
   dialogues:
+  - speaker: WILLIAM
+    lines:
+    - "Wait, hold on. How do I know where the fountain\u2019s supposed to go?"
   - speaker: THE JESTER
     lines:
-    - "Awesome! This image is now on the carnival\u2019s map board - go to it. "
+    - "Oh, my bad! That\u2019s where the <Map> comes in. "
+    - "Just keep checking the <Board> where you found the fountain sticker\u2014it\u2019ll
+      guide you on where things go."
+    - The more you find, the more you see. Listen closely...
+    - "You might notice something... changes when you\u2019re on the right track. "
   notFirstTime: 0

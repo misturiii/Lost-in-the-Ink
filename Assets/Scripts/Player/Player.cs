@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float moveSpeed = 0.2f, rotateSpeed = 2f, maxField = 50, numIteration = 20;
+    public float moveSpeed = 0.2f, rotateSpeed = 2f, maxField = 50, numIteration = 20;
     Rigidbody rb;
     Transform mainCamera;
     float xRotation;
@@ -48,6 +48,11 @@ public class Player : MonoBehaviour
         p.y = initialHeight;
         transform.localPosition = p;
         rb.isKinematic = false;
+    }
+
+    public void UpdateSettings(float newMoveSpeed, float newRotateSpeed) {
+        moveSpeed = newMoveSpeed;
+        rotateSpeed = newRotateSpeed;
     }
 
 }

@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Jester-Sticker
   m_EditorClassIdentifier: 
   dialogues:
-  - speaker: THE JESTER
-    lines:
-    - Ah, look at that! You found a <sticker>! <Stickers> are the key to rebuilding
-      this place and bring things back to normal.
-    - 'Here, stickers placed in the <sketchbook> bring objects to life in the real
-      world! '
   - speaker: WILLIAM
     lines:
-    - "Like magic? I\u2019ll give it a try."
+    - "Hey Jester, I saw a board over there and found a\u2026 sticker? "
+  - speaker: THE JESTER
+    lines:
+    - "Ah, look at that! It\u2019s a sticker! <Stickers> are the key to rebuilding
+      this place.  "
+    - 'Place stickers in your <sketchbook>, and watch as they bring objects to life
+      in the real world! '
+  - speaker: WILLIAM
+    lines:
+    - Sketchbook..? I will try it!
   notFirstTime: 0

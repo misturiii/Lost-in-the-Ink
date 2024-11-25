@@ -12,6 +12,7 @@ public class InventoryToggle : MonoBehaviour
     private bool isInventoryOpen = false;  // Track whether the inventory is open
     InputActionManager inputActionManager;
     [SerializeField] GameObject current;
+    [SerializeField] GameObject guideImage;
 
 
     void Start()
@@ -36,11 +37,19 @@ public class InventoryToggle : MonoBehaviour
             {
                 audioSource.PlayOneShot(openSound);  // Play the open sound
             }
+            if(guideImage){
+                guideImage.SetActive(false);
+            }
+            
         } else {
             if (audioSource != null && closeSound != null)
             {
                 audioSource.PlayOneShot(closeSound);  // Play the close sound
             }
+            if(guideImage){
+                guideImage.SetActive(true);
+            }
+            
             CheckManager.Instance.OnSketchbookClosed();
         }
         inputActionManager.SetPlayerActive(!isInventoryOpen);
