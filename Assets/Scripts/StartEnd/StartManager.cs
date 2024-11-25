@@ -9,7 +9,8 @@ public class StartManager : MonoBehaviour
     public AudioClip startSound;     // The sound to play when the game starts
 
     public void StartGame()
-    {
+    {   
+        FindObjectOfType<InputDeviceManager>().DetectInputDevice();
         if (audioSource != null && startSound != null)
         {
             audioSource.PlayOneShot(startSound);  // Play the start sound effect
