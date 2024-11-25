@@ -115,36 +115,22 @@ public class DynamicGuideManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f); // Wait for 0.5 seconds
 
         }
-        guideImage.sprite = guideSprite;  // Set the current sprite
-        guideImage.gameObject.SetActive(true);  // Make sure the guide is visible
+        if(guideImage != null){
+            guideImage.sprite = guideSprite;  // Set the current sprite
+            guideImage.gameObject.SetActive(true);  // Make sure the guide is visible
 
-        // Position the guide in the center of the screen initially
-        guideImage.rectTransform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            // Position the guide in the center of the screen initially
+            guideImage.rectTransform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
-        // Reset the scale to the original size before displaying the guide
-        guideImage.transform.localScale = originalSize;
+            // Reset the scale to the original size before displaying the guide
+            guideImage.transform.localScale = originalSize;
 
-        // Start the process of showing, shrinking, and moving the guide
-        StartCoroutine(ShowAndMoveGuide());
+            // Start the process of showing, shrinking, and moving the guide
+            StartCoroutine(ShowAndMoveGuide());
+
+        }
+       
     }
-
-
-    // Show the next guide in the sequence
-    // private void ShowNextGuide()
-    // {
-    //     // Hide the current guide and increment the index
-    //     guideImage.gameObject.SetActive(false);
-    //     currentGuideIndex++;
-
-    //     if (currentGuideIndex < guideSprites.Length)
-    //     {
-    //         ShowGuide(guideSprites[currentGuideIndex]);
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("All guides have been shown.");
-    //     }
-    // }
 
     private void ShowNextGuide()
     {
@@ -243,6 +229,7 @@ public class DynamicGuideManager : MonoBehaviour
 
 
     // Coroutine to show, shrink, and move the guide image
+    // Inside ShowAndMoveGuide Coroutine
     private IEnumerator ShowAndMoveGuide()
     {
         // Wait for the specified time before shrinking and moving
@@ -253,12 +240,18 @@ public class DynamicGuideManager : MonoBehaviour
         StartCoroutine(MoveGuideSmoothlyToLeft());
 
         yield return new WaitForSeconds(shrinkDuration + moveDuration + 4);  
-        // If it's the last guide, hide the image
+
+        // If it's the last guide, hide and safely destroy the guide image
         if (currentGuideIndex >= guideSprites.Length - 1)
         {
-            Destroy(guideImage.gameObject);  // Hide the guide image after the last guide
+            if (guideImage != null && guideImage.gameObject != null)
+            {
+                guideImage.gameObject.SetActive(false);  // Optionally deactivate before destroying
+                Destroy(guideImage.gameObject);  // Safely destroy the guide image
+            }
         }
     }
+
 
     // Shrink the guide image to 75% size
     private IEnumerator ShrinkGuide()
