@@ -5,6 +5,10 @@ public class DeviceGuideManager : MonoBehaviour
 {
 
     public GameObject keyboardImage;
+    public GameObject keyboardImage2;
+    public GameObject keyboardImage3;
+    public GameObject keyboardImage4;
+    public GameObject keyboardImage5;
     public GameObject controllerImage;
     public GameObject controllerImage2;
     public GameObject controllerImage3;
@@ -12,6 +16,9 @@ public class DeviceGuideManager : MonoBehaviour
     public GameObject controllerImage5;
     public GameObject keyboardText;
     public GameObject controllerText;
+
+    [SerializeField] bool toolflag;
+
     void Start()
     {
         
@@ -26,6 +33,7 @@ public class DeviceGuideManager : MonoBehaviour
         {
             ShowControllerGuide();
         }
+
     }
 
     
@@ -34,6 +42,25 @@ public class DeviceGuideManager : MonoBehaviour
         if (keyboardImage != null)
         {
             keyboardImage.SetActive(true);
+            if (toolflag == true){
+                FindObjectOfType<ToolManager>().toolControl = keyboardImage.transform;
+            }
+        }
+        if (keyboardImage2!= null)
+        {
+            keyboardImage2.SetActive(true);
+        }
+        if (keyboardImage3!= null)
+        {
+            keyboardImage3.SetActive(true);
+        }
+        if (keyboardImage4!= null)
+        {
+            keyboardImage4.SetActive(true);
+        }
+        if (keyboardImage5!= null)
+        {
+            keyboardImage5.SetActive(true);
         }
         if (keyboardText != null)
         {
@@ -72,6 +99,10 @@ public class DeviceGuideManager : MonoBehaviour
         if (controllerImage != null)
         {
             controllerImage.SetActive(true);
+            if (toolflag == true){
+                FindObjectOfType<ToolManager>().toolControl = controllerImage.transform;
+            }
+            
         }
         if (controllerImage2 != null)
         {
@@ -97,6 +128,22 @@ public class DeviceGuideManager : MonoBehaviour
 
         // 隐藏键盘的 Guide 图片和文本
         if (keyboardImage != null)
+        {
+            keyboardImage.SetActive(false);
+        }
+        if (keyboardImage2 != null)
+        {
+            keyboardImage.SetActive(false);
+        }
+        if (keyboardImage3 != null)
+        {
+            keyboardImage.SetActive(false);
+        }
+        if (keyboardImage4 != null)
+        {
+            keyboardImage.SetActive(false);
+        }
+        if (keyboardImage5 != null)
         {
             keyboardImage.SetActive(false);
         }

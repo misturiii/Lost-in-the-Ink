@@ -17,7 +17,7 @@ public class ToolManager : MonoBehaviour
     float outlineWWidth = 6;
     Tool currentTool;
     SketchbookGuide sketchbookGuide;
-    [SerializeField]Transform toolControl;
+    public Transform toolControl;
 
     void Start () {
         InputActions inputActions = FindObjectOfType<InputActionManager>().inputActions;
