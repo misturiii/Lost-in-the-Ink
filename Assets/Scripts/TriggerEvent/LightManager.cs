@@ -10,13 +10,8 @@ public class LightManager : MonoBehaviour
         mat.SetFloat("_MinIntensity", initialIntensity);
         mat.SetFloat("MaxIntensity", initialIntensity);
     }
-    void Update () {
-        if (Input.GetMouseButtonDown(0)) {
-            TurnOnLight();
-        }
-    }
 
-    void TurnOnLight ()
+    public void TurnOnLight ()
     {
         if (count < total) {
             for (int i = 0; i < transform.childCount; i++) {

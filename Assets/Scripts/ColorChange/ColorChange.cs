@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +18,9 @@ public class ColorChange : MonoBehaviour
     public bool isComplete;
     int checkedIndex = -1;
     GameObject particle;
+    bool changedPosition = false;
+    float outlineDuration = 2;
+    QuickOutline outline;
 
     protected static readonly int 
         durationId = Shader.PropertyToID("_Duration"), 
@@ -33,6 +35,11 @@ public class ColorChange : MonoBehaviour
         inputActions.Player.Trigger.performed += OpenSketchBook;
         cam = Camera.main;
         particle = GetComponentInChildren<ParticleSystem>(true)?.gameObject;
+        outline = gameObject.AddComponent<QuickOutline>();
+        outline.OutlineMode = QuickOutline.Mode.OutlineAndSilhouette;
+        outline.OutlineColor = Color.white;
+        outline.OutlineWidth = 10;
+        outline.enabled = false;
     }
 
     void TraverseChildComponents (Transform t) {
@@ -61,11 +68,20 @@ public class ColorChange : MonoBehaviour
         if (!cam) {
             Initialize();
         }
-        Vector2 viewPos = cam.WorldToViewportPoint(transform.position);
-        bool temp = isVisible && 0 < viewPos.x && viewPos.x < 1 && 0 < viewPos.y && viewPos.y < 1;
+        Vector3 viewPos = cam.WorldToViewportPoint(transform.position);
+        bool temp = isVisible && 0 < viewPos.x && viewPos.x < 1 && 0 < viewPos.y && viewPos.y < 1 && viewPos.z > 0;
+        if (temp && changedPosition) {
+            StartCoroutine(ShowOutline());
+        }
         if (!changed && temp && (isComplete || IsCorrect)) {
             ChangeColor(true);
         }
+    }
+
+    IEnumerator ShowOutline () {
+        changedPosition = false;
+        yield return new WaitForSeconds(outlineDuration);
+        outline.enabled = false;
     }
 
     void ChangeColor (bool result) {
@@ -109,6 +125,8 @@ public class ColorChange : MonoBehaviour
                 }
             }
         }
+        outline.enabled = true;
+        changedPosition = true;
     }
 
     void CloseSketchBook (InputAction.CallbackContext context) {

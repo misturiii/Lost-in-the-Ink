@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class StickerTaskbar : MonoBehaviour
 {
@@ -10,10 +10,13 @@ public class StickerTaskbar : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip ImageAppear;
     private int collectedStickers = 0;
+    LightManager lightManager;
+    String[] mapNames = {"Benches", "Fountain", "Circus", "FerrisWheel", "IceCream", "BallonCart"};
 
     private void Start()
     {
         imagePieceManager = FindObjectOfType<ImagePieceManager>(); 
+        lightManager=FindObjectOfType<LightManager>();
         UpdateTaskbar();
     }
 
@@ -28,26 +31,14 @@ public class StickerTaskbar : MonoBehaviour
     {
         // Update the text to show the current count
         taskbarText.text = $"Stickers: {collectedStickers}/{totalStickers}";
-        if(collectedStickers>6){
-            imagePieceManager.ShowImagePiece("BallonCart");
-            audioSource.PlayOneShot(ImageAppear);
-        }else if(collectedStickers>5){
-            imagePieceManager.ShowImagePiece("IceCream");
-            audioSource.PlayOneShot(ImageAppear);
-
-        }else if(collectedStickers>4){
-            imagePieceManager.ShowImagePiece("FerrisWheel");
-            audioSource.PlayOneShot(ImageAppear);
-        }else if(collectedStickers>3){
-            imagePieceManager.ShowImagePiece("Circus");
-            audioSource.PlayOneShot(ImageAppear);
-        }else if(collectedStickers>2){
-            imagePieceManager.ShowImagePiece("Fountain");
-            audioSource.PlayOneShot(ImageAppear);
-        }else if (collectedStickers>1){
-            imagePieceManager.ShowImagePiece("Benches");
-            audioSource.PlayOneShot(ImageAppear);
+        if (collectedStickers > 0 && collectedStickers <= 6) {
+            MapAppear(collectedStickers - 1);
         }
+    }
 
+    void MapAppear (int index) {
+        imagePieceManager.ShowImagePiece(mapNames[index]);
+        audioSource.PlayOneShot(ImageAppear);
+        lightManager.TurnOnLight();
     }
 }

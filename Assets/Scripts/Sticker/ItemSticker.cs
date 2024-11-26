@@ -15,19 +15,18 @@ public class ItemSticker : Sticker
     float overlapCheck = 50;
     [SerializeField] Sprite[] rotatedImages;
     [SerializeField] bool notStraight;
-
-    private Vector3 lastPosition; 
-
-    private GameObject moveEffectPrefab; 
+    int index = -1;
+    AppearEffectManager appearEffectManager;
     
     public override void Initialize(Item item) {
         base.Initialize(item);
         enabled = true;
-        moveEffectPrefab = Resources.Load<GameObject>("MoveEffect");
         if (copy) {
             copy.GetComponent<ColorChange>().Reset();
         }
         image.sprite = rotatedImages[numRotate];
+        appearEffectManager = FindObjectOfType<AppearEffectManager>();
+        appearEffectManager.Remove += ResetIndex;
     }
 
     protected override void SetLineColor()
@@ -93,6 +92,7 @@ public class ItemSticker : Sticker
             Destroy(copy.gameObject);
         }
         inventoryDisplay?.RemoveFromSketchbook(this);  
+        appearEffectManager.Remove -= ResetIndex;
         Debug.Log("Sticker destroyed");
         Destroy(gameObject); 
     }
@@ -165,19 +165,16 @@ public class ItemSticker : Sticker
         }
         Vector3 worldPosition = FunctionLibrary.BookToWorld(transform.localPosition);
         worldPosition.y = prefab.transform.localPosition.y;
-
-        if (moveEffectPrefab != null && worldPosition != lastPosition)
-        {
-            GameObject moveEffect = Instantiate(moveEffectPrefab, lastPosition, Quaternion.identity);
-            moveEffect.transform.LookAt(worldPosition); 
-            moveEffect.GetComponent<ParticleSystem>().Play(); 
-            Destroy(moveEffect, moveEffect.GetComponent<ParticleSystem>().main.duration); 
+        if (appearEffectManager) {
+            index = appearEffectManager.AddEffect(worldPosition, index);
         }
-        lastPosition = worldPosition; 
-
         copy.localPosition = worldPosition;
         copy.localEulerAngles = new Vector3(0, numRotate * 90 - (notStraight ? 45 : 0), 0);
         copy.GetComponent<ColorChange>().Reset();
         Debug.Log("Update copy");
+    }
+
+    void ResetIndex() {
+        index = -1;
     }
 }
