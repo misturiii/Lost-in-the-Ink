@@ -127,7 +127,7 @@ MonoBehaviour:
   numRotate: 0
   rotatedImages:
   - {fileID: 21300000, guid: 1b2795eebc9c60e42b82b244d18f1fbd, type: 3}
-  - {fileID: 21300000, guid: 01ec4de2990d0e14c8777125794f9974, type: 3}
+  - {fileID: 21300000, guid: a34200f2c02644eb0b477406701c7fa4, type: 3}
   - {fileID: 21300000, guid: 6db679fca24c8c442b3e10184c5529a2, type: 3}
   - {fileID: 21300000, guid: c8b345c6462f37c48bb9609f7038d47d, type: 3}
   notStraight: 1

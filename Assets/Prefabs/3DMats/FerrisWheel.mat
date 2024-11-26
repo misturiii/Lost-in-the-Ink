@@ -90,7 +90,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c794097ba505f3f4a85f77bda59544b6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -178,12 +178,15 @@ Material:
     - _REFLECTIONS_WEIGHT: 1
     - _ReceiveShadows: 1
     - _Roughness: 0
+    - _Scale: 5
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _StartTime: 0
+    - _Strength: 0.1
     - _Surface: 0
     - _TRANSPARENCY: 0
     - _Tile: 100
@@ -195,6 +198,7 @@ Material:
     - _BASE_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 0.9314485, b: 0.3679244, a: 1}
     - _Color: {r: 0.7660377, g: 0.6828782, b: 0.5073193, a: 1}
+    - _Direction: {r: 1, g: 1, b: 1, a: 0}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}

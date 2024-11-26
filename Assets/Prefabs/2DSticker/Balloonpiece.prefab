@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cf121ce1dfd6a441787001f6f4d2a515, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec806bfefc96547f8b4e669ca2fba7a6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4845516983182478973}
   item: {fileID: 0}
-  removeAudioClip: {fileID: 8300000, guid: ed19c864e4549b343938706f993cfc27, type: 3}
   guide: Balloon:Get the balloon back to its home.
   newStickerPrefab: {fileID: 9042687586338586798, guid: 568315047ae7242e89d1bea8354028c7,
     type: 3}

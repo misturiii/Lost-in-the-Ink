@@ -124,10 +124,10 @@ MonoBehaviour:
   scale: 5
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
-  numRotate: 0
+  numRotate: 1
   rotatedImages:
+  - {fileID: 21300000, guid: 6fce650ac67460b4cb295d971592710d, type: 3}
   - {fileID: 21300000, guid: 2e79c8249b5aa3c4cae84e3bb1eeea7d, type: 3}
   - {fileID: 21300000, guid: a42c45b78dc541f4f9c3215aac84b2b4, type: 3}
   - {fileID: 21300000, guid: 556aa4d94bacdcf48a5f7af792d4c16b, type: 3}
-  - {fileID: 21300000, guid: 6fce650ac67460b4cb295d971592710d, type: 3}
-  notStraight: 0
+  notStraight: 1

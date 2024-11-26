@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ca02e00f0292d3d4fb43b37a7e931325, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9fbb69a5b52cc442e849a18d198384dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -126,5 +126,5 @@ MonoBehaviour:
   copy: {fileID: 0}
   numRotate: 0
   rotatedImages:
-  - {fileID: 21300000, guid: ca02e00f0292d3d4fb43b37a7e931325, type: 3}
+  - {fileID: 21300000, guid: 9fbb69a5b52cc442e849a18d198384dc, type: 3}
   notStraight: 0
