@@ -281,6 +281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e4e8d9e1c775044bbb926cfeb9fe91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  settingType: 0
 --- !u!1 &211660110
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +755,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e4e8d9e1c775044bbb926cfeb9fe91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  settingType: 0
 --- !u!1 &669699159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,6 +1020,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813286338}
+  - component: {fileID: 813286343}
   - component: {fileID: 813286339}
   - component: {fileID: 813286340}
   - component: {fileID: 813286341}
@@ -1183,6 +1188,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &813286343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813286337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44bf782a65804674aeb71b1452aeefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &984018993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,6 +1359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e4e8d9e1c775044bbb926cfeb9fe91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  settingType: 0
 --- !u!1 &1016485861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,6 +1507,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e4e8d9e1c775044bbb926cfeb9fe91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  settingType: 0
 --- !u!1 &1034905182
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,7 +90,9 @@ public class PickupObject : MonoBehaviour
             }
 
             // Destroy the item from the scene
+            Debug.Log(currentItem.gameObject);
             Destroy(currentItem.gameObject);
+            Debug.Log("successful destroy" + currentItem.gameObject);
             currentItem = null; // Reset current item
 
             // Hide the pickup text and background after pickup
