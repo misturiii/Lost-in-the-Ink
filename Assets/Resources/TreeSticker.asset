@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Tree
   count: 0
-  total: 0
+  total: 7
   prefab: {fileID: 6036459349250047641, guid: b45f0b78ebbba4f6fa27eed7f13529a8, type: 3}
   isTool: 0
   toolType: 0
-  stickerPlaced: 0
+  stickerPlaced: 1
   checks:
   - {x: 10.229798, y: 0, z: -1.5472461}
   - {x: 4.37, y: 0, z: -3.73}
