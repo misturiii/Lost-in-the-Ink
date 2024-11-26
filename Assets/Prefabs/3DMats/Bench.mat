@@ -135,7 +135,7 @@ Material:
     - _Surface: 0
     - _Tile: 100
     - _UseColor: 0
-    - _Value: 1
+    - _Value: 2
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

@@ -43,6 +43,7 @@ public class DeviceGuideManager : MonoBehaviour
         {
             keyboardImage.SetActive(true);
             if (toolflag == true){
+                keyboardImage.SetActive(false);
                 FindObjectOfType<ToolManager>().toolControl = keyboardImage.transform;
             }
         }
@@ -100,6 +101,7 @@ public class DeviceGuideManager : MonoBehaviour
         {
             controllerImage.SetActive(true);
             if (toolflag == true){
+                controllerImage.SetActive(false);
                 FindObjectOfType<ToolManager>().toolControl = controllerImage.transform;
             }
             
