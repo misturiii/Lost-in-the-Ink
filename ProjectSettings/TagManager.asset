@@ -17,6 +17,11 @@ TagManager:
   - key
   - fountain
   - Ground
+  - ImagePiece
+  - World
+  - wood
+  - grass
+  - end
   layers:
   - Default
   - TransparentFX
