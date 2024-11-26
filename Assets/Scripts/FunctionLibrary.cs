@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class FunctionLibrary
 {
-    static float sketchbookWidth = 1780;
-    static float sketchbookHeight = 1080;
+    static float sketchbookWidth = 1400;
+    static float sketchbookHeight = 940;
     static float worldWidth = 40;
     static float worldHeight = 30;
     static float initialHeight = 0;
+    public static float inventoryWidth = 140;
 
     static public Vector2 WorldToBook (Vector3 position) {
         float x = position.x * sketchbookWidth / worldWidth;

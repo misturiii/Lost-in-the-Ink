@@ -162,6 +162,7 @@ public class ItemSticker : Sticker
                 Destroy(canvas);
                 canvas = null;
             }
+            horizontalBound -= FunctionLibrary.inventoryWidth;
         }
         Vector3 worldPosition = FunctionLibrary.BookToWorld(transform.localPosition);
         worldPosition.y = prefab.transform.localPosition.y;

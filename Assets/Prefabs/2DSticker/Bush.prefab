@@ -121,7 +121,7 @@ MonoBehaviour:
   item: {fileID: 0}
   guide: 'Bush : A splash of green in a world of grey. '
   prefab: {fileID: 4735410052566060607, guid: b29cb22961dc8294eb7cb9c3571cc33e, type: 3}
-  scale: 2
+  scale: 1.5
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
   numRotate: 0

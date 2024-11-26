@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 using System.Collections;  // Required for IEnumerator and coroutines
 
 public class MenuManager : MonoBehaviour
 {
-    InputActions inputActions;
     public GameObject guidePage;
     public GameObject settingPage;
     public GameObject menuPage;
@@ -15,9 +13,8 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        inputActions = FindObjectOfType<InputActionManager>().inputActions;
         settingPage.SetActive(false);
-        guidePage.SetActive(false);
+        guidePage.SetActive(true);
     }
 
     // Restart button logic (Restart the current scene)
@@ -33,7 +30,7 @@ public class MenuManager : MonoBehaviour
         else
         {
             // If no sound is set, restart the scene immediately
-             Resources.Load<Inventory>("PlayerInventory").Clear();
+            Resources.Load<Inventory>("PlayerInventory").Clear();
             Scene currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
         }

@@ -4,6 +4,7 @@ public class InputActionManager : MonoBehaviour
     public InputActions inputActions;
     [SerializeField] Texture2D hand1, hand2;
     Vector2 hotspot = new Vector2(32, 32);
+    public bool isMouse;
   
     void Awake()
     {
@@ -13,6 +14,7 @@ public class InputActionManager : MonoBehaviour
         // inputActions.Global.Quit.performed += Quit;
         inputActions.UI.Disable();
         SetCursorMode(false);
+        isMouse = PlayerPrefs.GetString("InputDevice", "keyboard") == "keyboard";
     }
 
     public void SetPlayerActive(bool active) {
@@ -42,10 +44,10 @@ public class InputActionManager : MonoBehaviour
     }
 
     void SetCursorMode(bool active) {
-        if (active) {
-            Cursor.lockState = CursorLockMode.Confined;
-        } else {
+        if (!active || !isMouse) {
             Cursor.lockState = CursorLockMode.Locked;
+        } else {
+            Cursor.lockState = CursorLockMode.Confined;
         }
     }
 

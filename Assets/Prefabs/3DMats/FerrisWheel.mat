@@ -89,6 +89,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 85fb8075e915eee44aa9f6818085fe79, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -156,6 +160,7 @@ Material:
     - _DstBlendAlpha: 0
     - _Duration: 0
     - _EMISSION_WEIGHT: 1
+    - _EmissionStrength: 0.1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0

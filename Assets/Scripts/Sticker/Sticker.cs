@@ -25,6 +25,7 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
     protected Vector3 InitialPositon;
     protected Vector3 pivotOffset;
     protected Texture2D alpha;
+    protected float horizontalBound, verticalBound;
 
     static protected readonly int 
         lineWidthId = Shader.PropertyToID("_LineWidth"),
@@ -75,6 +76,9 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
         pivotOffset = new Vector2((0.5f - rectTransform.pivot.x) * size.x, 
                                   (0.5f - rectTransform.pivot.y) * size.y);
         InitialPositon = -pivotOffset;
+
+        horizontalBound = Screen.width - (inventoryBox ? 0 : FunctionLibrary.inventoryWidth);
+        verticalBound = Screen.height;
     }
 
     protected abstract void SetLineColor ();
@@ -165,8 +169,8 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
 
     public void Drag(Vector3 move){
         Vector3 p = transform.position + move + pivotOffset;
-        p.x = Mathf.Clamp(p.x, 0, Screen.width);
-        p.y = Mathf.Clamp(p.y, 0, Screen.height);
+        p.x = Mathf.Clamp(p.x, 0, horizontalBound);
+        p.y = Mathf.Clamp(p.y, 0, verticalBound);
         transform.position = p - pivotOffset;
     }
 
@@ -179,7 +183,7 @@ public abstract class Sticker : Selectable, IDragHandler, ICanvasRaycastFilter
     }
 
     public override void OnPointerEnter (PointerEventData eventData) {
-        if (!isSelected && !eventData.dragging) {
+        if (!isSelected && !eventData.dragging && inputActionManager.isMouse) {
             if (inventoryBox) {
                 inventoryBox.Select();
             } else {

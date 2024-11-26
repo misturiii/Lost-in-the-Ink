@@ -121,7 +121,7 @@ MonoBehaviour:
   item: {fileID: 0}
   guide: 'Ferris wheel: A gentle giant, ready to turn memories.'
   prefab: {fileID: 7171554354434325616, guid: ac5ce68cb5d59ad4db715f185cea78d6, type: 3}
-  scale: 7
+  scale: 6
   inventoryDisplay: {fileID: 0}
   copy: {fileID: 0}
   numRotate: 0

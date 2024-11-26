@@ -23,17 +23,15 @@ public class DeviceGuideManager : MonoBehaviour
     {
         
         string inputDevice = PlayerPrefs.GetString("InputDevice", "keyboard");
-
         
         if (inputDevice == "keyboard")
         {
             ShowKeyboardGuide();
         }
-        else if (inputDevice == "controller")
+        else
         {
             ShowControllerGuide();
         }
-
     }
 
     
