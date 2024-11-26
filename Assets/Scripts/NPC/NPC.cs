@@ -185,7 +185,7 @@ public class NPC : MonoBehaviour
             case "Incomplete ferris wheel":
                 return "Hint-Ferris";
             case "Ice cream cart":
-                return "Hint-Ice Cream";
+                return "Hint-IceCream";
             case "Tree":
                 return "Hint-Tree";
             case "Circus":

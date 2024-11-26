@@ -68,7 +68,9 @@ public class AppearEffectManager : MonoBehaviour
             } 
         }
         effects?.Remove(effect);
-        Destroy(effect?.gameObject);
+        if(effect){
+            Destroy(effect?.gameObject);
+        }
         Debug.Log("Effect end");
     }
 }
